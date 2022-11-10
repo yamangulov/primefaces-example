@@ -1,0 +1,56 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="skill_softskills_com" author="yamangulov">
+        <insert tableName="skill">
+            <column name="name" value="Умение слушать"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Умение задавать вопросы"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Умение вести деловую переписку"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навыки телефонного этикета"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навыки презентации"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навыки ведения спора, убеждение и аргументация"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Нетворкинг: построение и поддержание бизнес-отношений"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Опыт ведения переговоров с заказчиками"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Базовые навыки продаж"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Самопрезентация"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Публичные выступления"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Использование обратной связи"/>
+            <column name="parent_id" value="36"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

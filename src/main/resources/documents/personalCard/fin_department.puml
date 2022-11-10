@@ -1,0 +1,7 @@
+@startuml
+class FinDepartment {
+    +id: integer
+    +name: varchar
+    +parent: integer
+}
+@enduml

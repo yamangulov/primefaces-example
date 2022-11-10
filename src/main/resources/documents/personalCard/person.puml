@@ -1,0 +1,44 @@
+@startuml
+class Person {
+    +id: integer
+    +first_name: varchar
+    +second_name: varchar
+    +surname: varchar
+    +inn: varchar
+    +age: integer
+    +location: integer
+    +contacts: integer
+    +specialty: integer[]
+    +skill: varchar[]
+    +grade: integer
+'    ставка себестоимости
+    +cost_price_rate: integer
+'    Возможности привлечения
+    +possible_employment: integer
+'    налогообложение
+    +taxes: integer
+'    статус NDA
+    +nda_status: varchar
+'    проектный опыт в Сател (для БС)
+    +sate_project_experience: integer
+    +english_level: integer
+'    Файлы (Файл категории Сертификат, обязательно должен
+'    иметь тестовое описание, и попадать в поисковую выдачу
+'    при поиске по сертификатам)
+    +files: integer[]
+'   линки для автогенерации резюме, не хранятся в БД,
+'   только формируются и выдаются в карточке
+    +russian_resume: varchar
+    +english_resume: varchar
+'   статус занятости формировать в виде таблицы,
+'   в БД хранить в виде отдельной таблицы
+    +occupation: integer
+    +command: integer
+'    Блок с информацией по оценке ресурса
+    +estimation: text
+'    Ссылки на профили в соцсетях, проф.сообществах
+'    /площадках, ссылки на примеры работ и гитхаб, и т.п.
+    +soc_networks: varchar
+    +link_to_lk: varchar
+}
+@enduml

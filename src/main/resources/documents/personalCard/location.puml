@@ -1,0 +1,13 @@
+@startuml
+class Location {
+    +id: integer
+    +city: varchar
+    +office_address: varchar
+    +personal_address: varchar
+}
+@enduml
+
+если сотрудник увольняется и остается доступен как
+ИП/ГПХ, поле офис обнуляется
+для юридических лиц заполняется только адрес офиса
+для сотрудников - адрес офиса и личный адрес

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewAction action="#{skillsDirectoryCardEditView.onload}"/>
+</f:metadata>
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <h:outputStylesheet library="webjars" name="primeflex/3.2.0/primeflex.min.css"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Сател - реестр ресурсов</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:dataTable lazy="false" emptyMessage="">
+                    <f:facet name="header">
+                        <span>Справочник компетенций - редактирование</span>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <h:form id="form">
+                <h:outputText styleClass="text-red-500"
+                              value="Внимание! При удалении компетенции вы получите ошибку, если на нее все еще ссылается какая-то из записей в базе данных для сотрудника, ИП/ГПХ или компании! Необходимо во всех таких записях поменять ссылку, заменив ее на другую компетенцию или удалив ссылку, только после этого вы сможете произвести удаление ненужной компетенции!"/>
+                <p:growl id="messages" showDetail="true"/>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Добавить" icon="pi pi-plus"
+                                         actionListener="#{skillsDirectoryCardEditView.openNew}"
+                                         update=":dialogs:manage-skill-content"
+                                         oncomplete="PF('manageSkillDialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-skill-content"/>
+                        </p:commandButton>
+                        <p:commandButton id="delete-skills-button"
+                                         value="#{skillsDirectoryCardEditView.deleteButtonMessage}"
+                                         icon="pi pi-trash"
+                                         actionListener="#{skillsDirectoryCardEditView.deleteSelectedSkills}"
+                                         styleClass="ui-button-danger"
+                                         disabled="#{!skillsDirectoryCardEditView.hasSelectedSkills()}" update="@this">
+                            <p:confirm header="Подтверждение" message="Удалить выбранные компетенции?"
+                                       icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:dataTable id="dt-skills" widgetVar="dtSkills" var="skill"
+                             value="#{skillsDirectoryCardEditView.skills}"
+                             reflow="true" styleClass="skills-table"
+                             selection="#{skillsDirectoryCardEditView.selectedSkills}"
+                             rowKey="#{skill.id}" paginator="true" rows="10" rowSelectMode="add"
+                             paginatorPosition="bottom">
+                    <f:facet name="header">
+                        <div class="skills-table-header">
+                            <span style="font-weight: bold">Компетенции</span>
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtSkills').filter()" placeholder="Search"/>
+                    </span>
+                        </div>
+                    </f:facet>
+
+                    <p:ajax event="rowSelect" update=":form:delete-skills-button"/>
+                    <p:ajax event="rowUnselect" update=":form:delete-skills-button"/>
+                    <p:ajax event="rowSelectCheckbox" update=":form:delete-skills-button"/>
+                    <p:ajax event="rowUnselectCheckbox" update=":form:delete-skills-button"/>
+                    <p:ajax event="toggleSelect" update=":form:delete-skills-button"/>
+
+                    <p:column selectionMode="multiple" exportable="false"></p:column>
+
+                    <p:column headerText="Название компетенции" sortBy="#{skill.name}" filterBy="#{skill.name}">
+                        <h:outputText value="#{skill.name}"/>
+                    </p:column>
+                    <p:column headerText="Родительская компетенция"
+                              sortBy="#{skill.parent.name}" filterBy="#{skill.parent.name}">
+                        <h:outputText value="#{skill.parent.name}"/>
+                    </p:column>
+
+                    <p:column exportable="false">
+                        <p:commandButton
+                                icon="pi pi-pencil" update=":dialogs:manage-skill-content"
+                                oncomplete="#{skillsDirectoryCardEditView.parentSkillSelectView.onloadManageSkillDialog(skill)} PF('manageSkillDialog').show()"
+                                styleClass="edit-button rounded-button ui-button-success mr-2" process="@this">
+                            <f:setPropertyActionListener
+                                    value="#{skill}"
+                                    target="#{skillsDirectoryCardEditView.selectedSkill}"/>
+                            <p:resetInput target=":dialogs:manage-skill-content"/>
+                        </p:commandButton>
+                        <p:commandButton
+                                class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                process="@this"
+                                oncomplete="PF('deleteSkillDialog').show()">
+                            <f:setPropertyActionListener
+                                    value="#{skill}"
+                                    target="#{skillsDirectoryCardEditView.selectedSkill}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+                <p:dialog header="Редактирование/создание компетенции" showEffect="fade" modal="true"
+                          widgetVar="manageSkillDialog"
+                          responsive="true">
+                    <p:outputPanel id="manage-skill-content" class="ui-fluid">
+                        <p:outputPanel rendered="#{not empty skillsDirectoryCardEditView.selectedSkill}">
+                            <div class="field">
+                                <p:outputLabel for="name">Название компетенции</p:outputLabel>
+                                <p:inputText id="name" value="#{skillsDirectoryCardEditView.selectedSkill.name}"
+                                             required="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="name">Родительская компетенция</p:outputLabel>
+                                <p:selectOneListbox id="parent"
+                                                    value="#{skillsDirectoryCardEditView.parentSkillSelectView.parentSkill}"
+                                                    var="s" filter="true" filterMatchMode="contains" scrollHeight="185">
+                                    <f:selectItems
+                                            value="#{skillsDirectoryCardEditView.parentSkillSelectView.parentSkills}"
+                                            var="skill" itemLabel="#{skill}"
+                                            itemValue="#{skill}"/>
+                                    <p:column>
+                                        <h:outputText value="#{s}"/>
+                                    </p:column>
+                                </p:selectOneListbox>
+                            </div>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Сохранить" icon="pi pi-check"
+                                         actionListener="#{skillsDirectoryCardEditView.saveSkill}"
+                                         update="manage-skill-content" process="manage-skill-content @this"/>
+                        <p:commandButton value="Отменить" icon="pi pi-times" onclick="PF('manageSkillDialog').hide()"
+                                         class="ui-button-secondary" type="button"/>
+                    </f:facet>
+                </p:dialog>
+
+                <p:confirmDialog widgetVar="deleteSkillDialog" showEffect="fade" width="300"
+                                 message="Удалить эту компетенцию?" header="Подтверждение" severity="warn">
+                    <p:commandButton value="Да" icon="pi pi-check"
+                                     actionListener="#{skillsDirectoryCardEditView.deleteSkill}"
+                                     process="@this" update=":form:delete-skills-button"
+                                     oncomplete="PF('deleteSkillDialog').hide()"/>
+                    <p:commandButton value="Нет" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteSkillDialog').hide()"/>
+                </p:confirmDialog>
+
+                <p:confirmDialog global="true" showEffect="fade" width="300">
+                    <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                     icon="pi pi-times"/>
+                </p:confirmDialog>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
+
+
+</html>

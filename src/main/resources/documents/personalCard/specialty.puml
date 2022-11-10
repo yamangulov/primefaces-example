@@ -1,0 +1,7 @@
+@startuml
+class Specialty {
+    id: integer
+    name: varchar
+    parent: integer
+}
+@enduml

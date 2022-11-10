@@ -1,0 +1,9 @@
+@startuml
+class File {
+    +id: integer
+    +name: varchar
+'    линк к внешнему хранилищу, файлы лучше не хранить в БД
+    +url: varchar
+    +comment: text
+}
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class PersonCommand {
+    id: integer
+    descr: text
+    employees: integer[]
+}
+@enduml

@@ -1,0 +1,444 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet author="yamangulov (generated)" id="1669293264077-1">
+        <createTable tableName="command">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="command_pkey"/>
+            </column>
+            <column name="conditions" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-2">
+        <createTable tableName="company">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="company_pkey"/>
+            </column>
+            <column name="inn" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="nda_status" type="VARCHAR(255)"/>
+            <column name="site" type="VARCHAR(255)"/>
+            <column name="socnetworks" type="VARCHAR(255)"/>
+            <column name="taxes" type="INTEGER"/>
+            <column name="company_skill_id" type="INTEGER"/>
+            <column name="contact_id" type="INTEGER"/>
+            <column name="location_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-3">
+        <createTable tableName="company_command">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="company_command_pkey"/>
+            </column>
+            <column name="conditions" type="VARCHAR(255)"/>
+            <column name="descr" type="VARCHAR(255)"/>
+            <column name="company_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-4">
+        <createTable tableName="company_project_experience">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="company_project_experience_pkey"/>
+            </column>
+            <column name="budget" type="INTEGER"/>
+            <column name="comment" type="VARCHAR(255)"/>
+            <column name="contract_number" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="period" type="VARCHAR(255)"/>
+            <column name="company_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-5">
+        <createTable tableName="company_skill">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="company_skill_pkey"/>
+            </column>
+            <column name="descr" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-6">
+        <createTable tableName="company_skill_to_skills">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="company_skill_to_skills_pkey"/>
+            </column>
+            <column name="company_skill_id" type="INTEGER"/>
+            <column name="skill_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-7">
+        <createTable tableName="contact">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="contact_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="mobile" type="VARCHAR(255)"/>
+            <column name="phone" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-8">
+        <createTable tableName="education">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="education_pkey"/>
+            </column>
+            <column name="organization" type="VARCHAR(255)"/>
+            <column name="education_grade_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-9">
+        <createTable tableName="education_grade">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="education_grade_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-10">
+        <createTable tableName="employee">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="employee_pkey"/>
+            </column>
+            <column name="age" type="INTEGER"/>
+            <column name="archived" type="BOOLEAN"/>
+            <column name="chef_info" type="VARCHAR(255)"/>
+            <column name="cost_price_rate" type="INTEGER"/>
+            <column name="estimation" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="second_name" type="VARCHAR(255)"/>
+            <column name="self_info" type="VARCHAR(255)"/>
+            <column name="surname" type="VARCHAR(255)"/>
+            <column name="work_experience" type="INTEGER"/>
+            <column name="company_command_id" type="INTEGER"/>
+            <column name="contact_id" type="INTEGER"/>
+            <column name="education_id" type="INTEGER"/>
+            <column name="employee_department_id" type="INTEGER"/>
+            <column name="english_level_id" type="INTEGER"/>
+            <column name="grade_id" type="INTEGER"/>
+            <column name="location_id" type="INTEGER"/>
+            <column name="occupation_id" type="INTEGER"/>
+            <column name="person_command_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-11">
+        <createTable tableName="employee_department">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="employee_department_pkey"/>
+            </column>
+            <column name="fin_department_id" type="INTEGER"/>
+            <column name="org_department_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-12">
+        <createTable tableName="employees_to_skills">
+            <column name="employee_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="employees_to_skills_pkey"/>
+            </column>
+            <column name="skill_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="employees_to_skills_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-13">
+        <createTable tableName="employees_to_specialties">
+            <column name="employee_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="employees_to_specialties_pkey"/>
+            </column>
+            <column name="skill_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="employees_to_specialties_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-14">
+        <createTable tableName="english_level">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="english_level_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-15">
+        <createTable tableName="file">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="file_pkey"/>
+            </column>
+            <column name="comment" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="url" type="VARCHAR(255)"/>
+            <column name="company_command_id" type="INTEGER"/>
+            <column name="employee_id" type="INTEGER"/>
+            <column name="person_id" type="INTEGER"/>
+            <column name="resources_company_command_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-16">
+        <createTable tableName="fin_department">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="fin_department_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="parent_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-17">
+        <createTable tableName="grade">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="grade_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-18">
+        <createTable tableName="location">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="location_pkey"/>
+            </column>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="office_address" type="VARCHAR(255)"/>
+            <column name="personal_address" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-19">
+        <createTable tableName="occupation">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="occupation_pkey"/>
+            </column>
+            <column name="outer_occupation" type="JSONB"/>
+            <column name="planned_satel_occupation" type="JSONB"/>
+            <column name="satel_occupation" type="JSONB"/>
+            <column name="status" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-20">
+        <createTable tableName="org_department">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="org_department_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="parent_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-21">
+        <createTable tableName="person">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="person_pkey"/>
+            </column>
+            <column name="age" type="INTEGER"/>
+            <column name="cost_price_rate" type="INTEGER"/>
+            <column name="estimation" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="inn" type="VARCHAR(255)"/>
+            <column name="nda_status" type="VARCHAR(255)"/>
+            <column name="second_name" type="VARCHAR(255)"/>
+            <column name="socnetworks" type="VARCHAR(255)"/>
+            <column name="surname" type="VARCHAR(255)"/>
+            <column name="taxes" type="INTEGER"/>
+            <column name="contact_id" type="INTEGER"/>
+            <column name="english_level_id" type="INTEGER"/>
+            <column name="grade_id" type="INTEGER"/>
+            <column name="location_id" type="INTEGER"/>
+            <column name="occupation_id" type="INTEGER"/>
+            <column name="possible_employment_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-22">
+        <createTable tableName="person_command">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="person_command_pkey"/>
+            </column>
+            <column name="descr" type="VARCHAR(255)"/>
+            <column name="person_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-23">
+        <createTable tableName="persons_to_skills">
+            <column name="person_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="persons_to_skills_pkey"/>
+            </column>
+            <column name="skill_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="persons_to_skills_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-24">
+        <createTable tableName="persons_to_specialties">
+            <column name="person_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="persons_to_specialties_pkey"/>
+            </column>
+            <column name="specialty_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="persons_to_specialties_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-25">
+        <createTable tableName="possible_employment">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="possible_employment_pkey"/>
+            </column>
+            <column name="hours_per_week" type="INTEGER"/>
+            <column name="term_in_months" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-26">
+        <createTable tableName="project_experience">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_experience_pkey"/>
+            </column>
+            <column name="contract_number" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="project_role" type="VARCHAR(255)"/>
+            <column name="project_works" type="VARCHAR(255)"/>
+            <column name="employee_id" type="INTEGER"/>
+            <column name="person_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-27">
+        <createTable tableName="skill">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="skill_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="parent_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-28">
+        <createTable tableName="specialty">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="specialty_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="parent_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-29">
+        <addForeignKeyConstraint baseColumnNames="english_level_id" baseTableName="employee" constraintName="fk17h0k5s4bpkyv2mny2mq0d0sf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="english_level" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-30">
+        <addForeignKeyConstraint baseColumnNames="skill_id" baseTableName="employees_to_specialties" constraintName="fk20cc2q82swjq6plfntvqlaw3s" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employee" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-31">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="company" constraintName="fk2fb6ricytdnmf83vedni0gqy4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="location" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-32">
+        <addForeignKeyConstraint baseColumnNames="org_department_id" baseTableName="employee_department" constraintName="fk2g23f6sfnxf0iuuij6idpqo2y" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="org_department" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-33">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="person_command" constraintName="fk2qpas3x0769hxenm6wxbxye8i" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="person" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-34">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="project_experience" constraintName="fk2s790o7di65ix55o1xibkihq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="person" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-35">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="persons_to_specialties" constraintName="fk35b7e8xya2aec0gp54l3fshlb" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="person" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-36">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="persons_to_skills" constraintName="fk3cnn6ivq624n3lbin3f67v2q" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="person" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-37">
+        <addForeignKeyConstraint baseColumnNames="person_command_id" baseTableName="employee" constraintName="fk40pk8y6gcnlr4omihwucy5dvl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="person_command" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-38">
+        <addForeignKeyConstraint baseColumnNames="contact_id" baseTableName="company" constraintName="fk45nuqqimbkvrnvrb7877q62tm" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="contact" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-39">
+        <addForeignKeyConstraint baseColumnNames="fin_department_id" baseTableName="employee_department" constraintName="fk46i836cvogjvoalcqexw261b8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="fin_department" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-40">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="person" constraintName="fk46yyprx29q60ur8tsejd7i46a" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="location" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-41">
+        <addForeignKeyConstraint baseColumnNames="skill_id" baseTableName="employees_to_skills" constraintName="fk508hsj28nb1jfr23541ywb9sc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="skill" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-42">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="company_project_experience" constraintName="fk5n614u527tuocj7g34we17vw0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="company" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-43">
+        <addForeignKeyConstraint baseColumnNames="resources_company_command_id" baseTableName="file" constraintName="fk5ysosnbcvnkof7ot5j8lde9tk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="company_command" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-44">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="skill" constraintName="fk60cjhtk61jl6c1038lsl5yl2s" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="skill" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-45">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="file" constraintName="fk7kltr2roj6roqtw6su2ox7ib8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="person" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-46">
+        <addForeignKeyConstraint baseColumnNames="education_grade_id" baseTableName="education" constraintName="fk7q1w2gi8osig7dokpuq8f5815" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="education_grade" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-47">
+        <addForeignKeyConstraint baseColumnNames="contact_id" baseTableName="employee" constraintName="fk9e7h442ja82p8jh9x2o1osx51" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="contact" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-48">
+        <addForeignKeyConstraint baseColumnNames="employee_department_id" baseTableName="employee" constraintName="fkapo6d0lv5drq3fuugoktg276m" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employee_department" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-49">
+        <addForeignKeyConstraint baseColumnNames="specialty_id" baseTableName="persons_to_specialties" constraintName="fkbo1vmls0f46wiujf5dij0ivgb" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="specialty" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-50">
+        <addForeignKeyConstraint baseColumnNames="occupation_id" baseTableName="person" constraintName="fkdp9ruv0ecve41wp6b6bjshuwd" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="occupation" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-51">
+        <addForeignKeyConstraint baseColumnNames="company_skill_id" baseTableName="company" constraintName="fkeo5ehi2090u7bbcnsxusf4k35" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="company_skill" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-52">
+        <addForeignKeyConstraint baseColumnNames="grade_id" baseTableName="person" constraintName="fkhiwt6hlrjd6wdnppnajnofyka" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="grade" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-53">
+        <addForeignKeyConstraint baseColumnNames="education_id" baseTableName="employee" constraintName="fkhpfusr8lju0v6kmrvvfd12pid" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="education" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-54">
+        <addForeignKeyConstraint baseColumnNames="skill_id" baseTableName="persons_to_skills" constraintName="fkiuucu7twg7dqhedqtr7aa8gox" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="skill" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-55">
+        <addForeignKeyConstraint baseColumnNames="possible_employment_id" baseTableName="person" constraintName="fkj4xodxk9e8w0aaala9bmxrrg3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="possible_employment" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-56">
+        <addForeignKeyConstraint baseColumnNames="occupation_id" baseTableName="employee" constraintName="fkjcuabvk4tqslameoc33e1lmvc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="occupation" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-57">
+        <addForeignKeyConstraint baseColumnNames="company_command_id" baseTableName="employee" constraintName="fkkdh2ausi8aq803a4kaye5tl7l" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="company_command" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-58">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="employees_to_skills" constraintName="fkl0e0crlej60ahc81gwp5d9ib4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employee" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-59">
+        <addForeignKeyConstraint baseColumnNames="english_level_id" baseTableName="person" constraintName="fkle1o5ylpvt5kjp3bt9xmm3rjo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="english_level" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-60">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="specialty" constraintName="fkmcy1lmm675pgqtyo3dp23juwo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="specialty" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-61">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="project_experience" constraintName="fkn22srhrvq2n9qvgdiixec35d5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employee" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-62">
+        <addForeignKeyConstraint baseColumnNames="grade_id" baseTableName="employee" constraintName="fkn6mje2tx88laybhlg806pox0o" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="grade" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-63">
+        <addForeignKeyConstraint baseColumnNames="location_id" baseTableName="employee" constraintName="fknfotji9xluv8o3y9gogq2hxiw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="location" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-64">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="org_department" constraintName="fknivh48iqjglkgocu2ay57n39i" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="org_department" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-65">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="file" constraintName="fkoli2rgge1fomxfk7vwr9cyy96" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="employee" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-66">
+        <addForeignKeyConstraint baseColumnNames="contact_id" baseTableName="person" constraintName="fkoorjau16p5oaop7bvnkm9gf27" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="contact" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-67">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="fin_department" constraintName="fkpn07b9kfnk9cik5nwxrg7u53v" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="fin_department" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-68">
+        <addForeignKeyConstraint baseColumnNames="company_command_id" baseTableName="file" constraintName="fkqqv8xl0x23ay0dvl16skumgj1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="company_command" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-69">
+        <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="employees_to_specialties" constraintName="fksl56f2p4gf3i2kag1awmtqlua" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="specialty" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-70">
+        <addForeignKeyConstraint baseColumnNames="skill_id" baseTableName="company_skill_to_skills" constraintName="fkt1atjmjqmr3thdc4ms9mblj3j" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="skill" validate="true"/>
+    </changeSet>
+    <changeSet author="yamangulov (generated)" id="1669293264077-71">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="company_command" constraintName="fky38woqanofeckiwvgo112h39" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="company" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

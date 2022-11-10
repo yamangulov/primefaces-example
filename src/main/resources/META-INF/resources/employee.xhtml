@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewParam name="id" value="#{employeeCardView.id}"/>
+    <f:viewAction action="#{employeeCardView.onload}"/>
+    <f:viewParam name="id" value="#{employeeFileDownloadView.id}"/>
+    <f:viewAction action="#{employeeFileDownloadView.onload}"/>
+</f:metadata>
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <h:outputStylesheet library="webjars" name="primeflex/3.2.0/primeflex.min.css"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Сател - реестр ресурсов</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:dataTable emptyMessage="">
+                    <f:facet name="header">
+                        <span>Карточка сотрудника</span>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <h:form>
+                <p:button href="/employee/edit/#{employeeCardView.id}" value="Редактировать"/>
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false"
+                          resizable="false">
+                    <i class="pi pi-spinner pi-spin" style="font-size:3rem"></i>
+                </p:dialog>
+                <h2>Общая информация</h2>
+                <p:divider/>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-3">
+                        <h3>Имя</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.firstName}"/>
+                        <h3>Фамилия</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.surname}"/>
+                        <h3>Отчество</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.secondName}"/>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Подразделение</h3>
+                        <h:outputText styleClass="fieldData"
+                                      value="#{employeeCardView.employeeDepartment.finDepartment.name}"/>
+                        <h3>Возраст</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.age}"/>
+                        <h3>Стаж работы</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.workExperience} лет"/>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Ставка себестоимости</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.costPriceRate} в час"/>
+                        <h3>Уволен/работает</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.archived}"/>
+                        <h3>Оценка сотрудника</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.estimation}"/>
+                    </div>
+
+                    <p:divider/>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Локация</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.location.city}"/>
+                        , <h:outputText styleClass="fieldData" value="#{employeeCardView.location.personalAddress}"/>
+                        <h3>Контактные данные</h3>
+                        <div><h:outputText styleClass="fieldData" value="Email: #{employeeCardView.contactObj.email}"/>
+                        </div>
+                        <div><h:outputText styleClass="fieldData" value="Phone: #{employeeCardView.contactObj.phone}"/>
+                        </div>
+                        <div><h:outputText styleClass="fieldData" value="Mobile: #{employeeCardView.contactObj.mobile}"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Образование</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.education.organization}"/>,
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.education.educationGrade.name}"/>
+                        <h3>Грейд</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.grade.name}"/>
+                        <h3>Уровень владения английским языком</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.englishLevel.name}"/>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Резюме на русском языке</h3>
+                        <h:outputText value="будет сгенерировано автоматически"/>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.russianResume}"/>
+                        <h3>Резюме на английском языке</h3>
+                        <h:outputText value="будет сгенерировано автоматически"/>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.englishResume}"/>
+                    </div>
+                </div>
+
+                <p:divider/>
+
+                <h2>Дополнительная информация</h2>
+                <p:divider/>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-4">
+                        <h3>Квалификационный профиль сотрудника</h3>
+                        <p:dataList value="#{employeeCardView.hierarchySkillsProfile}"
+                                    var="level" styleClass="noBorders" itemType="none">
+                            #{level}
+                        </p:dataList>
+                    </div>
+                    <div class="col-12 md:col-4">
+                        <h3>Дополнительная информация от сотрудника</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.selfInfo}"/>
+                    </div>
+
+                    <div class="col-12 md:col-4">
+                        <h3>Дополнительная информация от руководителя</h3>
+                        <h:outputText styleClass="fieldData" value="#{employeeCardView.chefInfo}"/>
+                    </div>
+                </div>
+
+                <p:divider/>
+
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-12">
+                        <h3>Проектный опыт в Сател</h3>
+                        <h4>будет выгружаться из 1С</h4>
+                        <p:dataTable lazy="false" var="item" value="#{employeeCardView.satelProjectExperienceList}"
+                                     widgetVar="itemsTable"
+                                     emptyMessage="Проектный опыт в Сател у сотрудника отсутствует">
+
+                            <p:column headerText="№ сделки">
+                                <h:outputText value="#{item.contractNumber}"/>
+                            </p:column>
+                            <p:column headerText="Название проекта">
+                                <h:outputText value="#{item.name}"/>
+                            </p:column>
+                            <p:column headerText="Проектная роль">
+                                <h:outputText value="#{item.projectRole} часов"/>
+                            </p:column>
+                            <p:column headerText="Проектные работы">
+                                <h:outputText value="#{item.projectWorks}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-3">
+                    <h3>Статус занятости</h3>
+                    <h:outputText styleClass="fieldData" value="после интеграции с 1С"/>
+                </div>
+                <p:divider/>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-6">
+                        <h3>Файлы</h3>
+                        <p:dataList id="employee-files-list" lazy="false" var="entry" widgetVar="itemsTable"
+                                    itemStyleClass="fileItem"
+                                    emptyMessage="Файлы сотрудника не загружены" itemType="none"
+                                    value="#{employeeCardView.employeeFileDownloadView.streamedContentEntrySet}">
+                            <span class="fileButton">
+                                <p:commandButton value="#{entry.value.name}" ajax="false"
+                                                 onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                 icon="pi pi-arrow-down" styleClass="mr-2">
+                                    <p:fileDownload value="#{entry.value.streamedContent}"/>
+                                </p:commandButton>
+                            </span>
+                        </p:dataList>
+                    </div>
+                </div>
+                <p:button href="/employee/edit/#{employeeCardView.id}" value="Редактировать"/>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
+
+</html>

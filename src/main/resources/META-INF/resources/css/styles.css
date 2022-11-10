@@ -1,0 +1,73 @@
+/*add your styles here to change styles of applied theme*/
+
+body .fieldData {
+    margin-bottom: 2%;
+}
+
+.flex-error-left-1 {
+    flex-basis: calc(10% - 4px)!important;
+}
+
+.flex-error-right-1 {
+    flex-basis: calc(90% - 4px)!important;
+}
+
+#top-panel .ui-panel-actions {
+    float: left;
+}
+
+#top-panel .ui-panel-title {
+    margin-left: 10%;
+    font-size: 120%;
+}
+
+#top-panel .ui-panel-content {
+    display: none;
+}
+
+#top-panel img {
+    height: 3.5rem;
+}
+
+#middle-panel .ui-widget.ui-widget-content {
+    height: 86vh;
+}
+
+#middle-panel .align-items-center {
+    align-items: normal!important;
+}
+
+.fileButton .ui-button, #resourceFileButton .ui-button {
+    margin-bottom: 2%;
+    width: auto!important;
+}
+
+.fileItem {
+    display: inline;
+}
+
+.noBorders .ui-datalist-content {
+    border: none!important;
+}
+
+.skill-profile-wrapper .ui-datalist .ui-datalist-content {
+    padding: 0;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-style: italic;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    font-style: italic;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    font-style: italic;
+}
+:-moz-placeholder { /* Firefox 18- */
+    font-style: italic;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+    width: 100%;
+    box-sizing: border-box;
+}

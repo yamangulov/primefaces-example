@@ -1,0 +1,13 @@
+@startuml
+class Employee {
+    +id: integer
+    +first_name: varchar
+    +second_name: varchar
+    +surname: varchar
+    +specialty: integer[]
+    +employeeDepartment: integer
+    +skill: varchar[]
+    +link_to_lk: varchar
+    +archived: boolean
+}
+@enduml

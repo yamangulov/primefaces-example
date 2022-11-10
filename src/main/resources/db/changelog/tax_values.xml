@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="tax_values" author="yamangulov">
+        <insert tableName="tax">
+            <column name="name" value="Без НДС"/>
+        </insert>
+        <insert tableName="tax">
+            <column name="name" value="Ставка НДС 0%"/>
+        </insert>
+        <insert tableName="tax">
+            <column name="name" value="Ставка НДС 10%"/>
+        </insert>
+        <insert tableName="tax">
+            <column name="name" value="Ставка НДС 20%"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

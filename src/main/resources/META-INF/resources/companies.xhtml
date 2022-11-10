@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <h:outputStylesheet library="webjars" name="primeflex/3.2.0/primeflex.min.css" />
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Сател - реестр ресурсов</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                <div class="col-12 md:col-2">
+                    <p:button href="/company/edit/0" value="Создать"/>
+                </div>
+                <p:dataTable lazy="false" var="company" value="#{companyFilterView.companies}" widgetVar="companiesTable"
+                             emptyMessage="No companies found with given criteria"
+                             filteredValue="#{companyFilterView.filteredCompanies}"
+                             filterBy="#{companyFilterView.filterBy}"
+                >
+
+                    <f:facet name="header">
+                        <span>Юридические лица</span>
+                    </f:facet>
+
+                    <p:column headerText="Название" sortBy="#{company.name}"
+                              filterMatchMode="contains"
+                              filterBy="#{company.name}">
+                        <h:outputText value="#{company.name}" />
+                    </p:column>
+
+                    <p:column headerText="ИНН" sortBy="#{company.inn}"
+                              filterMatchMode="contains"
+                              filterBy="#{company.inn}">
+                        <h:outputText value="#{company.inn}" />
+                    </p:column>
+
+                    <p:column headerText="Компетенции" sortBy="#{company.skills}"
+                              filterMatchMode="contains"
+                              filterBy="#{company.skills}">
+                        <h:outputText value="#{company.skills}" />
+                    </p:column>
+
+                    <p:column headerText="Карточка ресурса">
+                        <h:outputLink value="#{company.linkToLK}">
+                            <h:outputText value="Открыть карточку" />
+                        </h:outputLink>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
+
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="skill_vcs" author="yamangulov">
+        <insert tableName="skill">
+            <column name="name" value="Jenkins"/>
+            <column name="parent_id" value="9"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Gitlab"/>
+            <column name="parent_id" value="9"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Git"/>
+            <column name="parent_id" value="9"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Mercurial"/>
+            <column name="parent_id" value="9"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

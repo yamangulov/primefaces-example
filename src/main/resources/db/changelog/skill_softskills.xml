@@ -1,0 +1,36 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="skill_softskills" author="yamangulov">
+        <insert tableName="skill">
+            <column name="name" value="Общие"/>
+            <column name="parent_id" value="5"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Коммуникабельность"/>
+            <column name="parent_id" value="5"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Эмоциональный интеллект"/>
+            <column name="parent_id" value="5"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Работа с людьми"/>
+            <column name="parent_id" value="5"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Интеллектуальные компетенции"/>
+            <column name="parent_id" value="5"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Лидерские компетенции"/>
+            <column name="parent_id" value="5"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Управленческие навыки"/>
+            <column name="parent_id" value="5"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,48 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="skill_softskills_persons" author="yamangulov">
+        <insert tableName="skill">
+            <column name="name" value="Опыт работы в команде"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Умение планировать свое рабочее время"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навык помощи коллегам в планировании рабочего времени"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навык наставничества"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навык организации наставничества"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навык постановки целей команде"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навык формирования команды"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навык управления людьми"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навык принятия решений"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="skill">
+            <column name="name" value="Навык проведения обучающих мероприятий"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

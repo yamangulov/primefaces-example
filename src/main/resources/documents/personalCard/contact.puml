@@ -1,0 +1,8 @@
+@startuml
+class Contact {
+    id: integer
+    phone: varchar
+    mobile: varchar
+    email: mobile
+}
+@enduml

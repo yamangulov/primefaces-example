@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+    <f:viewParam name="id" value="#{companyCardView.id}"/>
+    <f:viewAction action="#{companyCardView.onload}"/>
+    <f:viewParam name="id" value="#{companyCardView.pickListView.companyId}"/>
+    <f:viewAction action="#{companyCardView.pickListView.onload}"/>
+    <f:viewParam name="id" value="#{fileDownloadView.id}"/>
+    <f:viewAction action="#{fileDownloadView.onload}"/>
+    <f:viewParam name="id" value="#{resourceFileDownloadView.id}"/>
+    <f:viewAction action="#{resourceFileDownloadView.onload}"/>
+</f:metadata>
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <h:outputStylesheet library="webjars" name="primeflex/3.2.0/primeflex.min.css"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Сател - реестр ресурсов</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:dataTable lazy="false" emptyMessage="">
+                    <f:facet name="header">
+                        <span>Карточка создания/редактирования компании</span>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <h:form id="company-edit" enctype="multipart/form-data">
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-2">
+                        <p:button href="/company/#{companyCardView.id}" value="Отмена"/>
+                    </div>
+                    <div class="col-12 md:col-2">
+                        <p:commandButton value="Сохранить" ajax="false"
+                                         update="company-edit" action="#{companyCardView.onsubmit()}"/>
+                    </div>
+                </div>
+
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false"
+                          resizable="false">
+                    <i class="pi pi-spinner pi-spin" style="font-size:3rem"></i>
+                </p:dialog>
+                <h2>Общая информация</h2>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-3">
+                        <h3>Название организации</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
+                            <p:inputText id="name" value="#{companyCardView.name}"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>ИНН организации</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-id-card"></i></div>
+                            <p:inputText id="inn" value="#{companyCardView.inn}"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Локация</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-compass"></i></div>
+                            <p:inputText id="location-city" value="#{companyCardView.location.city}"/>
+                        </div>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-compass"></i></div>
+                            <p:inputText id="location-office-address"
+                                         value="#{companyCardView.location.officeAddress}"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Контактные данные</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
+                            <p:inputText id="email" value="#{companyCardView.contactObj.email}"/>
+                        </div>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
+                            <p:inputText id="phone" value="#{companyCardView.contactObj.phone}"/>
+                        </div>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
+                            <p:inputText id="mobile" value="#{companyCardView.contactObj.mobile}"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Официальный сайт</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-bookmark"></i></div>
+                            <p:inputText id="site" value="#{companyCardView.site}"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Профили в соцсетях и проф. сообществах, ссылки на портфолио</h3>
+                        <c:forEach id="socnetworksList"
+                                   items="#{companyCardView.socnetworksList}" var="site">
+                            <div class="ui-inputgroup">
+                                <div class="ui-inputgroup-addon"><i class="pi pi-bookmark"></i>
+                                </div>
+                                <p:inputText id="socnetwork" value="#{site}">
+                                </p:inputText>
+                            </div>
+                        </c:forEach>
+                        <p:commandLink value="Добавить" ajax="false"
+                                         update="company-edit:socnetworksList" action="#{companyCardView.addSocnetwork}"/>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Налогообложение</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-info"></i></div>
+                            <p:inputText id="taxes" value="#{companyCardView.taxes}"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Статус подписания NDA</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-info"></i></div>
+                            <p:inputText id="ndaStatus" value="#{companyCardView.ndaStatus}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-6 skill-profile-wrapper">
+                        <h3>Общая специализация. Квалификационный профиль</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-info"></i></div>
+                            <p:pickList id="skill-profile" value="#{companyCardView.pickListView.skills}"
+                                        var="skill" itemLabel="#{skill}" itemValue="#{skill}"
+                                        transferOnCheckboxClick="true" showCheckbox="true"
+                                        showSourceControls="false" showTargetControls="false"
+                                        showSourceFilter="true" showTargetFilter="true"
+                                        filterMatchMode="contains"
+                            >
+                            </p:pickList>
+
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <h3>Общая специализация. Комментарий</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-info"></i>
+                            </div>
+                            <p:inputTextarea id="skill-comment" rows="6" cols="33"
+                                             value="#{companyCardView.skillsComment}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Ресурсы организации</h2>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-6">
+                        <h3>Описание команды</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-info"></i></div>
+                            <p:inputTextarea id="command-descr" rows="6" cols="33"
+                                             value="#{companyCardView.commandDescr}"/>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <h3>Условия привлечения команды</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-info"></i>
+                            </div>
+                            <p:inputTextarea id="command-conditions" rows="6" cols="33"
+                                             value="#{companyCardView.commandConditions}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-6">
+                        <h3>Компания</h3>
+                        <p:dataList id="company-files-list" lazy="false" var="entry" widgetVar="itemsTable"
+                                    itemStyleClass="fileItem"
+                                    emptyMessage="Файлы о компании не загружены" itemType="none"
+                                    value="#{companyCardView.fileDownloadView.streamedContentEntrySet}">
+                            <span class="fileButton">
+                                <p:commandButton value="#{entry.value.name}" ajax="false"
+                                                 onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                 icon="pi pi-arrow-down" styleClass="mr-2">
+                                    <p:fileDownload value="#{entry.value.streamedContent}"/>
+                                </p:commandButton>
+                            </span>
+                        </p:dataList>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-info"></i></div>
+                            <p:fileUpload
+                                    listener="#{companyCardView.fileUploadView.handleFileUpload}"
+                                    mode="advanced" dragDropSupport="false"
+                                    multiple="true" update="messages" sizeLimit="10000000" fileLimit="30"
+                                    allowTypes="/(\.|\/)(gif|jp?g|png|doc|docx|pdf|xls|xlsx)$/"/>
+                            <p:growl id="messages" showDetail="true" keepAlive="true"/>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <h3>Резюме ресурсов</h3>
+                        <p:dataList id="resource-company-files-list" lazy="false" var="entry" widgetVar="itemsTable"
+                                    itemStyleClass="fileItem" itemType="none"
+                                    emptyMessage="Файлы о ресурсах не загружены"
+                                    value="#{companyCardView.resourceFileDownloadView.streamedContentEntrySet}">
+                            <span id="resourceFileButton">
+                                <p:commandButton value="#{entry.value.name}" ajax="false"
+                                                 onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                 icon="pi pi-arrow-down" styleClass="mr-2">
+                                    <p:fileDownload value="#{entry.value.streamedContent}"/>
+                                </p:commandButton>
+                            </span>
+                        </p:dataList>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-info"></i></div>
+                            <p:fileUpload
+                                    listener="#{companyCardView.resourceFileUploadView.handleFileUpload}"
+                                    mode="advanced" dragDropSupport="false"
+                                    multiple="true" update="messages-2" sizeLimit="10000000" fileLimit="30"
+                                    allowTypes="/(\.|\/)(gif|jp?g|png|doc|docx|pdf|xls|xlsx)$/"/>
+                            <p:growl id="messages-2" showDetail="true" keepAlive="true"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid ui-fluid md:mt-1">
+                    <div class="col-12 md:col-2">
+                        <p:button href="/company/#{companyCardView.id}" value="Отмена"/>
+                    </div>
+                    <div class="col-12 md:col-2">
+                        <p:commandButton value="Сохранить" ajax="false"
+                                         action="#{companyCardView.onsubmit()}"/>
+                    </div>
+                </div>
+
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
+
+</html>

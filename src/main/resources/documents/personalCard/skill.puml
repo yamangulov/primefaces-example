@@ -1,0 +1,7 @@
+@startuml
+class Skill {
+    +id: integer
+    +name: varchar
+    +parent: integer
+}
+@enduml

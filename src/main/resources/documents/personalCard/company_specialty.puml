@@ -1,0 +1,9 @@
+@startuml
+class CompanySpecialty {
+    id: integer
+'    общее описание специализации компании
+    descr: text
+'    квалификационный профиль из класса specialty
+    specialties: integer[]
+}
+@enduml

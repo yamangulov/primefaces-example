@@ -1,0 +1,43 @@
+@startuml
+class Employee {
+    +id: integer
+    +first_name: varchar
+    +second_name: varchar
+    +surname: varchar
+    +age: integer
+    +specialty: integer[]
+    +skill: varchar[]
+    +grade: integer
+    +employeeDepartment: integer
+    +location: integer
+    +contact: integer
+    +work_experience: integer
+'    ставка себестоимости
+    +cost_price_rate: integer
+    +education: integer
+    +project_experience: integer[]
+    +english_level: integer
+'    Файлы (Файл категории Сертификат, обязательно должен
+'    иметь тестовое описание, и попадать в поисковую выдачу
+'    при поиске по сертификатам)
+    +file: integer[]
+'    линки для автогенерации резюме, не хранятся в БД,
+'    только формируются и выдаются в карточке
+    +russian_resume: varchar
+    +english_resume: varchar
+'    статус занятости формировать в виде таблицы,
+'    в БД хранить в виде отдельной таблицы
+    +occupation: integer
+'    Блок с информацией по оценке ресурса
+    +estimation: text
+'    Блок с дополнительной информацией и комментариями,
+'    для выгрузки в резюме – заполняется сотрудником
+    +self_info
+'    Блок с дополнительной информацией и комментариями,
+'    заполняется только руководителем и видно
+'    вверх по иерархии
+    +chef_info
+    +link_to_lk: varchar
+    +archived: boolean
+}
+@enduml

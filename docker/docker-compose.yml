@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+
+  ressatel-db:
+    container_name: ressatel-db
+    image: postgres:15.1
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - "5442:5432"
+    networks:
+      ressatel:
+        ipv4_address: 172.50.0.2
+
+#  ressatel:
+#    container_name: ressatel
+#    image: openjdk:11
+#    restart: unless-stopped
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://ressatel-db:5432/postgres
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: postgres
+#    expose:
+#      - 8088
+#    ports:
+#      - 8088:8088
+#    volumes:
+#      - ../artifacts:/service
+#    command: ["java", "-jar", "/service/ressatel-0.0.1.jar"]
+#    depends_on:
+#      - ressatel-db
+#    networks:
+#      ressatel:
+#        ipv4_address: 172.50.0.3
+
+networks:
+  ressatel:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+      com.docker.network.bridge.name: ressatel
+    ipam:
+      config:
+        - subnet: 172.50.0.0/16
+

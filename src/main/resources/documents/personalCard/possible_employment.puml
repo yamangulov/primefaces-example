@@ -1,0 +1,9 @@
+@startuml
+class PossibleEmployment {
+    id: integer
+'   Возможный объем привлечения (часов в неделю)
+    hoursPerWeek: integer
+'   Длительность привлечения (месяцев)
+    termInMonths: integer
+}
+@enduml

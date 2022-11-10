@@ -1,0 +1,24 @@
+@startuml
+class Company {
+    +id: integer
+    +name: varchar
+    +inn: varchar
+    +specialty: integer[]
+    +location: integer
+    +site: varchar
+    +contacts: integer
+'    налогообложение
+    +taxes: integer
+'    статус NDA
+    +nda_status: varchar
+    +company_specialty: integer
+'    Ссылки на профили в соцсетях, проф.сообществах
+'    /площадках, ссылки на примеры работ и гитхаб, и т.п.
+    +soc_networks: varchar
+'    проектный опыт в Сател (для БС)
+    +satel_project_experience: integer[]
+'    информация о ресурсах
+    +company_command: integer
+    +link_to_lk: varchar
+}
+@enduml

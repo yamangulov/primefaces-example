@@ -1,0 +1,94 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="specialty" author="yamangulov">
+        <insert tableName="specialty">
+            <column name="name" value="Главный архитектор проекта (ГАП)"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Администратор проекта"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Руководитель проекта"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Архитектор"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Функциональный архитектор"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Аналитик данных и/или ML"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Разработчик Front-End"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Консультант-методолог"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Системный администратор"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Технический инженер (Devops)"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Тестировщик (автоматизированное)"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Дизайнер-верстальщик"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Специалист по обучению"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Инженер баз данных"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Разработчик iOS"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Системный аналитик"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Бизнес-аналитик"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Дизайнер UX/UI"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Специалист по ИБ"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Технический писатель"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Разработчик Back-end"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Тестировщик (функциональное)"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Разработчик Аndroid"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="TeamLead"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Технический эксперт"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Директор департамента"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="Руководитель группы разработки"/>
+        </insert>
+        <insert tableName="specialty">
+            <column name="name" value="product owner"/>
+        </insert>
+
+
+    </changeSet>
+
+</databaseChangeLog>

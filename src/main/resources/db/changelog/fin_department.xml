@@ -1,0 +1,206 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="fin_department" author="yamangulov">
+
+        <insert tableName="fin_department">
+            <column name="name" value="Коммерческие подразделения"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Дирекция разработки интеллектуальных систем видеоаналитики"/>
+            <column name="parent_id" value="1"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент проектов 'ВИЗОРЛАБС'"/>
+            <column name="parent_id" value="2"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Коммерческий отдел (ВИЗОРЛАБС)"/>
+            <column name="parent_id" value="3"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел разметки данных"/>
+            <column name="parent_id" value="3"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел разработки"/>
+            <column name="parent_id" value="3"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел управления проектами"/>
+            <column name="parent_id" value="3"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент разработки систем машинного зрения"/>
+            <column name="parent_id" value="2"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Дирекция разработки интеллектуальных систем видеоаналитики"/>
+            <column name="parent_id" value="1"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Производственные подразделения"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент сертификации и технической документации"/>
+            <column name="parent_id" value="10"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел контроля качества"/>
+            <column name="parent_id" value="11"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел технической документации"/>
+            <column name="parent_id" value="11"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Дирекция Интеллектуальных Систем Автоматизации (Таскаев)"/>
+            <column name="parent_id" value="10"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент разработки Автоматизированных систем мониторинга и диагностики (АСМД)"/>
+            <column name="parent_id" value="14"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент разработки Програмных решений  СМАРТ"/>
+            <column name="parent_id" value="14"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент разработки Ситуационно-аналитических центров (САЦ)_ г.КАЗАНЬ"/>
+            <column name="parent_id" value="14"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент цифровой трансформации энергетической отрасли (Центр компетенций  'ЭНЕРГЕТИКА')"/>
+            <column name="parent_id" value="14"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент экспертизы и отраслевых решений цифровой трансформации"/>
+            <column name="parent_id" value="14"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Дирекция программных разработок (Романов)"/>
+            <column name="parent_id" value="10"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент Интеграционных Решений  (ЭНЕРБАС) (Ярославль,Рыбинск)"/>
+            <column name="parent_id" value="20"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Группа системных инженеров"/>
+            <column name="parent_id" value="21"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел Бизнес-аналитики"/>
+            <column name="parent_id" value="21"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел разработки Единой Интеграционной Платформы"/>
+            <column name="parent_id" value="21"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел разработки комплексных решений"/>
+            <column name="parent_id" value="21"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел разработки перспективных решений"/>
+            <column name="parent_id" value="21"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел разработки ПК Ревизор"/>
+            <column name="parent_id" value="21"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент исследований и разработки НИЖНИЙ НОВГОРОД"/>
+            <column name="parent_id" value="20"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел разработки ПО КОННЕКТ РТУ НИЖНИЙ НОВГОРОД"/>
+            <column name="parent_id" value="28"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Центр региональной разработки ВОЛГОГРАД"/>
+            <column name="parent_id" value="28"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент разработки ZIAX САРАТОВ"/>
+            <column name="parent_id" value="20"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел лингвистического анализа"/>
+            <column name="parent_id" value="31"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел разработки голосовых движков"/>
+            <column name="parent_id" value="31"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел разработки диалоговой платформы"/>
+            <column name="parent_id" value="31"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент унифицированных коммуникаций (РТУ) НИЖНИЙ НОВГОРОД"/>
+            <column name="parent_id" value="20"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел  разработки ПО РТУ (Нижний Новгород)"/>
+            <column name="parent_id" value="35"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел  разработки ПК СОВА"/>
+            <column name="parent_id" value="35"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Дирекция управления проектами"/>
+            <column name="parent_id" value="10"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент  Комплексных  проектов"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Проектный офис ИНТЕГРАЦИЯ и ИНФОРМАЦИОННАЯ БЕЗОПАСНОСТЬ"/>
+            <column name="parent_id" value="39"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Проектный офис ПРОИЗВОДСТВО"/>
+            <column name="parent_id" value="39"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Проектный офис СЕРВИС"/>
+            <column name="parent_id" value="39"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Проектный офис УНИФИЦИРОВАННЫЕ ИТ-СЕРВИСЫ"/>
+            <column name="parent_id" value="39"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Департамент Софтверных  проектов"/>
+            <column name="parent_id" value="38"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Проектный офис ВИДЕОАНАЛИТИКА"/>
+            <column name="parent_id" value="44"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Проектный офис ИНТЕГРАЦИОННАЯ ПЛАТФОРМА"/>
+            <column name="parent_id" value="44"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Проектный офис СОВА"/>
+            <column name="parent_id" value="44"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Проектный офис ЦИФРОВЫЕ ТРАНСФОРМАЦИИ"/>
+            <column name="parent_id" value="44"/>
+        </insert>
+        <insert tableName="fin_department">
+            <column name="name" value="Отдел администрирования проектов"/>
+            <column name="parent_id" value="44"/>
+        </insert>
+
+
+    </changeSet>
+
+</databaseChangeLog>

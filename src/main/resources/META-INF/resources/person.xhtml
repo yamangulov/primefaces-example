@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewParam name="id" value="#{personCardView.id}"/>
+    <f:viewAction action="#{personCardView.onload}"/>
+    <f:viewParam name="id" value="#{personFileDownloadView.id}"/>
+    <f:viewAction action="#{personFileDownloadView.onload}"/>
+</f:metadata>
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <h:outputStylesheet library="webjars" name="primeflex/3.2.0/primeflex.min.css"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Сател - реестр ресурсов</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:dataTable emptyMessage="">
+                    <f:facet name="header">
+                        <span>Карточка ИП/ГПХ</span>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <h:form>
+                <p:button href="/person/edit/#{personCardView.id}" value="Редактировать"/>
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false"
+                          resizable="false">
+                    <i class="pi pi-spinner pi-spin" style="font-size:3rem"></i>
+                </p:dialog>
+                <h2>Общая информация</h2>
+                <p:divider/>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-3">
+                        <h3>Имя</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.firstName}"/>
+                        <h3>Фамилия</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.surname}"/>
+                        <h3>Отчество</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.secondName}"/>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <h3>ИНН</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.inn}"/>
+                        <h3>Возраст</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.age}"/>
+                        <h3>Ставка себестоимости</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.costPriceRate}"/>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <h3>Оценка</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.estimation}"/>
+                        <h3>Налогообложение</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.taxes}"/>
+                        <h3>Статус подписания NDA</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.ndaStatus}"/>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <h3>Сертификаты</h3>
+                        <p:dataList id="person-files-list" lazy="false" var="entry" widgetVar="itemsTable"
+                                    itemStyleClass="fileItem"
+                                    emptyMessage="Файлы сертификатов не загружены" itemType="none"
+                                    value="#{personCardView.personFileDownloadView.streamedContentEntrySet}">
+                            <span class="fileButton">
+                                <p:commandButton value="#{entry.value.name}" ajax="false"
+                                                 onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                 icon="pi pi-arrow-down" styleClass="mr-2">
+                                    <p:fileDownload value="#{entry.value.streamedContent}"/>
+                                </p:commandButton>
+                            </span>
+                        </p:dataList>
+                    </div>
+                    <p:divider/>
+                    <div class="col-12 md:col-3">
+                        <h3>Профили в соцсетях и проф. сообществах, ссылки на портфолио</h3>
+                        <p:dataList value="#{personCardView.socnetworksList}"
+                                    var="site" styleClass="noBorders" itemType="none">
+                            <h:outputText rendered="#{site ne null}">
+                                <p:link href="#{site}">
+                                    #{site}
+                                </p:link>
+                            </h:outputText>
+                        </p:dataList>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <h3>Локация</h3>
+                        <h:outputText styleClass="fieldData" value="Город: #{personCardView.location.city}"/>
+                        , <h:outputText styleClass="fieldData" value="Адрес: #{personCardView.location.personalAddress}"/>
+                        <h3>Контактные данные</h3>
+                        <div><h:outputText styleClass="fieldData" value="Email: #{personCardView.contactObj.email}"/>
+                        </div>
+                        <div><h:outputText styleClass="fieldData" value="Phone: #{personCardView.contactObj.phone}"/>
+                        </div>
+                        <div><h:outputText styleClass="fieldData" value="Mobile: #{personCardView.contactObj.mobile}"/>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <h3>Грейд</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.grade.name}"/>
+                        <h3>Уровень владения английским языком</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.englishLevel.name}"/>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <h3>Резюме на русском языке</h3>
+                        <h:outputText value="будет сгенерировано автоматически"/>
+<!--                        <h:outputText styleClass="fieldData" value="#{personCardView.russianResume}"/>-->
+                        <h3>Резюме на английском языке</h3>
+                        <h:outputText value="будет сгенерировано автоматически"/>
+<!--                        <h:outputText styleClass="fieldData" value="#{personCardView.englishResume}"/>-->
+                    </div>
+                    <p:divider/>
+                    <h2>Дополнительная информация</h2>
+                    <p:divider/>
+                    <div class="col-12 md:col-2">
+                        <h3>Квалиф. профиль</h3>
+                        <p:button href="/person/skills/#{personCardView.id}" value="Просмотреть"/>
+<!--                        <p:dataList value="#{personCardView.hierarchySkillsProfile}"-->
+<!--                                    var="level" styleClass="noBorders" itemType="none">-->
+<!--                            #{level}-->
+<!--                        </p:dataList>-->
+                    </div>
+                    <div class="col-12 md:col-2">
+                        <h3>Специализации</h3>
+                        <p:button href="/person/specialties/#{personCardView.id}" value="Просмотреть"/>
+<!--                        <p:dataList value="#{personCardView.specialties}"-->
+<!--                                    var="level" styleClass="noBorders" itemType="none">-->
+<!--                            #{level}-->
+<!--                        </p:dataList>-->
+                    </div>
+                    <div class="col-12 md:col-2">
+                        <h3>Возможный объем привлечения (час/нед)</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.possibleEmployment.hoursPerWeek}"/>
+                    </div>
+                    <div class="col-12 md:col-2">
+                        <h3>Длительность привлечения (мес)</h3>
+                        <h:outputText styleClass="fieldData" value="#{personCardView.possibleEmployment.termInMonths}"/>
+                    </div>
+                    <div class="col-12 md:col-2">
+                        <h3>Статус занятости</h3>
+                        <p:button href="/person/occupation/#{personCardView.id}" value="Просмотреть"/>
+                    </div>
+                    <div class="col-12 md:col-2">
+                        <h3>Персональная команда</h3>
+                        <p:button href="/person/command/#{personCardView.id}" value="Просмотреть"/>
+                    </div>
+                    <p:divider/>
+                    <div class="col-12 md:col-12">
+                        <h3>Проектный опыт в Сател</h3>
+                        <h4>будет выгружаться из 1С</h4>
+                        <p:dataTable lazy="false" var="item" value="#{personCardView.satelProjectExperienceList}"
+                                     widgetVar="itemsTable"
+                                     emptyMessage="Проектный опыт в Сател отсутствует">
+                            <p:column headerText="№ сделки">
+                                <h:outputText value="#{item.contractNumber}"/>
+                            </p:column>
+                            <p:column headerText="Название проекта">
+                                <h:outputText value="#{item.name}"/>
+                            </p:column>
+                            <p:column headerText="Проектная роль">
+                                <h:outputText value="#{item.projectRole} часов"/>
+                            </p:column>
+                            <p:column headerText="Проектные работы">
+                                <h:outputText value="#{item.projectWorks}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+                <p:button href="/person/edit/#{personCardView.id}" value="Редактировать"/>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
+
+</html>

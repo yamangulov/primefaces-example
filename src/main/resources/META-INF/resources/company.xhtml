@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewParam name="id" value="#{companyCardView.id}"/>
+    <f:viewAction action="#{companyCardView.onload}"/>
+    <f:viewParam name="id" value="#{fileDownloadView.id}"/>
+    <f:viewAction action="#{fileDownloadView.onload}"/>
+    <f:viewParam name="id" value="#{resourceFileDownloadView.id}"/>
+    <f:viewAction action="#{resourceFileDownloadView.onload}"/>
+</f:metadata>
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <h:outputStylesheet library="webjars" name="primeflex/3.2.0/primeflex.min.css"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Сател - реестр ресурсов</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:dataTable lazy="false" emptyMessage="">
+                    <f:facet name="header">
+                        <span>Карточка компании</span>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <h:form>
+                <p:button href="/company/edit/#{companyCardView.id}" value="Редактировать"/>
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false"
+                          resizable="false">
+                    <i class="pi pi-spinner pi-spin" style="font-size:3rem"></i>
+                </p:dialog>
+                <h2>Общая информация</h2>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-3">
+                        <h3>Название организации</h3>
+                        <h:outputText styleClass="fieldData" value="#{companyCardView.name}"/>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>ИНН организации</h3>
+                        <h:outputText styleClass="fieldData" value="#{companyCardView.inn}"/>
+                    </div>
+
+
+                    <div class="col-12 md:col-3">
+                        <h3>Локация</h3>
+                        <h:outputText styleClass="fieldData" value="#{companyCardView.location.city}"/>
+                        , <h:outputText styleClass="fieldData" value="#{companyCardView.location.officeAddress}"/>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Контактные данные</h3>
+                        <div><h:outputText styleClass="fieldData" value="Email: #{companyCardView.contactObj.email}"/>
+                        </div>
+                        <div><h:outputText styleClass="fieldData" value="Phone: #{companyCardView.contactObj.phone}"/>
+                        </div>
+                        <div><h:outputText styleClass="fieldData" value="Mobile: #{companyCardView.contactObj.mobile}"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Официальный сайт</h3>
+                        <h:outputText rendered="#{companyCardView.site ne null}">
+                            <p:link href="#{companyCardView.site}">
+                                <h:outputText styleClass="fieldData" value="#{companyCardView.site}"/>
+                            </p:link>
+                        </h:outputText>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Профили в соцсетях и проф. сообществах, ссылки на портфолио</h3>
+                        <p:dataList value="#{companyCardView.socnetworksList}"
+                                    var="site" styleClass="noBorders" itemType="none">
+                            <h:outputText rendered="#{site ne null}">
+                                <p:link href="#{site}">
+                                    #{site}
+                                </p:link>
+                            </h:outputText>
+                        </p:dataList>
+                    </div>
+
+
+                    <div class="col-12 md:col-3">
+                        <h3>Налогообложение</h3>
+                        <h:outputText styleClass="fieldData" value="#{companyCardView.taxes} %"/>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Статус подписания NDA</h3>
+                        <h:outputText styleClass="fieldData" value="#{companyCardView.ndaStatus}"/>
+                    </div>
+
+                </div>
+
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-6">
+                        <h3>Общая специализация. Квалификационный профиль</h3>
+                        <p:dataList value="#{companyCardView.hierarchySkillsProfile}"
+                                    var="level" styleClass="noBorders" itemType="none">
+                            #{level}
+                        </p:dataList>
+                    </div>
+
+                    <div class="col-12 md:col-6">
+                        <h3>Общая специализация. Комментарий</h3>
+                        <h:outputText styleClass="fieldData" value="#{companyCardView.skillsComment}"/>
+                    </div>
+                </div>
+
+                <div class="grid ui-fluid">
+
+                    <div class="col-12 md:col-12">
+                        <h3>Проектный опыт в Сател</h3>
+                        <p:dataTable lazy="false" var="item" value="#{companyCardView.satelProjectExperienceList}"
+                                     widgetVar="itemsTable"
+                                     emptyMessage="Проектный опыт в Сател у данной организации отстуствует">
+
+                            <p:column headerText="№ сделки">
+                                <h:outputText value="#{item.contractNumber}"/>
+                            </p:column>
+                            <p:column headerText="Название проекта">
+                                <h:outputText value="#{item.name}"/>
+                            </p:column>
+                            <p:column headerText="Трудозатраты">
+                                <h:outputText value="#{item.budget} часов"/>
+                            </p:column>
+                            <p:column headerText="Период привлечения">
+                                <h:outputText value="#{item.period}"/>
+                            </p:column>
+                            <p:column headerText="Комментарий РП и/или руководителя ресурсного центра">
+                                <h:outputText value="#{item.comment}"/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </div>
+
+                </div>
+
+                <h2>Ресурсы организации</h2>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-6">
+                        <h3>Описание команды</h3>
+                        <h:outputText styleClass="fieldData" value="#{companyCardView.commandDescr}"/>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <h3>Условия привлечения команды</h3>
+                        <h:outputText styleClass="fieldData" value="#{companyCardView.commandConditions}"/>
+                    </div>
+                </div>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-6">
+                        <h3>Компания</h3>
+                        <p:dataList id="company-files-list" lazy="false" var="entry" widgetVar="itemsTable"
+                                    itemStyleClass="fileItem"
+                                    emptyMessage="Файлы о компании не загружены" itemType="none"
+                                    value="#{companyCardView.fileDownloadView.streamedContentEntrySet}">
+                            <span class="fileButton">
+                                <p:commandButton value="#{entry.value.name}" ajax="false"
+                                                 onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                 icon="pi pi-arrow-down" styleClass="mr-2">
+                                    <p:fileDownload value="#{entry.value.streamedContent}"/>
+                                </p:commandButton>
+                            </span>
+                        </p:dataList>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <h3>Резюме ресурсов</h3>
+                        <p:dataList id="resource-company-files-list" lazy="false" var="entry" widgetVar="itemsTable"
+                                    itemStyleClass="fileItem" itemType="none"
+                                    emptyMessage="Файлы о ресурсах не загружены"
+                                    value="#{companyCardView.resourceFileDownloadView.streamedContentEntrySet}">
+                            <span id="resourceFileButton">
+                                <p:commandButton value="#{entry.value.name}" ajax="false"
+                                                 onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                 icon="pi pi-arrow-down" styleClass="mr-2">
+                                    <p:fileDownload value="#{entry.value.streamedContent}"/>
+                                </p:commandButton>
+                            </span>
+                        </p:dataList>
+                    </div>
+                </div>
+                <p:button href="/company/edit/#{companyCardView.id}" value="Редактировать"/>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
+
+</html>

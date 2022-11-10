@@ -1,0 +1,7 @@
+@startuml
+class OrgDepartment {
+    +id: integer
+    +name: varchar
+    +parent: integer
+}
+@enduml

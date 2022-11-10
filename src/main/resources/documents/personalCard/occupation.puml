@@ -1,0 +1,27 @@
+@startuml
+class Occupation {
+    id: integer
+    status: boolean
+    satel_occupation: jsonb
+    planned_satel_occupation: jsonb
+    outer_occupation: jsonb
+}
+@enduml
+
+поле jsonb имеет формат для статусов Сател:
+{
+"month": месяц
+"absence": периоды планового отсутствия,
+"freedays": Кол-во рабочих дней доступных,
+для привлечения на проект (за минусом отпуска)
+(те запланированный простой на момент просмотра карточки),
+"contract_number": номер сделки,
+"contract_name": название сделки,
+"workload": загрузка в днях
+}
+
+для внешней занятости (ИП,ГПХ):
+{
+"period": интервал месяцы-дни
+"status": свободен/занят
+}

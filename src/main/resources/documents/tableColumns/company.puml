@@ -1,0 +1,9 @@
+@startuml
+class Company {
+    +id: integer
+    +name: varchar
+    +inn: varchar
+    +specialty: integer[]
+    +link_to_lk: varchar
+}
+@enduml

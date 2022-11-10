@@ -1,0 +1,15 @@
+@startuml
+class CompanyProjectExperience {
+    +id: integer
+'    номер сделки
+    +contract_number: varchar
+'    название
+    +name: varchar
+'    бюджет привлечения
+    +budget: integer
+'    период привлечения
+    +period: varchar
+'    комментарий от РП и Руководителя ресурсного центра
+    +comment: text
+}
+@enduml

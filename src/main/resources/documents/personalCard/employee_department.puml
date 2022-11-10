@@ -1,0 +1,7 @@
+@startuml
+class EmployeeDepartment {
+    +id: integer
+    +orgDepartment: integer
+    +finDepartment: integer
+}
+@enduml

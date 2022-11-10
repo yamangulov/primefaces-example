@@ -1,0 +1,6 @@
+@startuml
+class EducationGrade {
+    +id: integer
+    +name: varchar
+}
+@enduml

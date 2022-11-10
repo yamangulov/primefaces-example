@@ -1,0 +1,11 @@
+@startuml
+class Person {
+    +id: integer
+    +first_name: varchar
+    +second_name: varchar
+    +surname: varchar
+    +inn: varchar
+    +specialty: integer[]
+    +link: link_to_lk
+}
+@enduml

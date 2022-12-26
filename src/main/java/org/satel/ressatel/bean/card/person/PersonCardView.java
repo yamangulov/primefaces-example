@@ -197,7 +197,7 @@ public class PersonCardView {
 
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            context.redirect(context.getRequestContextPath() + "person/edit/" + id);
+            context.redirect(context.getRequestContextPath() + "/");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -176,7 +176,7 @@ public class EmployeeCardView {
         employeeService.createOrUpdateEmployee(employee);
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            context.redirect(context.getRequestContextPath() + "employee/edit/" + id);
+            context.redirect(context.getRequestContextPath() + "/");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

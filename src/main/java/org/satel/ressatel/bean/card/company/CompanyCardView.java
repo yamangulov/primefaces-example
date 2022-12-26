@@ -194,7 +194,7 @@ public class CompanyCardView implements Serializable {
         companyService.createOrUpdateCompany(company);
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            context.redirect(context.getRequestContextPath() + "company/edit/" + id);
+            context.redirect(context.getRequestContextPath() + "/");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -25,12 +25,17 @@ public class ParentSkillSelectView {
     @Inject
     public ParentSkillSelectView(SkillService skillService) {
         this.skillService = skillService;
+//        parentSkills = skillService.getSkillNames();
     }
 
     public void onloadManageSkillDialog(Skill skill) {
-        parentSkills = skillService.getSkillNames();
+        log.info("parentSkillSelectView {}", this);
+        log.info("skill on load {}", skill.getName());
+        log.info("parent {}", skill.getParent() == null ? null : skill.getParent().getName());
         if (skill.getParent() != null) {
             this.parentSkill = skill.getParent().getName();
+        } else {
+            this.parentSkill = null;
         }
     }
 }

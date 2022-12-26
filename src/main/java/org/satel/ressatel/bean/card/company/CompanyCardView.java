@@ -100,12 +100,17 @@ public class CompanyCardView implements Serializable {
         this.company = companyService.getByStringId(this.id);
         this.name = company.getName();
         this.inn = company.getInn();
-        this.site = company.getSite();
+        this.site = (company.getSite() == null || company.getSite().isBlank()) ? null : company.getSite();
         this.taxes = company.getTaxes();
         this.ndaStatus = company.getNdaStatus();
-        if (company.getSocnetworks() != null) {
+        if (company.getSocnetworks() != null && !company.getSocnetworks().isBlank()) {
             this.socnetworks = company.getSocnetworks();
             this.socnetworksList = getCompanySocnetworksList(socnetworks);
+            this.socnetworksList.forEach(item -> {
+                if (item.isBlank()) {
+                    item = null;
+                }
+            });
         } else {
             this.socnetworksList = new ArrayList<>();
         }

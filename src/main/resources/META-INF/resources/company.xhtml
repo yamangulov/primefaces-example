@@ -69,7 +69,7 @@
                         <h3>Официальный сайт</h3>
                         <h:outputText rendered="#{companyCardView.site ne null}">
                             <p:link href="#{companyCardView.site}">
-                                <h:outputText styleClass="fieldData" value="#{companyCardView.site}"/>
+                                #{companyCardView.site}
                             </p:link>
                         </h:outputText>
                     </div>

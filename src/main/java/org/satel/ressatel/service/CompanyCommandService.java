@@ -26,4 +26,8 @@ public class CompanyCommandService {
     public CompanyCommand getByCompany(Company company) {
         return companyCommandRepository.getByCompany(company);
     }
+
+    public void createOrUpdate(CompanyCommand companyCommand) {
+        companyCommandRepository.save(companyCommand);
+    }
 }

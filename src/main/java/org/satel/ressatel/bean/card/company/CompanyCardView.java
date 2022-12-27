@@ -11,10 +11,7 @@ import org.satel.ressatel.bean.card.file.ResourceFileDownloadView;
 import org.satel.ressatel.bean.card.file.ResourceFileUploadView;
 import org.satel.ressatel.bean.card.general.PickListView;
 import org.satel.ressatel.entity.*;
-import org.satel.ressatel.service.CompanyService;
-import org.satel.ressatel.service.CompanySkillToSkillsService;
-import org.satel.ressatel.service.FileService;
-import org.satel.ressatel.service.SkillService;
+import org.satel.ressatel.service.*;
 import org.springframework.stereotype.Component;
 
 import javax.faces.context.ExternalContext;
@@ -47,12 +44,14 @@ public class CompanyCardView implements Serializable {
     private List<String> hierarchySkillsProfile;
     private String skillsComment;
     List<CompanyProjectExperience> satelProjectExperienceList;
+    private CompanyCommand companyCommand;
     private String commandDescr;
     private String commandConditions;
     private CompanyService companyService;
     private FileService fileService;
     private SkillService skillService;
     private CompanySkillToSkillsService companySkillToSkillsService;
+    private CompanyCommandService companyCommandService;
 
     private FileDownloadView fileDownloadView;
     private ResourceFileDownloadView resourceFileDownloadView;
@@ -66,6 +65,7 @@ public class CompanyCardView implements Serializable {
             FileService fileService,
             SkillService skillService,
             CompanySkillToSkillsService companySkillToSkillsService,
+            CompanyCommandService companyCommandService,
             FileDownloadView fileDownloadView,
             ResourceFileDownloadView resourceFileDownloadView,
             FileUploadView fileUploadView,
@@ -74,6 +74,7 @@ public class CompanyCardView implements Serializable {
         this.companyService = companyService;
         this.fileService = fileService;
         this.companySkillToSkillsService = companySkillToSkillsService;
+        this.companyCommandService = companyCommandService;
         this.fileDownloadView = fileDownloadView;
         this.resourceFileDownloadView = resourceFileDownloadView;
         this.fileUploadView = fileUploadView;
@@ -88,6 +89,7 @@ public class CompanyCardView implements Serializable {
             company.setLocation(new Location());
             company.setContact(new Contact());
             company.setCompanySkill(new CompanySkill());
+            company.setCompanyCommand(new CompanyCommand());
             companyService.createOrUpdateCompany(company);
             id = String.valueOf(company.getId());
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -122,6 +124,11 @@ public class CompanyCardView implements Serializable {
             this.skillsComment = company.getCompanySkill().getDescr();
         }
         this.satelProjectExperienceList = company.getSatelProjectExperiences();
+        if (companyCommand == null) {
+            companyCommand = new CompanyCommand();
+            companyCommand.setCompany(company);
+            companyCommandService.createOrUpdate(companyCommand);
+        }
         this.commandDescr =
                 company.getCompanyCommand() != null ? company.getCompanyCommand().getDescr() : null;
         this.commandConditions =

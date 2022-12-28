@@ -181,10 +181,13 @@ public class CompanyCardView implements Serializable {
         });
         companySkillToSkillsService.saveAll(newCompanySkillToSkills);
 
-        if (company.getCompanyCommand() != null) {
-            company.getCompanyCommand().setDescr(commandDescr);
-            company.getCompanyCommand().setConditions(commandConditions);
+        if (companyCommand == null) {
+            companyCommand = new CompanyCommand();
+            companyCommand.setCompany(company);
+            companyCommandService.createOrUpdate(companyCommand);
         }
+        company.getCompanyCommand().setDescr(commandDescr);
+        company.getCompanyCommand().setConditions(commandConditions);
 
         List<File> files = fileUploadView.getFiles();
         files.forEach(file -> file.setCompanyCommand(company.getCompanyCommand()));

@@ -186,8 +186,9 @@ public class CompanyCardView implements Serializable {
             companyCommand.setCompany(company);
             companyCommandService.createOrUpdate(companyCommand);
         }
-        company.getCompanyCommand().setDescr(commandDescr);
-        company.getCompanyCommand().setConditions(commandConditions);
+        companyCommand.setDescr(commandDescr);
+        companyCommand.setConditions(commandConditions);
+        company.setCompanyCommand(companyCommand);
 
         List<File> files = fileUploadView.getFiles();
         files.forEach(file -> file.setCompanyCommand(company.getCompanyCommand()));

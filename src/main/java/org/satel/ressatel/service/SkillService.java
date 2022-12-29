@@ -3,14 +3,13 @@ package org.satel.ressatel.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 import org.satel.ressatel.entity.Skill;
 import org.satel.ressatel.repository.SkillRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @ApplicationScoped
@@ -65,5 +64,31 @@ public class SkillService {
         List<String> names = new ArrayList<>();
         skills.forEach(skill -> names.add(skill.getName()));
         return names;
+    }
+
+    public DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> getTreeNodeOfSkills() {
+        DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> root = new DefaultTreeNode<>(new org.satel.ressatel.bean.list.skill.Skill(0, "Компетенции", "Folder"), null);
+        List<Skill> skills = getSkills();
+        Map<Integer, Skill> parents = new HashMap<>();
+        skills.forEach(skill -> parents.put(skill.getId(), skill.getParent() == null ? null : skill.getParent()));
+        Map<Integer, TreeNode<org.satel.ressatel.bean.list.skill.Skill>> nodes = new HashMap<>();
+        skills.forEach(skill -> {
+            nodes.put(
+                    skill.getId(),
+                    new DefaultTreeNode<>(
+                            new org.satel.ressatel.bean.list.skill.Skill(skill.getId(), skill.getName(), "Folder")
+                    )
+            );
+        });
+        new ArrayList<>(nodes.values()).forEach(node -> {
+            Skill parent = parents.get(node.getData().getId());
+            TreeNode<org.satel.ressatel.bean.list.skill.Skill> parentNode
+                    = parent == null ? root : nodes.get(parent.getId());
+            node.setParent(parentNode);
+            log.info("node parent {}", node.getParent());
+            parentNode.getChildren().add(node);
+        });
+        log.info("children size {}", root.getChildren().size());
+        return root;
     }
 }

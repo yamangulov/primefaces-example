@@ -18,7 +18,7 @@ public class Skill {
     private Integer id;
     private String name;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
     private Skill parent;
 

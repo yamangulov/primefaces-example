@@ -45,6 +45,7 @@ public class EmployeeCardView {
     private String englishResume;
     private EnglishLevel englishLevel;
     private List<String> hierarchySkillsProfile;
+    private String skills;
     private Set<ProjectExperience> satelProjectExperienceList;
     private Occupation occupation;
 
@@ -60,7 +61,7 @@ public class EmployeeCardView {
 
     private EmployeeFileDownloadView employeeFileDownloadView;
     private EmployeeFileUploadView employeeFileUploadView;
-    private EmployeeSkillsPickListView employeeSkillsPickListView;
+    private EmployeeSkillsSelectionView employeeSkillsSelectionView;
     private EmployeeDepartmentSelectView employeeDepartmentSelectView;
     private EducationGradeSelectView educationGradeSelectView;
     private GradeSelectView gradeSelectView;
@@ -72,7 +73,7 @@ public class EmployeeCardView {
                             SkillService skillService,
                             EmployeeFileDownloadView employeeFileDownloadView,
                             EmployeeFileUploadView employeeFileUploadView,
-                            EmployeeSkillsPickListView employeeSkillsPickListView,
+                            EmployeeSkillsSelectionView employeeSkillsSelectionView,
                             EmployeeDepartmentSelectView employeeDepartmentSelectView,
                             EducationGradeSelectView educationGradeSelectView,
                             GradeSelectView gradeSelectView,
@@ -87,7 +88,7 @@ public class EmployeeCardView {
         this.fileService = fileService;
         this.employeeFileDownloadView = employeeFileDownloadView;
         this.employeeFileUploadView = employeeFileUploadView;
-        this.employeeSkillsPickListView = employeeSkillsPickListView;
+        this.employeeSkillsSelectionView = employeeSkillsSelectionView;
         this.employeeDepartmentSelectView = employeeDepartmentSelectView;
         this.educationGradeSelectView = educationGradeSelectView;
         this.gradeSelectView = gradeSelectView;

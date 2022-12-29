@@ -89,7 +89,9 @@ public class CompanyCardView implements Serializable {
             company.setLocation(new Location());
             company.setContact(new Contact());
             company.setCompanySkill(new CompanySkill());
-            company.setCompanyCommand(new CompanyCommand());
+            CompanyCommand companyCommand = new CompanyCommand();
+            companyCommandService.createOrUpdate(companyCommand);
+            company.setCompanyCommand(companyCommand);
             companyService.createOrUpdateCompany(company);
             id = String.valueOf(company.getId());
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();

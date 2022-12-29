@@ -85,10 +85,8 @@ public class SkillService {
             TreeNode<org.satel.ressatel.bean.list.skill.Skill> parentNode
                     = parent == null ? root : nodes.get(parent.getId());
             node.setParent(parentNode);
-            log.info("node parent {}", node.getParent());
             parentNode.getChildren().add(node);
         });
-        log.info("children size {}", root.getChildren().size());
         return root;
     }
 }

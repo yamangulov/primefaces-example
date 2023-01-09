@@ -89,4 +89,8 @@ public class SkillService {
         });
         return root;
     }
+
+    public Skill getById(Integer skillId) {
+        return skillRepository.findById(skillId).orElse(null);
+    }
 }

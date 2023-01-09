@@ -9,6 +9,8 @@
     <f:viewAction action="#{employeeCardView.onload}"/>
     <f:viewParam name="id" value="#{employeeFileDownloadView.id}"/>
     <f:viewAction action="#{employeeFileDownloadView.onload}"/>
+    <f:viewParam name="id" value="#{employeeSkillsSelectionView.id}"/>
+    <f:viewAction action="#{employeeSkillsSelectionView.onload()}"/>
 </f:metadata>
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
@@ -107,10 +109,13 @@
                 <div class="grid ui-fluid">
                     <div class="col-12 md:col-4">
                         <h3>Квалификационный профиль сотрудника</h3>
-                        <p:dataList value="#{employeeCardView.hierarchySkillsProfile}"
-                                    var="level" styleClass="noBorders" itemType="none">
-                            #{level}
-                        </p:dataList>
+                        <p:tree value="#{employeeSkillsSelectionView.root}" var="skill"
+                                selectionMode="checkbox"
+                                selection="#{employeeSkillsSelectionView.selectedNodes}">
+                            <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
+                                <h:outputText value="#{skill.name}"/>
+                            </p:treeNode>
+                        </p:tree>
                     </div>
                     <div class="col-12 md:col-4">
                         <h3>Дополнительная информация от сотрудника</h3>

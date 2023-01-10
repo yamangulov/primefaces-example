@@ -16,12 +16,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component("employeeSkillsSelectionView")
+@Component("employeeSkillsSelectionEditableView")
 @RequestScoped
 @Getter
 @Setter
 @Log4j2
-public class EmployeeSkillsSelectionView {
+public class EmployeeSkillsSelectionEditableView {
     private String id;
 
     private SkillService skillService;
@@ -30,7 +30,7 @@ public class EmployeeSkillsSelectionView {
     private TreeNode<Skill> root;
 
     @Inject
-    public EmployeeSkillsSelectionView(SkillService skillService, EmployeeService employeeService) {
+    public EmployeeSkillsSelectionEditableView(SkillService skillService, EmployeeService employeeService) {
         this.skillService = skillService;
         this.employeeService = employeeService;
         init();
@@ -51,7 +51,6 @@ public class EmployeeSkillsSelectionView {
         if (ids.contains(root.getData().getId())) {
             root.setSelected(true);
         }
-        root.setSelectable(false);
         if (root.getChildCount() != 0) {
             root.getChildren().forEach(skillTreeNode -> {
                 checkSelectedNodesRecursively(skillTreeNode, ids);

@@ -5,8 +5,8 @@
       xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
-    <f:viewParam name="id" value="#{employeeSkillsSelectionView.id}"/>
-    <f:viewAction action="#{employeeSkillsSelectionView.onload}"/>
+    <f:viewParam name="id" value="#{employeeSkillsSelectionEditableView.id}"/>
+    <f:viewAction action="#{employeeSkillsSelectionEditableView.onload}"/>
 </f:metadata>
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
@@ -30,17 +30,17 @@
             </h:form>
             <h:form>
                 <p:growl id="msgs" showDetail="true" escape="false"/>
-                <p:tree value="#{employeeSkillsSelectionView.root}" var="skill"
+                <p:tree value="#{employeeSkillsSelectionEditableView.root}" var="skill"
                         selectionMode="checkbox"
-                        selection="#{employeeSkillsSelectionView.selectedNodes}">
+                        selection="#{employeeSkillsSelectionEditableView.selectedNodes}">
                     <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
                         <h:outputText value="#{skill.name}"/>
                     </p:treeNode>
                 </p:tree>
 
                 <p:commandButton value="Сохранить" update="msgs" icon="pi pi-save" styleClass="mt-3"
-                                 action="#{employeeSkillsSelectionView.onsubmit(employeeSkillsSelectionView.selectedNodes)}"/>
-                <p:button icon="pi pi-arrow-circle-left" styleClass="mt-3 ml-3" href="/employee/edit/#{employeeSkillsSelectionView.id}"
+                                 action="#{employeeSkillsSelectionEditableView.onsubmit(employeeSkillsSelectionEditableView.selectedNodes)}"/>
+                <p:button icon="pi pi-arrow-circle-left" styleClass="mt-3 ml-3" href="/employee/edit/#{employeeSkillsSelectionEditableView.id}"
                           value="Отменить" />
             </h:form>
         </div>

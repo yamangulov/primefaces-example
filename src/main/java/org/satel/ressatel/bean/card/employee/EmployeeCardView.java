@@ -142,6 +142,7 @@ public class EmployeeCardView {
         this.employeeFileDownloadView.setFileType(3);
         this.employeeFileUploadView.setFileType(3);
         this.hierarchySkillsProfile = employeeService.getHierarchicalSkills(employee);
+        this.skills = skillService.getSkillsAsString(employee.getSkills());
     }
 
     public void onsubmit() {

@@ -10,6 +10,7 @@ import org.satel.ressatel.repository.SkillRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @ApplicationScoped
@@ -64,6 +65,10 @@ public class SkillService {
         List<String> names = new ArrayList<>();
         skills.forEach(skill -> names.add(skill.getName()));
         return names;
+    }
+
+    public String getSkillsAsString(Set<Skill> skills) {
+        return skills.stream().map(Skill::getName).collect(Collectors.joining(", "));
     }
 
     public DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> getTreeNodeOfSkills() {

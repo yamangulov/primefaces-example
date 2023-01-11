@@ -48,9 +48,7 @@ public class EmployeeSkillsSelectionView {
     }
 
     private void checkSelectedNodesRecursively(TreeNode<Skill> root, Set<Integer> ids) {
-        if (ids.contains(root.getData().getId())) {
-            root.setSelected(true);
-        }
+        root.setSelected(ids.contains(root.getData().getId()));
         root.setSelectable(false);
         if (root.getChildCount() != 0) {
             root.getChildren().forEach(skillTreeNode -> {

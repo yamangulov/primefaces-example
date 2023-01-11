@@ -31,7 +31,7 @@
             <h:form>
                 <p:growl id="msgs" showDetail="true" escape="false"/>
                 <p:tree value="#{employeeSkillsSelectionEditableView.root}" var="skill"
-                        selectionMode="checkbox"
+                        selectionMode="checkbox" cache="false"
                         selection="#{employeeSkillsSelectionEditableView.selectedNodes}">
                     <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
                         <h:outputText value="#{skill.name}"/>

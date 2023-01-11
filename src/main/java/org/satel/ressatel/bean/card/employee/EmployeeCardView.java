@@ -172,9 +172,6 @@ public class EmployeeCardView {
         employeeFileUploadView.setFiles(new ArrayList<>());
         employeeFileDownloadView.setStreamedContentListByEmployeeIdAndFileType(id, 3);
 
-        //TODO перенести функционал в отдельную карточку редактирования skill профиля с учетом его изменения на новый
-        //employee.setSkills(skillService.getSkillsByNames(employeeSkillsPickListView.getSkills().getTarget()));
-
         employeeService.createOrUpdateEmployee(employee);
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {

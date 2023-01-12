@@ -126,10 +126,11 @@ public class CompanyCardView implements Serializable {
             this.skillsComment = company.getCompanySkill().getDescr();
         }
         this.satelProjectExperienceList = company.getSatelProjectExperiences();
-        if (companyCommand == null) {
+        if (company.getCompanyCommand() == null) {
             companyCommand = new CompanyCommand();
-            companyCommand.setCompany(company);
             companyCommandService.createOrUpdate(companyCommand);
+            companyCommand.setCompany(company);
+            companyService.createOrUpdateCompany(company);
         }
         this.commandDescr =
                 company.getCompanyCommand() != null ? company.getCompanyCommand().getDescr() : null;

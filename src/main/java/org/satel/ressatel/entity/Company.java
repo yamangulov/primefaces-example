@@ -40,6 +40,10 @@ public class Company {
     @JoinColumn(name = "contact_id")
     private Contact contact;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_contact_person_id")
+    private CompanyContactPerson companyContactPerson;
+
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<CompanyProjectExperience> satelProjectExperiences;
 

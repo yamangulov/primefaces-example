@@ -56,9 +56,7 @@
                             <div class="ui-inputgroup-addon"><i class="pi pi-user"></i></div>
                             <p:inputText id="name" value="#{companyCardView.name}"/>
                         </div>
-                    </div>
 
-                    <div class="col-12 md:col-3">
                         <h3>ИНН организации</h3>
                         <div class="ui-inputgroup">
                             <div class="ui-inputgroup-addon"><i class="pi pi-id-card"></i></div>
@@ -70,11 +68,11 @@
                         <h3>Локация</h3>
                         <div class="ui-inputgroup">
                             <div class="ui-inputgroup-addon"><i class="pi pi-compass"></i></div>
-                            <p:inputText id="location-city" value="#{companyCardView.location.city}"/>
+                            <p:inputText id="location-city" placeholder="введите город" value="#{companyCardView.location.city}"/>
                         </div>
                         <div class="ui-inputgroup">
                             <div class="ui-inputgroup-addon"><i class="pi pi-compass"></i></div>
-                            <p:inputText id="location-office-address"
+                            <p:inputText id="location-office-address" placeholder="введите адрес"
                                          value="#{companyCardView.location.officeAddress}"/>
                         </div>
                     </div>
@@ -92,6 +90,34 @@
                         <div class="ui-inputgroup">
                             <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
                             <p:inputText id="mobile" placeholder="введите mobile phone" value="#{companyCardView.contactObj.mobile}"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-3">
+                        <h3>Контактное лицо организации</h3>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
+                            <p:inputText id="cfirst_name" placeholder="введите имя" value="#{companyCardView.companyContactPerson.firstName}"/>
+                        </div>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
+                            <p:inputText id="csecond_name" placeholder="введите отчество" value="#{companyCardView.companyContactPerson.secondName}"/>
+                        </div>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
+                            <p:inputText id="csurname" placeholder="введите фамилию" value="#{companyCardView.companyContactPerson.surname}"/>
+                        </div>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
+                            <p:inputText id="cphone" placeholder="введите phone" value="#{companyCardView.companyContactPerson.phone}"/>
+                        </div>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
+                            <p:inputText id="cemail" placeholder="введите email" value="#{companyCardView.companyContactPerson.email}"/>
+                        </div>
+                        <div class="ui-inputgroup">
+                            <div class="ui-inputgroup-addon"><i class="pi pi-telegram"></i></div>
+                            <p:inputText id="ctelegram" placeholder="введите telegram" value="#{companyCardView.companyContactPerson.telegram}"/>
                         </div>
                     </div>
 

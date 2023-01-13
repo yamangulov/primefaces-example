@@ -40,6 +40,7 @@ public class CompanyCardView implements Serializable {
     private List<String> socnetworksList;
     private Location location;
     private Contact contactObj;
+    private CompanyContactPerson companyContactPerson;
     private String skillsProfile;
     private List<String> hierarchySkillsProfile;
     private String skillsComment;
@@ -88,6 +89,7 @@ public class CompanyCardView implements Serializable {
             company = new Company();
             company.setLocation(new Location());
             company.setContact(new Contact());
+            company.setCompanyContactPerson(new CompanyContactPerson());
             company.setCompanySkill(new CompanySkill());
             CompanyCommand companyCommand = new CompanyCommand();
             companyCommandService.createOrUpdate(companyCommand);
@@ -118,8 +120,21 @@ public class CompanyCardView implements Serializable {
         } else {
             this.socnetworksList = new ArrayList<>();
         }
+        if (company.getLocation() == null) {
+            company.setLocation(new Location());
+            companyService.createOrUpdateCompany(company);
+        }
         this.location = company.getLocation();
+        if (company.getContact() == null) {
+            company.setContact(new Contact());
+            companyService.createOrUpdateCompany(company);
+        }
         this.contactObj = company.getContact();
+        if (company.getCompanyContactPerson() == null) {
+            company.setCompanyContactPerson(new CompanyContactPerson());
+            companyService.createOrUpdateCompany(company);
+        }
+        this.companyContactPerson = company.getCompanyContactPerson();
         this.skillsProfile = getCompanySkillProfile();
         this.hierarchySkillsProfile = companyService.getCompanyHierarchicalSkillsRepresentation(company);
         if (company.getCompanySkill() != null) {
@@ -158,11 +173,29 @@ public class CompanyCardView implements Serializable {
         this.company = companyService.getByStringId(this.id);
         company.setName(name);
         company.setInn(inn);
+        if (company.getLocation() == null) {
+            company.setLocation(new Location());
+            companyService.createOrUpdateCompany(company);
+        }
         company.getLocation().setCity(location.getCity());
         company.getLocation().setOfficeAddress(location.getOfficeAddress());
+        if (company.getContact() == null) {
+            company.setContact(new Contact());
+            companyService.createOrUpdateCompany(company);
+        }
         company.getContact().setEmail(contactObj.getEmail());
         company.getContact().setPhone(contactObj.getPhone());
         company.getContact().setMobile(contactObj.getMobile());
+        if (company.getCompanyContactPerson() == null) {
+            company.setCompanyContactPerson(new CompanyContactPerson());
+            companyService.createOrUpdateCompany(company);
+        }
+        company.getCompanyContactPerson().setFirstName(companyContactPerson.getFirstName());
+        company.getCompanyContactPerson().setSecondName(companyContactPerson.getSecondName());
+        company.getCompanyContactPerson().setSurname(companyContactPerson.getSurname());
+        company.getCompanyContactPerson().setPhone(companyContactPerson.getPhone());
+        company.getCompanyContactPerson().setEmail(companyContactPerson.getEmail());
+        company.getCompanyContactPerson().setTelegram(companyContactPerson.getTelegram());
         company.setSite(site);
         company.setSocnetworks(String.join(", ", socnetworksList));
         company.setTaxes(taxes);

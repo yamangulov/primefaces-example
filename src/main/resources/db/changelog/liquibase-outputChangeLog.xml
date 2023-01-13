@@ -48,5 +48,8 @@
     <include file="src/main/resources/db/changelog/nda_create.xml"/>
     <include file="src/main/resources/db/changelog/nda_values.xml"/>
     <include file="src/main/resources/db/changelog/person_change_columns.xml"/>
+    <include file="src/main/resources/db/changelog/company_add_company_contact_person_id.xml"/>
+    <include file="src/main/resources/db/changelog/company_contact_person.xml"/>
+    <include file="src/main/resources/db/changelog/company_add_constraint_on_company_contact_person_id.xml"/>
 
 </databaseChangeLog>

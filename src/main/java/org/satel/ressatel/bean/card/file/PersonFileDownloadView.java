@@ -68,7 +68,8 @@ public class PersonFileDownloadView implements Serializable {
     }
 
     private static String getContentType(File file) {
-        String fileExtention = file.getName().split("\\.")[1];
+        String[] nameParts = file.getName().split("\\.");
+        String fileExtention = nameParts[nameParts.length - 1];
         return Types.valueOf(fileExtention).getMimeType();
     }
 

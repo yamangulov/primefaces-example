@@ -70,8 +70,6 @@
                         <h:outputText styleClass="fieldData" value="#{employeeCardView.costPriceRate} в час"/>
                         <h3>Уволен/работает</h3>
                         <h:outputText styleClass="fieldData" value="#{employeeCardView.archived}"/>
-                        <h3>Оценка сотрудника</h3>
-                        <h:outputText styleClass="fieldData" value="#{employeeCardView.estimation}"/>
                     </div>
 
                     <p:divider/>
@@ -117,13 +115,23 @@
                 <div class="grid ui-fluid">
                     <div class="col-12 md:col-4">
                         <h3>Квалификационный профиль сотрудника</h3>
-                        <p:tree value="#{employeeSkillsSelectionView.root}" var="skill" showUnselectableCheckbox="true"
-                                selectionMode="checkbox"
-                                selection="#{employeeSkillsSelectionView.selectedNodes}">
-                            <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
-                                <h:outputText value="#{skill.name}"/>
-                            </p:treeNode>
-                        </p:tree>
+<!--                        <div class="ui-inputgroup">-->
+<!--                            <p:inputTextarea readonly="true" rows="8" value="#{employeeCardView.skills}"/>-->
+<!--                        </div>-->
+<!--                        <p:tree value="#{employeeSkillsSelectionView.root}" var="skill" showUnselectableCheckbox="true"-->
+<!--                                selectionMode="checkbox"-->
+<!--                                selection="#{employeeSkillsSelectionView.selectedNodes}">-->
+<!--                            <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">-->
+<!--                                <h:outputText value="#{skill.name}"/>-->
+<!--                            </p:treeNode>-->
+<!--                        </p:tree>-->
+                        <p:dataList value="#{employeeCardView.skillNamesSet}"
+                                    var="level" styleClass="noBorders" itemType="none">
+                            <p>
+                                #{level}
+                            </p>
+<!--                            TODO добавить кнопку "подробности" для каждого skill-->
+                        </p:dataList>
                     </div>
                     <div class="col-12 md:col-4">
                         <h3>Дополнительная информация от сотрудника</h3>

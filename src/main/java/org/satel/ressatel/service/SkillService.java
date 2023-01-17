@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import org.satel.ressatel.entity.Employee;
 import org.satel.ressatel.entity.Skill;
 import org.satel.ressatel.repository.SkillRepository;
 import org.springframework.stereotype.Component;
@@ -68,7 +69,7 @@ public class SkillService {
     }
 
     public String getSkillsAsString(Set<Skill> skills) {
-        return skills.stream().map(Skill::getName).collect(Collectors.joining(", "));
+        return skills.stream().map(Skill::getName).collect(Collectors.joining("; "));
     }
 
     public DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> getTreeNodeOfSkills() {
@@ -97,5 +98,9 @@ public class SkillService {
 
     public Skill getById(Integer skillId) {
         return skillRepository.findById(skillId).orElse(null);
+    }
+
+    public Set<String> getEmployeeSkillNames(Employee employee) {
+        return employee.getSkills().stream().map(Skill::getName).collect(Collectors.toSet());
     }
 }

@@ -46,6 +46,7 @@ public class EmployeeCardView {
     private EnglishLevel englishLevel;
     private List<String> hierarchySkillsProfile;
     private String skills;
+    private Set<String> skillNamesSet;
     private Set<ProjectExperience> satelProjectExperienceList;
     private Occupation occupation;
 
@@ -143,6 +144,7 @@ public class EmployeeCardView {
         this.employeeFileUploadView.setFileType(3);
         this.hierarchySkillsProfile = employeeService.getHierarchicalSkills(employee);
         this.skills = skillService.getSkillsAsString(employee.getSkills());
+        this.skillNamesSet = skillService.getEmployeeSkillNames(employee);
     }
 
     public void onsubmit() {

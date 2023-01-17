@@ -146,6 +146,8 @@ public class CompanyCardView implements Serializable {
             companyCommandService.createOrUpdate(companyCommand);
             companyCommand.setCompany(company);
             companyService.createOrUpdateCompany(company);
+        } else {
+            companyCommand = company.getCompanyCommand();
         }
         this.commandDescr =
                 company.getCompanyCommand() != null ? company.getCompanyCommand().getDescr() : null;
@@ -217,10 +219,12 @@ public class CompanyCardView implements Serializable {
         });
         companySkillToSkillsService.saveAll(newCompanySkillToSkills);
 
-        if (companyCommand == null) {
+        if (company.getCompanyCommand() == null) {
             companyCommand = new CompanyCommand();
             companyCommand.setCompany(company);
             companyCommandService.createOrUpdate(companyCommand);
+        } else {
+            companyCommand = company.getCompanyCommand();
         }
         companyCommand.setDescr(commandDescr);
         companyCommand.setConditions(commandConditions);

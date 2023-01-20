@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="roles" author="yamangulov">
+        <insert tableName="role">
+            <column name="name" value="главный архитектор проекта (ГАП)"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="администратор проекта"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="руководитель проекта"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="архитектор"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="функциональный архитектор"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="аналитик данных и/или ML"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="разработчик frontend"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="консультант-методолог"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="системный администратор"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="технический инженер (DevOps)"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="тестировщик (автоматизированное)"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="дизайнер-верстальщик"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="специалист по обучению"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="инженер баз данных"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="разработчик iOS"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="системный аналитик"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="бизнес-аналитик"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="дизайнер UX/UI"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="специалист по ИБ"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="технический писатель"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="разработчик backend"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="тестировщик (функциональное)"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="разработчик Аndroid"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="team lead"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="технический эксперт"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="директор департамента"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="руководитель группы разработки"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="product owner"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

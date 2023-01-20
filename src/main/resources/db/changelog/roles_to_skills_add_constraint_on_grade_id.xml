@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="roles_to_skills_add_constraint_on_grade_id" author="yamangulov">
+        <addForeignKeyConstraint baseColumnNames="grade_id" baseTableName="roles_to_skills"
+                                 constraintName="roles_to_skills_to_grade_fk" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="grade"
+                                 validate="true"/>
+    </changeSet>
+</databaseChangeLog>

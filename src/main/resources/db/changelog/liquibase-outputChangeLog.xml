@@ -51,5 +51,17 @@
     <include file="src/main/resources/db/changelog/company_add_company_contact_person_id.xml"/>
     <include file="src/main/resources/db/changelog/company_contact_person.xml"/>
     <include file="src/main/resources/db/changelog/company_add_constraint_on_company_contact_person_id.xml"/>
+    <include file="src/main/resources/db/changelog/role.xml"/>
+    <include file="src/main/resources/db/changelog/roles.xml"/>
+    <include file="src/main/resources/db/changelog/roles_to_skills.xml"/>
+    <include file="src/main/resources/db/changelog/roles_to_skills_add_constraint_on_skill_id.xml"/>
+    <include file="src/main/resources/db/changelog/roles_to_skills_add_constraint_on_role_id.xml"/>
+    <include file="src/main/resources/db/changelog/roles_to_skills_add_constraint_on_grade_id.xml"/>
+    <include file="src/main/resources/db/changelog/skill_grade.xml"/>
+    <include file="src/main/resources/db/changelog/skill_grades.xml"/>
+    <include file="src/main/resources/db/changelog/employee_to_roles_rename.xml"/>
+    <include file="src/main/resources/db/changelog/employee_to_skills_add_column_skill_grade_id.xml"/>
+    <include file="src/main/resources/db/changelog/employee_to_skills_add_constraint_on_skill_grade_id.xml"/>
+    <include file="src/main/resources/db/changelog/test_roles_to_skills_data.xml"/>
 
 </databaseChangeLog>

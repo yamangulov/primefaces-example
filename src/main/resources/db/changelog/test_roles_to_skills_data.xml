@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="test_roles_to_skills_data" author="yamangulov">
+<!--        стажер архитектор-->
+        <insert tableName="roles_to_skills">
+            <column name="role_id" value="1"/>
+            <column name="grade_id" value="1"/>
+            <column name="skill_id" value="148"/>
+        </insert>
+        <insert tableName="roles_to_skills">
+            <column name="role_id" value="1"/>
+            <column name="grade_id" value="1"/>
+            <column name="skill_id" value="160"/>
+        </insert>
+        <insert tableName="roles_to_skills">
+            <column name="role_id" value="1"/>
+            <column name="grade_id" value="2"/>
+            <column name="skill_id" value="161"/>
+        </insert>
+<!--        младший архитектор-->
+        <insert tableName="roles_to_skills">
+            <column name="role_id" value="1"/>
+            <column name="grade_id" value="2"/>
+            <column name="skill_id" value="148"/>
+        </insert>
+        <insert tableName="roles_to_skills">
+            <column name="role_id" value="1"/>
+            <column name="grade_id" value="2"/>
+            <column name="skill_id" value="149"/>
+        </insert>
+        <insert tableName="roles_to_skills">
+            <column name="role_id" value="1"/>
+            <column name="grade_id" value="2"/>
+            <column name="skill_id" value="150"/>
+        </insert>
+        <insert tableName="roles_to_skills">
+            <column name="role_id" value="1"/>
+            <column name="grade_id" value="2"/>
+            <column name="skill_id" value="152"/>
+        </insert>
+        <insert tableName="roles_to_skills">
+            <column name="role_id" value="1"/>
+            <column name="grade_id" value="2"/>
+            <column name="skill_id" value="160"/>
+        </insert>
+        <insert tableName="roles_to_skills">
+            <column name="role_id" value="1"/>
+            <column name="grade_id" value="2"/>
+            <column name="skill_id" value="161"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

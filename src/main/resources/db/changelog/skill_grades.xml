@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="skill_grades" author="yamangulov">
+        <insert tableName="skill_grade">
+            <column name="name" value="не знакомая функицональность"/>
+        </insert>
+        <insert tableName="skill_grade">
+            <column name="name" value="слышал, читал в интернете, не сталкивался в работе"/>
+        </insert>
+        <insert tableName="skill_grade">
+            <column name="name" value="сталкивался в работе, смогу использовать, но нужно закладывать дополнительное время на решение задач"/>
+        </insert>
+        <insert tableName="skill_grade">
+            <column name="name" value="успешно использую в повседневной работе"/>
+        </insert>
+        <insert tableName="skill_grade">
+            <column name="name" value="знаю все подводные камни, могу научить"/>
+        </insert>
+        <insert tableName="skill_grade">
+            <column name="name" value="экспертные знания"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

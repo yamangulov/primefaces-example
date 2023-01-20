@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="employees_to_roles_rename" author="yamangulov">
+        <renameTable newTableName="employees_to_roles"
+                      oldTableName="employees_to_specialties"
+                      schemaName="public"/>
+    </changeSet>
+    <changeSet id="employees_to_roles_rename_columns" author="yamangulov">
+        <renameColumn newColumnName="role_id"
+                       oldColumnName="specialty_id"
+                       schemaName="public"
+                       tableName="employees_to_roles"/>
+    </changeSet>
+    <changeSet author="yamangulov" id="employees_to_roles_add_column_grade_id">
+        <addColumn tableName="employees_to_roles">
+            <column name="grade_id" type="INTEGER"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

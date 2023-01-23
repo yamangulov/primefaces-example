@@ -63,5 +63,10 @@
     <include file="src/main/resources/db/changelog/employee_to_skills_add_column_skill_grade_id.xml"/>
     <include file="src/main/resources/db/changelog/employee_to_skills_add_constraint_on_skill_grade_id.xml"/>
     <include file="src/main/resources/db/changelog/test_roles_to_skills_data.xml"/>
+    <include file="src/main/resources/db/changelog/dropConstraint.xml"/>
+    <include file="src/main/resources/db/changelog/employees_to_roles_add_constraint_on_extra_roles_id.xml"/>
+    <include file="src/main/resources/db/changelog/employees_to_roles_add_constraint_on_grade_id.xml"/>
+    <include file="src/main/resources/db/changelog/employees_to_extra_roles.xml"/>
+    <include file="src/main/resources/db/changelog/employees_to_extra_roles_constraints.xml"/>
 
 </databaseChangeLog>

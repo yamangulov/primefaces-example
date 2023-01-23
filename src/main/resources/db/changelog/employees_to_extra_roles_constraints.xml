@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="employees_to_extra_roles_constraints" author="yamangulov">
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="employees_to_extra_roles" constraintName="employees_to_extra_roles_employee_fk"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="employee"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="extra_role_id"
+                                 baseTableName="employees_to_extra_roles" constraintName="employees_to_extra_roles_role_fk"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="role"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="grade_id"
+                                 baseTableName="employees_to_extra_roles" constraintName="employees_to_extra_roles_grade_fk"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="grade"
+                                 validate="true"/>
+    </changeSet>
+</databaseChangeLog>

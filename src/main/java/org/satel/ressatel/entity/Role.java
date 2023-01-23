@@ -28,6 +28,14 @@ public class Role {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
+            name = "employeesToExtraRoles",
+            joinColumns = @JoinColumn(name = "extra_role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    )
+    private Set<Employee> extraEmployees;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
             name = "personsToSpecialties",
             joinColumns = @JoinColumn(name = "specialty_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id")

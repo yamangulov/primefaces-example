@@ -47,7 +47,7 @@ public class EmployeeCardView {
     private List<String> hierarchySkillsProfile;
     private String skills;
     private Set<String> skillNamesSet;
-    private Set<Role> mainRoleNameSet;
+    private List<Role> mainRoleNameSet;
     private Set<Role> extraRoleNamesSet;
     private Set<ProjectExperience> satelProjectExperienceList;
     private Occupation occupation;
@@ -61,6 +61,7 @@ public class EmployeeCardView {
     private EducationGradeService educationGradeService;
     private EnglishLevelService englishLevelService;
     private SkillService skillService;
+    private RoleService roleService;
 
     private EmployeeFileDownloadView employeeFileDownloadView;
     private EmployeeFileUploadView employeeFileUploadView;
@@ -74,6 +75,7 @@ public class EmployeeCardView {
     public EmployeeCardView(EmployeeService employeeService,
                             FileService fileService,
                             SkillService skillService,
+                            RoleService roleService,
                             EmployeeFileDownloadView employeeFileDownloadView,
                             EmployeeFileUploadView employeeFileUploadView,
                             EmployeeSkillsSelectionView employeeSkillsSelectionView,
@@ -103,6 +105,7 @@ public class EmployeeCardView {
         this.educationGradeService = educationGradeService;
         this.englishLevelService = englishLevelService;
         this.skillService = skillService;
+        this.roleService = roleService;
     }
 
     public void onload() {
@@ -147,6 +150,8 @@ public class EmployeeCardView {
         this.hierarchySkillsProfile = employeeService.getHierarchicalSkills(employee);
         this.skills = skillService.getSkillsAsString(employee.getSkills());
         this.skillNamesSet = skillService.getEmployeeSkillNames(employee);
+        this.mainRoleNameSet = new ArrayList<>(roleService.getMainRoleNameSet(employee));
+        this.extraRoleNamesSet = roleService.getExtraRoleNameSet(employee);
     }
 
     public void onsubmit() {

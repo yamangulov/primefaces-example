@@ -90,11 +90,20 @@ public class Employee {
     )
     private Set<Skill> skills;
 
+    //главная роль у сотрудника пока только одна,
+    // но сделан Set, чтобы использовать, если их будет больше в будущем
     @ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
     private Set<Role> roles;
+
+    //дополнительные роли сотрудника
+    @ManyToMany(mappedBy = "extraEmployees", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    private Set<Role> extraRoles;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "person_command_id", referencedColumnName = "id")

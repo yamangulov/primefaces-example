@@ -94,7 +94,7 @@ public class Employee {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id")
-    private Set<Specialty> specialties;
+    private Set<Role> roles;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "person_command_id", referencedColumnName = "id")

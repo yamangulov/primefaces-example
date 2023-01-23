@@ -45,7 +45,7 @@ public class PersonCardView {
     private String russianResume;
     private String englishResume;
     private List<String> hierarchySkillsProfile;
-    private Set<Specialty> specialties;
+    private Set<Role> specialties;
     private PossibleEmployment possibleEmployment;
     private Set<ProjectExperience> satelProjectExperienceList;
     private final PersonFileDownloadView personFileDownloadView;
@@ -128,9 +128,14 @@ public class PersonCardView {
         if (person.getNdaStatus() != null) {
             this.ndaStatus = ndaStatusService.getById(person.getNdaStatus());
         }
-        if (person.getSocnetworks() != null) {
+        if (person.getSocnetworks() != null && !person.getSocnetworks().isBlank()) {
             this.socnetworks = person.getSocnetworks();
             this.socnetworksList = getPersonSocnetworkList(socnetworks);
+            this.socnetworksList.forEach(item -> {
+                if (item.isBlank()) {
+                    item = null;
+                }
+            });
         } else {
             this.socnetworksList = new ArrayList<>();
         }
@@ -179,8 +184,16 @@ public class PersonCardView {
         person.setAge(age);
         person.setCostPriceRate(costPriceRate);
         person.setEstimation(estimation);
-        person.setTaxes(taxService.getByName(personTaxSelectView.getTax()).getId());
-        person.setNdaStatus(ndaStatusService.getByName(personNDASelectView.getNda()).getId());
+        if (personTaxSelectView.getTax() != null && !personTaxSelectView.getTax().isBlank()) {
+            Tax tax = taxService.getByName(personTaxSelectView.getTax());
+            person.setTaxes(tax.getId());
+            taxes = tax.getName();
+        }
+        if (personNDASelectView.getNda() != null && !personNDASelectView.getNda().isBlank()) {
+            NDAStatus status = ndaStatusService.getByName(personNDASelectView.getNda());
+            person.setNdaStatus(status.getId());
+            ndaStatus = status.getName();
+        }
         person.setGrade(gradeService.getByName(personGradeSelectView.getGrade()));
         person.setEnglishLevel(englishLevelService.getByName(personEnglishLevelSelectView.getLevel()));
         person.getLocation().setCity(location.getCity());

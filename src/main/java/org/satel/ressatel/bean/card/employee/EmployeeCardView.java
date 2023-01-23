@@ -47,6 +47,8 @@ public class EmployeeCardView {
     private List<String> hierarchySkillsProfile;
     private String skills;
     private Set<String> skillNamesSet;
+    private Set<Role> mainRoleNameSet;
+    private Set<Role> extraRoleNamesSet;
     private Set<ProjectExperience> satelProjectExperienceList;
     private Occupation occupation;
 

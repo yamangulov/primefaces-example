@@ -78,7 +78,7 @@ public class Person {
     private Set<Skill> skills;
 
     @ManyToMany(mappedBy = "persons", fetch = FetchType.EAGER)
-    private Set<Specialty> specialties;
+    private Set<Role> specialties;
 
     @OneToOne(mappedBy = "person")
     private PersonCommand personCommand;

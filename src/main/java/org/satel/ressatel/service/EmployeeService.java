@@ -4,8 +4,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.primefaces.util.Constants;
 import org.satel.ressatel.bean.list.employee.Employee;
+import org.satel.ressatel.entity.Role;
 import org.satel.ressatel.entity.Skill;
-import org.satel.ressatel.entity.Specialty;
 import org.satel.ressatel.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -72,7 +72,7 @@ public class EmployeeService {
     }
 
     private String getSpecialties(org.satel.ressatel.entity.Employee fullEmployee) {
-        List<Specialty> specialties = new ArrayList<>(fullEmployee.getSpecialties());
+        List<Role> specialties = new ArrayList<>(fullEmployee.getRoles());
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < specialties.size(); i++) {
             stringBuilder.append(specialties.get(i).getName());

@@ -4,8 +4,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.primefaces.util.Constants;
 import org.satel.ressatel.bean.list.person.Person;
+import org.satel.ressatel.entity.Role;
 import org.satel.ressatel.entity.Skill;
-import org.satel.ressatel.entity.Specialty;
 import org.satel.ressatel.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -63,7 +63,7 @@ public class PersonService {
     }
 
     private String getSpecialties(org.satel.ressatel.entity.Person fullPerson) {
-        List<Specialty> specialties = new ArrayList<>(fullPerson.getSpecialties());
+        List<Role> specialties = new ArrayList<>(fullPerson.getSpecialties());
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < specialties.size(); i++) {
             stringBuilder.append(specialties.get(i).getName());
@@ -92,8 +92,12 @@ public class PersonService {
 
     private String getFullName(org.satel.ressatel.entity.Person fullPerson) {
         if (fullPerson.getSurname() == null
+                || fullPerson.getSurname().isBlank()
                 || fullPerson.getFirstName() == null
-                || fullPerson.getSecondName() == null) {
+                || fullPerson.getFirstName().isBlank()
+                || fullPerson.getSecondName() == null
+                || fullPerson.getSecondName().isBlank()
+        ) {
             return null;
         }
         return fullPerson.getSurname() + Constants.SPACE + fullPerson.getFirstName().substring(0, 1).toUpperCase() + "." +

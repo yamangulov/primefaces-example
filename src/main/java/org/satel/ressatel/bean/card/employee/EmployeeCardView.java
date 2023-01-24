@@ -61,7 +61,6 @@ public class EmployeeCardView {
     private EducationGradeService educationGradeService;
     private EnglishLevelService englishLevelService;
     private SkillService skillService;
-    private RoleService roleService;
 
     private EmployeeFileDownloadView employeeFileDownloadView;
     private EmployeeFileUploadView employeeFileUploadView;
@@ -70,12 +69,12 @@ public class EmployeeCardView {
     private EducationGradeSelectView educationGradeSelectView;
     private GradeSelectView gradeSelectView;
     private EnglishLevelSelectView englishLevelSelectView;
+    private EmployeeRatingView employeeRatingView;
 
     @Inject
     public EmployeeCardView(EmployeeService employeeService,
                             FileService fileService,
                             SkillService skillService,
-                            RoleService roleService,
                             EmployeeFileDownloadView employeeFileDownloadView,
                             EmployeeFileUploadView employeeFileUploadView,
                             EmployeeSkillsSelectionView employeeSkillsSelectionView,
@@ -83,6 +82,7 @@ public class EmployeeCardView {
                             EducationGradeSelectView educationGradeSelectView,
                             GradeSelectView gradeSelectView,
                             EnglishLevelSelectView englishLevelSelectView,
+                            EmployeeRatingView employeeRatingView,
                             EmployeeDepartmentService employeeDepartmentService,
                             FinDepartmentService finDepartmentService,
                             OrgDepartmentService orgDepartmentService,
@@ -98,6 +98,7 @@ public class EmployeeCardView {
         this.educationGradeSelectView = educationGradeSelectView;
         this.gradeSelectView = gradeSelectView;
         this.englishLevelSelectView = englishLevelSelectView;
+        this.employeeRatingView = employeeRatingView;
         this.employeeDepartmentService = employeeDepartmentService;
         this.finDepartmentService = finDepartmentService;
         this.orgDepartmentService = orgDepartmentService;
@@ -105,7 +106,6 @@ public class EmployeeCardView {
         this.educationGradeService = educationGradeService;
         this.englishLevelService = englishLevelService;
         this.skillService = skillService;
-        this.roleService = roleService;
     }
 
     public void onload() {
@@ -150,8 +150,7 @@ public class EmployeeCardView {
         this.hierarchySkillsProfile = employeeService.getHierarchicalSkills(employee);
         this.skills = skillService.getSkillsAsString(employee.getSkills());
         this.skillNamesSet = skillService.getEmployeeSkillNames(employee);
-        this.mainRoleNameSet = new ArrayList<>(roleService.getMainRoleNameSet(employee));
-        this.extraRoleNamesSet = roleService.getExtraRoleNameSet(employee);
+//        this.extraRoleNamesSet = roleService.getExtraRoleNameSet(employee);
     }
 
     public void onsubmit() {

@@ -5,8 +5,8 @@
       xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
-    <f:viewParam name="id" value="#{employeeSkillsSelectionEditableView.id}"/>
-    <f:viewAction action="#{employeeSkillsSelectionEditableView.onload}"/>
+    <f:viewParam name="id" value="#{employeeRolesSelectionEditableView.id}"/>
+    <f:viewAction action="#{employeeRolesSelectionEditableView.onload}"/>
 </f:metadata>
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
@@ -24,25 +24,42 @@
             <h:form>
                 <p:dataTable lazy="false" emptyMessage="">
                     <f:facet name="header">
-                        <span>Карточка редактирования компетенций сотрудника</span>
+                        <span>Редактирование ролей сотрудника</span>
                     </f:facet>
                 </p:dataTable>
             </h:form>
             <h:form>
                 <p:growl id="msgs" showDetail="true" escape="false"/>
-                <p:tree value="#{employeeSkillsSelectionEditableView.root}" var="skill"
-                        selectionMode="checkbox" cache="false"
-                        selection="#{employeeSkillsSelectionEditableView.selectedNodes}">
-                    <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
-                        <h:outputText value="#{skill.name}"/> <p:rating value="3" readonly="false"/>
-                        <p:inputTextarea placeholder="Введите подробности об уровне навыка"/>
-                    </p:treeNode>
-                </p:tree>
+                <div class="grid ui-fluid">
+                    <div class="col-12 md:col-6">
+                        <h2>Основная роль</h2>
+                        <p:tree value="#{employeeRolesSelectionEditableView.rootMain}" var="role"
+                                selectionMode="single" cache="false"
+                                selection="#{employeeRolesSelectionEditableView.selectedNode}">
+                            <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
+                                <h:outputText value="#{role.name}"/>
+                                <p:rating value="3" readonly="false" stars="6"/>
+                            </p:treeNode>
+                        </p:tree>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <h2>Дополнительные роли</h2>
+                        <p:tree value="#{employeeRolesSelectionEditableView.rootMain}" var="role"
+                                selectionMode="checkbox" cache="false"
+                                selection="#{employeeRolesSelectionEditableView.selectedNodes}">
+                            <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
+                                <h:outputText value="#{role.name}"/>
+                                <p:rating value="3" readonly="false" stars="6"/>
+                            </p:treeNode>
+                        </p:tree>
+                    </div>
+                </div>
 
                 <p:commandButton value="Сохранить" update="msgs" icon="pi pi-save" styleClass="mt-3"
-                                 action="#{employeeSkillsSelectionEditableView.onsubmit(employeeSkillsSelectionEditableView.selectedNodes)}"/>
-                <p:button icon="pi pi-arrow-circle-left" styleClass="mt-3 ml-3" href="/employee/edit/#{employeeSkillsSelectionEditableView.id}"
-                          value="Отменить" />
+                                 action="#{employeeRolesSelectionEditableView.onsubmitAll(employeeRolesSelectionEditableView.selectedNodes)}"/>
+                <p:button icon="pi pi-arrow-circle-left" styleClass="mt-3 ml-3"
+                          href="/employee/#{employeeRolesSelectionEditableView.id}"
+                          value="Отменить"/>
             </h:form>
         </div>
     </h:body>

@@ -18,20 +18,10 @@ public class Role {
     private Integer id;
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "employeesToRoles",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    )
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
     private Set<Employee> employees;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "employeesToExtraRoles",
-            joinColumns = @JoinColumn(name = "extra_role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    )
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "extraRoles")
     private Set<Employee> extraEmployees;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -7,6 +7,8 @@
 <f:metadata>
     <f:viewParam name="id" value="#{employeeRolesSelectionEditableView.id}"/>
     <f:viewAction action="#{employeeRolesSelectionEditableView.onload}"/>
+    <f:viewParam name="id" value="#{employeeRolesSelectionEditableView.employeeRatingView.id}"/>
+    <f:viewAction action="#{employeeRolesSelectionEditableView.employeeRatingView.onload}"/>
 </f:metadata>
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
@@ -38,18 +40,18 @@
                                 selection="#{employeeRolesSelectionEditableView.selectedNode}">
                             <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
                                 <h:outputText value="#{role.name}"/>
-                                <p:rating value="3" readonly="false" stars="6"/>
+                                <p:rating value="#{role.grade}" readonly="false" stars="6"/>
                             </p:treeNode>
                         </p:tree>
                     </div>
                     <div class="col-12 md:col-6">
                         <h2>Дополнительные роли</h2>
-                        <p:tree value="#{employeeRolesSelectionEditableView.rootMain}" var="role"
+                        <p:tree value="#{employeeRolesSelectionEditableView.rootExtra}" var="role"
                                 selectionMode="checkbox" cache="false"
                                 selection="#{employeeRolesSelectionEditableView.selectedNodes}">
                             <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
                                 <h:outputText value="#{role.name}"/>
-                                <p:rating value="3" readonly="false" stars="6"/>
+                                <p:rating value="#{role.grade}" readonly="false" stars="6"/>
                             </p:treeNode>
                         </p:tree>
                     </div>

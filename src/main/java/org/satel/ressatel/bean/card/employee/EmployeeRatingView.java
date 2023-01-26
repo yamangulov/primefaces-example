@@ -44,7 +44,7 @@ public class EmployeeRatingView {
         if (!roleService.getMainRoleMap(employee).isEmpty()) {
             roleService.getMainRoleMap(employee).forEach((role1, grade1) -> {
                 mainRoleName = role1.getName();
-                mainGradeId = grade1.getId();
+                mainGradeId = grade1 == null ? null : grade1.getId();
             });
         }
         if (!roleService.getExtraRoleMap(employee).isEmpty()) {

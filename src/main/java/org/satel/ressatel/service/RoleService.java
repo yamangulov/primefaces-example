@@ -37,14 +37,22 @@ public class RoleService {
         roles.forEach(role -> {
             map.put(
                     role,
-                    gradeRepository.getReferenceById(roleRepository.getGradeIdByRoleId(role.getId()))
+                    roleRepository.getGradeIdByRoleId(role.getId()) == null ? null : gradeRepository.getReferenceById(roleRepository.getGradeIdByRoleId(role.getId()))
             );
         });
         return map;
     }
 
-    public Set<Role> getExtraRoleNameSet(Employee employee) {
-        return employee.getExtraRoles();
+    public Map<String, Grade> getNameToMainRoleMap(Employee employee) {
+        Map<String, Grade> map = new HashMap<>();
+        Set<Role> roles = employee.getRoles();
+        roles.forEach(role -> {
+            map.put(
+                    role.getName(),
+                    roleRepository.getGradeIdByRoleId(role.getId()) == null ? null : gradeRepository.getReferenceById(roleRepository.getGradeIdByRoleId(role.getId()))
+            );
+        });
+        return map;
     }
 
     public Map<Role, Grade> getExtraRoleMap(Employee employee) {
@@ -59,15 +67,27 @@ public class RoleService {
         return map;
     }
 
+    public Map<String, Grade> getNameToExtraRoleMap(Employee employee) {
+        Map<String, Grade> map = new HashMap<>();
+        Set<Role> roles = employee.getExtraRoles();
+        roles.forEach(role -> {
+            map.put(
+                    role.getName(),
+                    gradeRepository.getReferenceById(roleRepository.getGradeIdByExtraRoleId(role.getId()))
+            );
+        });
+        return map;
+    }
+
     public TreeNode<org.satel.ressatel.bean.list.role.Role> getTreeNodeOfRoles() {
-        DefaultTreeNode<org.satel.ressatel.bean.list.role.Role> root = new DefaultTreeNode<>(new org.satel.ressatel.bean.list.role.Role(0, "Роли", "Folder"), null);
+        DefaultTreeNode<org.satel.ressatel.bean.list.role.Role> root = new DefaultTreeNode<>(new org.satel.ressatel.bean.list.role.Role(0, "Роли", null, "Folder"), null);
         List<org.satel.ressatel.entity.Role> roles = getRoles();
         Map<Integer, TreeNode<org.satel.ressatel.bean.list.role.Role>> nodes = new HashMap<>();
         roles.forEach(role -> {
             nodes.put(
                     role.getId(),
                     new DefaultTreeNode<>(
-                            new org.satel.ressatel.bean.list.role.Role(role.getId(), role.getName(), "Folder")
+                            new org.satel.ressatel.bean.list.role.Role(role.getId(), role.getName(), null, "Folder")
                     )
             );
         });

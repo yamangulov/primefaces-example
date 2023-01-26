@@ -92,17 +92,21 @@ public class Employee {
 
     //главная роль у сотрудника пока только одна,
     // но сделан Set, чтобы использовать, если их будет больше в будущем
-    @ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER)
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "employeesToRoles",
+            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
     private Set<Role> roles;
 
     //дополнительные роли сотрудника
-    @ManyToMany(mappedBy = "extraEmployees", fetch = FetchType.EAGER)
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "employeesToExtraRoles",
+            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "extra_role_id", referencedColumnName = "id")
+    )
     private Set<Role> extraRoles;
 
     @ManyToOne(fetch = FetchType.EAGER)

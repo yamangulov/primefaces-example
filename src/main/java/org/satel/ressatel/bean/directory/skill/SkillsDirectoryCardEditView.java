@@ -1,6 +1,5 @@
 package org.satel.ressatel.bean.directory.skill;
 
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +7,10 @@ import lombok.extern.log4j.Log4j2;
 import org.primefaces.PrimeFaces;
 import org.satel.ressatel.entity.Skill;
 import org.satel.ressatel.service.SkillService;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -16,7 +18,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Component("skillsDirectoryCardEditView")
-@ViewScoped
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Getter
 @Setter
 @Log4j2
@@ -48,8 +50,8 @@ public class SkillsDirectoryCardEditView implements Serializable {
 
     public void saveSkill() {
         if (this.selectedSkill.getId() == null) {
-            log.info("selectedSkill name {} parent name {}",
-                    selectedSkill.getName(), selectedSkill.getParent().getName());
+//            log.info("selectedSkill name {} parent name {}",
+//                    selectedSkill.getName(), selectedSkill.getParent().getName());
             //TODO здесь добавляем создание нового skill в БД
             this.skills.add(this.selectedSkill);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Skill Added"));

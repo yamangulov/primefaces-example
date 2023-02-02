@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:viewAction action="#{rolesDirectoryCardEditView.onload}"/>
+</f:metadata>
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <h:outputStylesheet library="webjars" name="primeflex/3.2.0/primeflex.min.css"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Сател - реестр ресурсов</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:dataTable lazy="false" emptyMessage="">
+                    <f:facet name="header">
+                        <span>Справочник ролей - редактирование</span>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <h:form id="form">
+                <p:growl id="messages" showDetail="true"/>
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Добавить" icon="pi pi-plus"
+                                         actionListener="#{rolesDirectoryCardEditView.openNew}"
+                                         update=":dialogs:manage-role-content"
+                                         oncomplete="PF('manageRoleDialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-role-content"/>
+                        </p:commandButton>
+                        <p:commandButton id="delete-roles-button"
+                                         value="#{rolesDirectoryCardEditView.deleteButtonMessage}"
+                                         icon="pi pi-trash"
+                                         actionListener="#{rolesDirectoryCardEditView.deleteSelectedRoles}"
+                                         styleClass="ui-button-danger"
+                                         disabled="#{!rolesDirectoryCardEditView.hasSelectedRoles()}" update="@this">
+                            <p:confirm header="Подтверждение" message="Удалить выбранные компетенции?"
+                                       icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:dataTable id="dt-roles" widgetVar="dtRoles" var="role"
+                             value="#{rolesDirectoryCardEditView.roles}"
+                             reflow="true" styleClass="roles-table"
+                             selection="#{rolesDirectoryCardEditView.selectedRoles}"
+                             rowKey="#{role.id}" paginator="true" rows="10" rowSelectMode="add"
+                             paginatorPosition="bottom">
+                    <f:facet name="header">
+                        <div class="roles-table-header">
+                            <span style="font-weight: bold">Роли</span>
+                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('dtRoles').filter()" placeholder="Search"/>
+                    </span>
+                        </div>
+                    </f:facet>
+
+                    <p:ajax event="rowSelect" update=":form:delete-roles-button"/>
+                    <p:ajax event="rowUnselect" update=":form:delete-roles-button"/>
+                    <p:ajax event="rowSelectCheckbox" update=":form:delete-roles-button"/>
+                    <p:ajax event="rowUnselectCheckbox" update=":form:delete-roles-button"/>
+                    <p:ajax event="toggleSelect" update=":form:delete-roles-button"/>
+
+                    <p:column selectionMode="multiple" exportable="false"></p:column>
+
+                    <p:column headerText="Название роли" sortBy="#{role.name}" filterBy="#{role.name}">
+                        <h:outputText value="#{role.name}"/>
+                    </p:column>
+
+                    <p:column exportable="false">
+                        <p:commandButton
+                                icon="pi pi-pencil" update=":dialogs:manage-role-content"
+                                oncomplete="PF('manageRoleDialog').show()"
+                                styleClass="edit-button rounded-button ui-button-success mr-2" process="@this">
+                            <f:setPropertyActionListener
+                                    value="#{role}"
+                                    target="#{rolesDirectoryCardEditView.selectedRole}"/>
+                            <p:resetInput target=":dialogs:manage-role-content"/>
+                        </p:commandButton>
+                        <p:commandButton
+                                class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                process="@this"
+                                oncomplete="PF('deleteRoleDialog').show()">
+                            <f:setPropertyActionListener
+                                    value="#{role}"
+                                    target="#{rolesDirectoryCardEditView.selectedRole}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+                <p:dialog header="Редактирование/создание роли" showEffect="fade" modal="true"
+                          widgetVar="manageRoleDialog"
+                          responsive="true">
+                    <p:outputPanel id="manage-role-content" class="ui-fluid">
+                        <p:outputPanel rendered="#{not empty rolesDirectoryCardEditView.selectedRole}">
+                            <div class="field">
+                                <p:outputLabel for="name">Название роли</p:outputLabel>
+                                <p:inputText id="name" value="#{rolesDirectoryCardEditView.selectedRole.name}"
+                                             required="true"/>
+                            </div>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Сохранить" icon="pi pi-check"
+                                         actionListener="#{rolesDirectoryCardEditView.saveRole}"
+                                         update="manage-role-content" process="manage-role-content @this"/>
+                        <p:commandButton value="Отменить" icon="pi pi-times" onclick="PF('manageRoleDialog').hide()"
+                                         class="ui-button-secondary" type="button"/>
+                    </f:facet>
+                </p:dialog>
+
+                <p:confirmDialog widgetVar="deleteRoleDialog" showEffect="fade" width="300"
+                                 message="Удалить эту компетенцию?" header="Подтверждение" severity="warn">
+                    <p:commandButton value="Да" icon="pi pi-check"
+                                     actionListener="#{rolesDirectoryCardEditView.deleteRole}"
+                                     process="@this" update=":form:delete-roles-button"
+                                     oncomplete="PF('deleteRoleDialog').hide()"/>
+                    <p:commandButton value="Нет" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteRoleDialog').hide()"/>
+                </p:confirmDialog>
+
+                <p:confirmDialog global="true" showEffect="fade" width="300">
+                    <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                     icon="pi pi-times"/>
+                </p:confirmDialog>
+            </h:form>
+        </div>
+    </h:body>
+</f:view>
+
+
+</html>

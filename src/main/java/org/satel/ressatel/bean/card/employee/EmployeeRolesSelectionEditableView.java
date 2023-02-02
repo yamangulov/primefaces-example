@@ -4,11 +4,14 @@ import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.primefaces.PrimeFaces;
+import org.primefaces.event.RateEvent;
 import org.primefaces.model.TreeNode;
 import org.satel.ressatel.bean.list.role.Role;
 import org.satel.ressatel.entity.Employee;
 import org.satel.ressatel.entity.Grade;
 import org.satel.ressatel.service.EmployeeService;
+import org.satel.ressatel.service.GradeService;
 import org.satel.ressatel.service.RoleService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -17,10 +20,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component("employeeRolesSelectionEditableView")
@@ -32,6 +34,7 @@ public class EmployeeRolesSelectionEditableView {
     private String id;
     private EmployeeService employeeService;
     private RoleService roleService;
+    private GradeService gradeService;
     private TreeNode<Role>[] selectedNodes;
     private TreeNode<Role> selectedNode;
     private TreeNode<Role> rootMain;
@@ -39,9 +42,10 @@ public class EmployeeRolesSelectionEditableView {
     private EmployeeRatingView employeeRatingView;
 
     @Inject
-    public EmployeeRolesSelectionEditableView(EmployeeService employeeService, RoleService roleService, EmployeeRatingView employeeRatingView) {
+    public EmployeeRolesSelectionEditableView(EmployeeService employeeService, RoleService roleService, GradeService gradeService, EmployeeRatingView employeeRatingView) {
         this.employeeService = employeeService;
         this.roleService = roleService;
+        this.gradeService = gradeService;
         this.employeeRatingView = employeeRatingView;
         init();
     }
@@ -63,6 +67,47 @@ public class EmployeeRolesSelectionEditableView {
         selectAndGradeNodes(rootExtra, idsExtra, extraRoleMap);
     }
 
+    public void onMainRate(RateEvent<String> rateEvent) {
+        Integer selectedRoleId =
+                (Integer) rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id");
+        unselectOther(rootMain, selectedRoleId);
+        PrimeFaces.current().ajax().update(rateEvent.getComponent().getParent().getParent());
+//        log.info("main rate event: role_id {} rating {}, role_value {}",
+//                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id"),
+//                rateEvent.getRating(),
+//                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("value"));
+    }
+
+    private void unselectOther(TreeNode<Role> rootMain, Integer selectedRoleId) {
+        rootMain.getChildren().forEach(roleTreeNode ->  {
+                roleTreeNode.setSelectable(true);
+                roleTreeNode.setSelected(Objects.equals(roleTreeNode.getData().getId(), selectedRoleId));
+            });
+    }
+
+    public void onMainCancel(AjaxBehaviorEvent rateEvent) {
+//        log.info("main cancel event: role_id {}, role_value {}",
+//                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id"),
+//                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("value"));
+    }
+
+    public void onExtraRate(RateEvent<String> rateEvent) {
+        Integer role_id = (Integer) rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id");
+        Integer rating = Integer.parseInt(rateEvent.getRating());
+//        log.info("extra rate event: role_id {} rating {}, role_value {}",
+//                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id"),
+//                rateEvent.getRating(),
+//                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("value"));
+    }
+
+    public void onExtraCancel(AjaxBehaviorEvent rateEvent) {
+        Integer role_id = (Integer) rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id");
+
+//        log.info("extra cancel event: role_id {}, role_value {}",
+//                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id"),
+//                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("value"));
+    }
+
     private void selectAndGradeNodes(TreeNode<Role> root, Set<Integer> ids,
                                      Map<String, Grade> roleMap) {
         root.setSelected(ids.contains(root.getData().getId()));
@@ -77,19 +122,37 @@ public class EmployeeRolesSelectionEditableView {
         }
     }
 
+//    private List<Role> getOldSelectedNodes(TreeNode<Role> root) {
+//        List<Role> roles = new ArrayList<>();
+//        if (root.isSelected()) {
+//            roles.add(root.getData());
+//        }
+//        if (root.getChildCount() != 0) {
+//            root.getChildren().forEach(roleTreeNode ->  {
+//                if (roleTreeNode.isSelected()) {
+//                    roles.add(roleTreeNode.getData());
+//                }
+//            });
+//        }
+//        return roles;
+//    }
+
     private TreeNode<Role> createCheckboxRoles() {
-        // повтор вызова метода необходим, чтобы в двух деревьях были действительно разные объекты TreeNode<Role>
+        // повтор вызова метода необходим, чтобы в дереве основной роли был отдельный объект TreeNode<Role>
         return roleService.getTreeNodeOfRoles();
     }
 
     private TreeNode<Role> createCheckboxExtraRoles() {
-        // повтор вызова метода необходим, чтобы в двух деревьях были действительно разные объекты TreeNode<Role>
+        // повтор вызова метода необходим, чтобы в дереве дополнительных ролей был отдельный объект TreeNode<Role>
         return roleService.getTreeNodeOfRoles();
     }
 
     public void onsubmitAll(TreeNode<Role>[] nodes) {
-        onsubmit();
-        onsubmitExtra(nodes);
+        String employeeId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("employeeId");
+
+        log.info("id from context - {}", employeeId);
+        onsubmit(employeeId);
+        onsubmitExtra(nodes, employeeId);
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {
             context.redirect(context.getRequestContextPath() + "/");
@@ -98,42 +161,53 @@ public class EmployeeRolesSelectionEditableView {
         }
     }
 
-    public void onsubmit() {
-        Employee employee = employeeService.getByStringId(id);
+    public void onsubmit(String employeeId) {
+        Employee employee = employeeService.getByStringId(employeeId);
         if (selectedNode != null) {
-            log.info("selected main node is {}", selectedNode);
             Set<org.satel.ressatel.entity.Role> roles = new HashSet<>();
-            org.satel.ressatel.entity.Role role = roleService.getById(selectedNode.getData().getId());
+            Integer roleId = selectedNode.getData().getId();
+            Integer gradeId =
+                    selectedNode.getData().getGrade() == null ? 1 : Integer.parseInt(selectedNode.getData().getGrade());
+            org.satel.ressatel.entity.Role role = roleService.getById(roleId);
             if (role != null) {
                 roles.add(role);
             }
             employee.setRoles(roles);
+            employeeService.createOrUpdateEmployee(employee);
+            roleService.setGradeIdForEmployeeRole(employee.getId(), roleId, gradeId);
         } else {
             employee.setRoles(null);
+            employeeService.createOrUpdateEmployee(employee);
         }
-        employeeService.createOrUpdateEmployee(employee);
+
 //        selectedNode = new DefaultTreeNode<>();
     }
 
-    @SuppressWarnings("unchecked")
-    public void onsubmitExtra(TreeNode<Role>[] nodes) {
-        Employee employee = employeeService.getByStringId(id);
+    public void onsubmitExtra(TreeNode<Role>[] nodes, String employeeId) {
+        Employee employee = employeeService.getByStringId(employeeId);
         if (nodes != null && nodes.length > 0) {
-            for (TreeNode<Role> node : nodes) {
-                log.info("selected node from page {}", node);
-            }
             Set<org.satel.ressatel.entity.Role> roles = new HashSet<>();
+            Map<Integer, Integer> roleIdToGradeId = new HashMap<>();
             for (TreeNode<Role> node : nodes) {
-                org.satel.ressatel.entity.Role role = roleService.getById(node.getData().getId());
+                Integer roleId = node.getData().getId();
+                org.satel.ressatel.entity.Role role = roleService.getById(roleId);
+                Integer gradeId =
+                        node.getData().getGrade() == null ? 1 : Integer.parseInt(node.getData().getGrade());
                 if (role != null) {
                     roles.add(role);
+                    roleIdToGradeId.put(roleId, gradeId);
                 }
             }
             employee.setExtraRoles(roles);
+            employeeService.createOrUpdateEmployee(employee);
+            roleIdToGradeId.forEach((roleId, gradeId) -> {
+                roleService.setGradeIdForEmployeeExtraRole(employee.getId(), roleId, gradeId);
+            });
         } else {
             employee.setExtraRoles(null);
+            employeeService.createOrUpdateEmployee(employee);
         }
-        employeeService.createOrUpdateEmployee(employee);
+
 //        selectedNodes = new DefaultTreeNode[0];
     }
 }

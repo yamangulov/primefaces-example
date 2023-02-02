@@ -33,4 +33,8 @@ public class GradeService {
     public Grade getByName(String name) {
         return gradeRepository.findByName(name);
     }
+
+    public Grade getById(String gradeId) {
+        return gradeRepository.findById(Integer.valueOf(gradeId)).orElse(null);
+    }
 }

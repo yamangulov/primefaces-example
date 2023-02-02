@@ -37,7 +37,7 @@ public class RoleService {
         roles.forEach(role -> {
             map.put(
                     role,
-                    roleRepository.getGradeIdByRoleId(role.getId()) == null ? null : gradeRepository.getReferenceById(roleRepository.getGradeIdByRoleId(role.getId()))
+                    roleRepository.getGradeIdByEmployeeIdAndRoleId(role.getId(), employee.getId()) == null ? null : gradeRepository.getReferenceById(roleRepository.getGradeIdByEmployeeIdAndRoleId(role.getId(), employee.getId()))
             );
         });
         return map;
@@ -49,7 +49,7 @@ public class RoleService {
         roles.forEach(role -> {
             map.put(
                     role.getName(),
-                    roleRepository.getGradeIdByRoleId(role.getId()) == null ? null : gradeRepository.getReferenceById(roleRepository.getGradeIdByRoleId(role.getId()))
+                    roleRepository.getGradeIdByEmployeeIdAndRoleId(role.getId(), employee.getId()) == null ? null : gradeRepository.getReferenceById(roleRepository.getGradeIdByEmployeeIdAndRoleId(role.getId(), employee.getId()))
             );
         });
         return map;
@@ -61,7 +61,7 @@ public class RoleService {
         roles.forEach(role -> {
             map.put(
                     role,
-                    gradeRepository.getReferenceById(roleRepository.getGradeIdByExtraRoleId(role.getId()))
+                    gradeRepository.getReferenceById(roleRepository.getGradeIdByEmployeeIdAndExtraRoleId(role.getId(), employee.getId()))
             );
         });
         return map;
@@ -73,7 +73,7 @@ public class RoleService {
         roles.forEach(role -> {
             map.put(
                     role.getName(),
-                    gradeRepository.getReferenceById(roleRepository.getGradeIdByExtraRoleId(role.getId()))
+                    gradeRepository.getReferenceById(roleRepository.getGradeIdByEmployeeIdAndExtraRoleId(role.getId(), employee.getId()))
             );
         });
         return map;
@@ -104,5 +104,17 @@ public class RoleService {
 
     public Role getById(Integer roleId) {
         return roleRepository.findById(roleId).orElse(null);
+    }
+
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
+    }
+
+    public void setGradeIdForEmployeeRole(Integer employeeId, Integer roleId, Integer gradeId) {
+        roleRepository.setGradeIdForEmployeeRole(employeeId, roleId, gradeId);
+    }
+
+    public void setGradeIdForEmployeeExtraRole(Integer employeeId, Integer extraRoleId, Integer gradeId) {
+        roleRepository.setGradeIdForEmployeeExtraRole(employeeId, extraRoleId, gradeId);
     }
 }

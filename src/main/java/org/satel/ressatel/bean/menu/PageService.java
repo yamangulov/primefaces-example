@@ -15,6 +15,8 @@ public class PageService {
 
         TreeNode<Page> ips = new DefaultTreeNode<Page>(new Page("Сотрудники", "folder", "employees.xhtml"), root);
         TreeNode<Page> contragents = new DefaultTreeNode<Page>(new Page("Субподрядчики", "document", null), root);
+        TreeNode<Page> roles = new DefaultTreeNode<>(new Page("Роли", "document", "roles_directory.xhtml"), root);
+        TreeNode<Page> skills = new DefaultTreeNode<>(new Page("Компетенции", "document", "skills_directory.xhtml"), root);
 
         //ИП/ГПХ
         TreeNode<Page> ip =

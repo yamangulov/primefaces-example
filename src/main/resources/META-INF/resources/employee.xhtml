@@ -74,29 +74,6 @@
                         <h:outputText styleClass="fieldData" value="#{employeeCardView.archived}"/>
                     </div>
 
-                    <div class="col-12 md:col-3">
-                        <h3>Профиль роли сотрудника</h3>
-                        <div class="col-12 md:col-12">
-                            <h4>Основная роль</h4>
-                            <h:outputText  styleClass="fieldData mb-4" value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
-                            <p:rating id="rate_1" value="#{employeeCardView.employeeRatingView.mainGradeId}" readonly="false" stars="6"/>
-                        </div>
-                        <div class="col-12 md:col-12">
-                            <h4>Дополнительные роли</h4>
-                            <p:dataList value="#{employeeCardView.employeeRatingView.extraRoleEntryList}"
-                                        var="entry" styleClass="noBorders" itemType="none">
-                                <p>
-                                    #{entry.key.name}
-                                </p>
-                                <p:rating value="#{entry.value.id}" readonly="false" stars="6"/>
-                            </p:dataList>
-                        </div>
-                        <div class="col-12 md:col-8">
-                            <p:button value="Редактировать" icon="pi pi-pencil"
-                                      href="/employee/roles/edit/#{employeeCardView.id}"/>
-                        </div>
-                    </div>
-
                     <p:divider/>
 
                     <div class="col-12 md:col-3">
@@ -139,6 +116,28 @@
                 <p:divider/>
                 <div class="grid ui-fluid">
                     <div class="col-12 md:col-4">
+                        <h3>Профиль роли сотрудника</h3>
+                        <div class="col-12 md:col-12">
+                            <h4>Основная роль</h4>
+                            <h:outputText  styleClass="fieldData mb-4" value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
+                            <p:rating id="rate_1" value="#{employeeCardView.employeeRatingView.mainGradeId}" readonly="false" stars="6"/>
+                        </div>
+                        <div class="col-12 md:col-12">
+                            <h4>Дополнительные роли</h4>
+                            <p:dataList value="#{employeeCardView.employeeRatingView.extraRoleEntryList}"
+                                        var="entry" styleClass="noBorders" itemType="none">
+                                <p>
+                                    #{entry.key.name}
+                                </p>
+                                <p:rating value="#{entry.value.id}" readonly="false" stars="6"/>
+                            </p:dataList>
+                        </div>
+                        <div class="col-12 md:col-8">
+                            <p:button value="Редактировать" icon="pi pi-pencil"
+                                      href="/employee/roles/edit/#{employeeCardView.id}"/>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4">
                         <h3>Квалификационный профиль сотрудника</h3>
                         <p:dataList value="#{employeeCardView.skillNamesSet}"
                                     var="level" styleClass="noBorders" itemType="none">
@@ -146,18 +145,15 @@
                                 #{level}
                             </p>
                         </p:dataList>
-                        <div class="col-12 md:col-4">
-                            <p:commandButton icon="pi pi-window-maximize"
-                                             oncomplete="PF('detailDialog').show()"
-                                             value="Подробности"/>
+                        <div class="col-12 md:col-8">
+                            <p:button value="Редактировать" icon="pi pi-pencil"
+                                      href="/employee/skills/edit/#{employeeCardView.id}"/>
                         </div>
                     </div>
                     <div class="col-12 md:col-4">
                         <h3>Дополнительная информация от сотрудника</h3>
                         <h:outputText styleClass="fieldData" value="#{employeeCardView.selfInfo}"/>
-                    </div>
 
-                    <div class="col-12 md:col-4">
                         <h3>Дополнительная информация от руководителя</h3>
                         <h:outputText styleClass="fieldData" value="#{employeeCardView.chefInfo}"/>
                     </div>

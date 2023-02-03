@@ -32,6 +32,13 @@
             </h:form>
             <h:form>
                 <p:growl id="msgs" showDetail="true" escape="false"/>
+                <p:commandButton value="Сохранить" update="msgs" icon="pi pi-save" styleClass="mt-3" partialSubmit="true"
+                                 action="#{employeeRolesSelectionEditableView.onsubmitAll(employeeRolesSelectionEditableView.selectedNodes)}">
+                    <f:param name="employeeId" value="#{param['id']}"/>
+                </p:commandButton>
+                <p:button icon="pi pi-arrow-circle-left" styleClass="mt-3 ml-3"
+                          href="/employee/#{employeeRolesSelectionEditableView.id}"
+                          value="Отменить"/>
                 <div class="grid ui-fluid">
                     <div class="col-12 md:col-6">
                         <h2>Основная роль</h2>

@@ -7,6 +7,8 @@ import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.satel.ressatel.entity.Employee;
 import org.satel.ressatel.entity.Skill;
+import org.satel.ressatel.entity.SkillGrade;
+import org.satel.ressatel.repository.SkillGradeRepository;
 import org.satel.ressatel.repository.SkillRepository;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +20,12 @@ import java.util.stream.Collectors;
 @Log4j2
 public class SkillService {
     private final SkillRepository skillRepository;
+    private final SkillGradeRepository skillGradeRepository;
 
     @Inject
-    public SkillService(SkillRepository skillRepository) {
+    public SkillService(SkillRepository skillRepository, SkillGradeRepository skillGradeRepository) {
         this.skillRepository = skillRepository;
+        this.skillGradeRepository = skillGradeRepository;
     }
 
     public static Set<Skill> getSkillsWithParents(Set<Skill> skills) {
@@ -102,5 +106,17 @@ public class SkillService {
 
     public Set<String> getEmployeeSkillNames(Employee employee) {
         return employee.getSkills().stream().map(Skill::getName).collect(Collectors.toSet());
+    }
+
+    public Map<Skill, SkillGrade> getSkillMap(Employee employee) {
+        Map<Skill, SkillGrade> map = new HashMap<>();
+        Set<Skill> skills = employee.getSkills();
+        skills.forEach(skill -> {
+            map.put(
+                    skill,
+                    skillGradeRepository.getReferenceById(skillRepository.getSkillGradeIdByEmployeeIdAndSkillId(skill.getId(), employee.getId()))
+            );
+        });
+        return map;
     }
 }

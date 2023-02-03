@@ -70,6 +70,7 @@ public class EmployeeCardView {
     private GradeSelectView gradeSelectView;
     private EnglishLevelSelectView englishLevelSelectView;
     private EmployeeRatingView employeeRatingView;
+    private EmployeeSkillRatingView employeeSkillRatingView;
 
     @Inject
     public EmployeeCardView(EmployeeService employeeService,
@@ -83,6 +84,7 @@ public class EmployeeCardView {
                             GradeSelectView gradeSelectView,
                             EnglishLevelSelectView englishLevelSelectView,
                             EmployeeRatingView employeeRatingView,
+                            EmployeeSkillRatingView employeeSkillRatingView,
                             EmployeeDepartmentService employeeDepartmentService,
                             FinDepartmentService finDepartmentService,
                             OrgDepartmentService orgDepartmentService,
@@ -99,6 +101,7 @@ public class EmployeeCardView {
         this.gradeSelectView = gradeSelectView;
         this.englishLevelSelectView = englishLevelSelectView;
         this.employeeRatingView = employeeRatingView;
+        this.employeeSkillRatingView = employeeSkillRatingView;
         this.employeeDepartmentService = employeeDepartmentService;
         this.finDepartmentService = finDepartmentService;
         this.orgDepartmentService = orgDepartmentService;

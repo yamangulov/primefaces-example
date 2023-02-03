@@ -13,6 +13,8 @@
     <f:viewAction action="#{employeeSkillsSelectionView.onload()}"/>
     <f:viewParam name="id" value="#{employeeCardView.employeeRatingView.id}"/>
     <f:viewAction action="#{employeeCardView.employeeRatingView.onload}"/>
+    <f:viewParam name="id" value="#{employeeCardView.employeeSkillRatingView.id}"/>
+    <f:viewAction action="#{employeeCardView.employeeSkillRatingView.onload}"/>
 </f:metadata>
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
@@ -35,10 +37,10 @@
             <h:form id="form">
                 <div class="grid ui-fluid">
                     <div class="col-12 md:col-2">
-                        <p:button href="/employee/edit/#{employeeCardView.id}" value="Редактировать"/>
+                        <p:button icon="pi pi-pencil" href="/employee/edit/#{employeeCardView.id}" value="Редактировать"/>
                     </div>
                     <div class="col-12 md:col-2">
-                        <p:button href="/" value="На главную"/>
+                        <p:button icon="pi pi-home" href="/" value="На главную"/>
                     </div>
                 </div>
                 <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false"
@@ -119,33 +121,34 @@
                         <h3>Профиль роли сотрудника</h3>
                         <div class="col-12 md:col-12">
                             <h4>Основная роль</h4>
-                            <h:outputText  styleClass="fieldData mb-4" value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
-                            <p:rating id="rate_1" value="#{employeeCardView.employeeRatingView.mainGradeId}" readonly="false" stars="6"/>
+                            <h:outputText  styleClass="fieldData" value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
+                            <p:rating id="rate_1" styleClass="mt-4" value="#{employeeCardView.employeeRatingView.mainGradeId}" readonly="false" stars="6"/>
                         </div>
                         <div class="col-12 md:col-12">
                             <h4>Дополнительные роли</h4>
                             <p:dataList value="#{employeeCardView.employeeRatingView.extraRoleEntryList}"
-                                        var="entry" styleClass="noBorders" itemType="none">
+                                        var="entry" styleClass="noBorders -ml-6 -mt-4" itemType="none">
                                 <p>
                                     #{entry.key.name}
                                 </p>
                                 <p:rating value="#{entry.value.id}" readonly="false" stars="6"/>
                             </p:dataList>
                         </div>
-                        <div class="col-12 md:col-8">
+                        <div class="col-12 md:col-6">
                             <p:button value="Редактировать" icon="pi pi-pencil"
                                       href="/employee/roles/edit/#{employeeCardView.id}"/>
                         </div>
                     </div>
                     <div class="col-12 md:col-4">
                         <h3>Квалификационный профиль сотрудника</h3>
-                        <p:dataList value="#{employeeCardView.skillNamesSet}"
-                                    var="level" styleClass="noBorders" itemType="none">
+                        <p:dataList value="#{employeeCardView.employeeSkillRatingView.skillList}"
+                                    var="entry" styleClass="noBorders -ml-6" itemType="none">
                             <p>
-                                #{level}
+                                #{entry.key.name}
                             </p>
+                            <p:rating value="#{entry.value.id}" readonly="false" stars="6"/>
                         </p:dataList>
-                        <div class="col-12 md:col-8">
+                        <div class="col-12 md:col-6">
                             <p:button value="Редактировать" icon="pi pi-pencil"
                                       href="/employee/skills/edit/#{employeeCardView.id}"/>
                         </div>
@@ -205,37 +208,12 @@
                 </div>
                 <div class="grid ui-fluid">
                     <div class="col-12 md:col-2">
-                        <p:button href="/employee/edit/#{employeeCardView.id}" value="Редактировать"/>
+                        <p:button icon="pi pi-pencil" href="/employee/edit/#{employeeCardView.id}" value="Редактировать"/>
                     </div>
                     <div class="col-12 md:col-2">
-                        <p:button href="/" value="На главную"/>
+                        <p:button icon="pi pi-home" href="/" value="На главную"/>
                     </div>
                 </div>
-            </h:form>
-            <h:form id="dialogs">
-                <p:dialog header="Компетенции сотрудника" showEffect="fade" modal="true"
-                          widgetVar="detailDialog"
-                          responsive="true">
-                    <p:outputPanel id="detail-skill-content" class="ui-fluid">
-                        <p:dataList value="#{employeeCardView.skillNamesSet}"
-                                    var="level" styleClass="noBorders" itemType="none">
-                            <p>
-                                #{level}
-                            </p>
-                            <div>
-                                <p:rating value="3" readonly="false" stars="6"/>
-                            </div>
-                            <p><h:outputText>Здесь будут подробности оценки навыка</h:outputText></p>
-                            <p:divider/>
-                        </p:dataList>
-                    </p:outputPanel>
-                    <f:facet name="footer">
-                        <p:button value="Редактировать" icon="pi pi-pencil"
-                                         href="/employee/skills/edit/#{employeeCardView.id}"/>
-                        <p:commandButton value="Закрыть" icon="pi pi-times" onclick="PF('detailDialog').hide()"
-                                         class="ui-button-secondary" type="button"/>
-                    </f:facet>
-                </p:dialog>
             </h:form>
         </div>
     </h:body>

@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.satel.ressatel.entity.Employee;
+import org.satel.ressatel.entity.Role;
 import org.satel.ressatel.entity.Skill;
 import org.satel.ressatel.entity.SkillGrade;
 import org.satel.ressatel.repository.SkillGradeRepository;
@@ -108,9 +109,11 @@ public class SkillService {
         return employee.getSkills().stream().map(Skill::getName).collect(Collectors.toSet());
     }
 
-    public Map<Skill, SkillGrade> getSkillMap(Employee employee) {
+    public Map<Skill, SkillGrade> getMainSkillMap(Employee employee, Role role) {
         Map<Skill, SkillGrade> map = new HashMap<>();
-        Set<Skill> skills = employee.getSkills();
+//        Set<Skill> skills = employee.getSkills();
+        Set<Integer> skillIds = skillRepository.getSkillIdsByEmployeeIdAndRoleId(employee.getId(), role.getId());
+        Set<Skill> skills = skillIds.stream().map(skillRepository::getReferenceById).collect(Collectors.toSet());
         skills.forEach(skill -> {
             map.put(
                     skill,

@@ -15,6 +15,8 @@
     <f:viewAction action="#{employeeCardView.employeeRatingView.onload}"/>
     <f:viewParam name="id" value="#{employeeCardView.employeeSkillRatingView.id}"/>
     <f:viewAction action="#{employeeCardView.employeeSkillRatingView.onload}"/>
+    <f:viewParam name="id" value="#{employeeCardView.employeeRatingView.employeeSkillRatingView.id}"/>
+    <f:viewAction action="#{employeeCardView.employeeRatingView.employeeSkillRatingView.onload}"/>
 </f:metadata>
 
 <f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
@@ -120,37 +122,56 @@
                     <div class="col-12 md:col-4">
                         <h3>Профиль роли сотрудника</h3>
                         <div class="col-12 md:col-12">
-                            <h4>Основная роль</h4>
+                            <div class="col-12 md:col-12">
+                                <div class="col-12 md:col-6">
+                                    <h4>Основная роль</h4>
+                                </div>
+                                <div class="col-12 md:col-6" style="float: right">
+                                    <p:button value="Редактировать роли" icon="pi pi-pencil" href="/employee/roles/edit/#{employeeCardView.id}"/>
+                                </div>
+                            </div>
+
                             <h:outputText  styleClass="fieldData" value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
                             <p:rating id="rate_1" styleClass="mt-4" value="#{employeeCardView.employeeRatingView.mainGradeId}" readonly="false" stars="6"/>
-                        </div>
-                        <div class="col-12 md:col-12">
-                            <h4>Дополнительные роли</h4>
-                            <p:dataList value="#{employeeCardView.employeeRatingView.extraRoleEntryList}"
-                                        var="entry" styleClass="noBorders -ml-6 -mt-4" itemType="none">
+                            <p:dataList value="#{employeeCardView.employeeRatingView.employeeSkillRatingView.mainSkillList}"
+                                        var="entry" styleClass="noBorders -ml-6" itemType="none"
+                                        emptyMessage="Оценка данной компетенции не проводилась">
                                 <p>
                                     #{entry.key.name}
                                 </p>
-                                <p:rating value="#{entry.value.id}" readonly="false" stars="6"/>
                             </p:dataList>
+                            <div class="col-12 md:col-6">
+                                <p:button value="Редактировать компетенции" icon="pi pi-pencil" href="/employee/skills/edit-main-skills/#{employeeCardView.id}"/>
+                            </div>
                         </div>
-                        <div class="col-12 md:col-6">
-                            <p:button value="Редактировать" icon="pi pi-pencil"
-                                      href="/employee/roles/edit/#{employeeCardView.id}"/>
-                        </div>
-                    </div>
-                    <div class="col-12 md:col-4">
-                        <h3>Квалификационный профиль сотрудника</h3>
-                        <p:dataList value="#{employeeCardView.employeeSkillRatingView.skillList}"
-                                    var="entry" styleClass="noBorders -ml-6" itemType="none">
-                            <p>
-                                #{entry.key.name}
-                            </p>
-                            <p:rating value="#{entry.value.id}" readonly="false" stars="6"/>
-                        </p:dataList>
-                        <div class="col-12 md:col-6">
-                            <p:button value="Редактировать" icon="pi pi-pencil"
-                                      href="/employee/skills/edit/#{employeeCardView.id}"/>
+                        <div class="col-12 md:col-12">
+                            <div class="col-12 md:col-12">
+                                <div class="col-12 md:col-6">
+                                    <h4>Дополнительные роли</h4>
+                                </div>
+                                <div class="col-12 md:col-6" style="float: right">
+                                    <p:button value="Редактировать роли" icon="pi pi-pencil" href="/employee/roles/edit/#{employeeCardView.id}"/>
+                                </div>
+                            </div>
+                            <p:dataList value="#{employeeCardView.employeeRatingView.extraRoleEntryList}"
+                                        emptyMessage="Роли не назначены"
+                                        var="entry2" styleClass="noBorders -ml-6 -mt-4" itemType="none">
+                                <p>
+                                    #{entry2.key.name}
+                                </p>
+                                <p:rating value="#{entry2.value.id}" readonly="false" stars="6"/>
+                                <p:dataList
+                                        value="#{employeeCardView.employeeSkillRatingView.getRoleExtraSkillList(entry2.key.id)}"
+                                        var="entry3" styleClass="noBorders -ml-6"
+                                        itemType="none" emptyMessage="Оценка данной компетенции не проводилась">
+                                    <p>
+                                        #{entry3.key.name}
+                                    </p>
+                                </p:dataList>
+                            </p:dataList>
+                            <div class="col-12 md:col-6">
+                                <p:button value="Редактировать компетенции" icon="pi pi-pencil" href="/employee/skills/edit-extra-skills/#{employeeCardView.id}"/>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 md:col-4">

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="employees_to_skills_add_constraint_on_role_id" author="yamangulov">
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="employees_to_skills" constraintName="employees_to_skills_role_fk"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="role"
+                                 validate="true"/>
+
+    </changeSet>
+</databaseChangeLog>

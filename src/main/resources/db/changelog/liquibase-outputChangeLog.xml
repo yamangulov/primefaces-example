@@ -68,5 +68,7 @@
     <include file="src/main/resources/db/changelog/employees_to_roles_add_constraint_on_grade_id.xml"/>
     <include file="src/main/resources/db/changelog/employees_to_extra_roles.xml"/>
     <include file="src/main/resources/db/changelog/employees_to_extra_roles_constraints.xml"/>
+    <include file="src/main/resources/db/changelog/employee_to_skills_add_column_role_id.xml"/>
+    <include file="src/main/resources/db/changelog/employees_to_skills_add_constraint_on_role_id.xml"/>
 
 </databaseChangeLog>

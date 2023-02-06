@@ -27,15 +27,19 @@ public class EmployeeRatingView {
     private String id;
     private String mainRoleName;
     private Integer mainGradeId;
+    private List<Role> mainRoles;
     private List<Map.Entry<Role, Grade>> extraRoleEntryList;
 
     private final RoleService roleService;
     private final EmployeeService employeeService;
+    private final EmployeeSkillRatingView employeeSkillRatingView;
 
     @Inject
-    public EmployeeRatingView(RoleService roleService, EmployeeService employeeService) {
+    public EmployeeRatingView(RoleService roleService, EmployeeService employeeService, EmployeeSkillRatingView employeeSkillRatingView) {
         this.roleService = roleService;
         this.employeeService = employeeService;
+        this.employeeSkillRatingView = employeeSkillRatingView;
+        this.mainRoles = new ArrayList<>();
     }
 
 
@@ -43,10 +47,12 @@ public class EmployeeRatingView {
         Employee employee = employeeService.getByStringId(id);
         if (!roleService.getMainRoleMap(employee).isEmpty()) {
             roleService.getMainRoleMap(employee).forEach((role1, grade1) -> {
+                mainRoles.add(role1);
                 mainRoleName = role1.getName();
                 mainGradeId = grade1 == null ? null : grade1.getId();
             });
         }
+        this.employeeSkillRatingView.setMainRoles(mainRoles);
         if (!roleService.getExtraRoleMap(employee).isEmpty()) {
             extraRoleEntryList = new ArrayList<>(roleService.getExtraRoleMap(employee).entrySet());
         }

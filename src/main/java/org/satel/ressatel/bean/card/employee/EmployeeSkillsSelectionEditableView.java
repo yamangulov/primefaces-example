@@ -1,6 +1,5 @@
 package org.satel.ressatel.bean.card.employee;
 
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,10 @@ import org.satel.ressatel.bean.list.skill.Skill;
 import org.satel.ressatel.entity.Employee;
 import org.satel.ressatel.service.EmployeeService;
 import org.satel.ressatel.service.SkillService;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -21,12 +23,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component("employeeSkillsSelectionEditableView")
-@RequestScoped
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Getter
 @Setter
 @Log4j2
 public class EmployeeSkillsSelectionEditableView {
     private String id;
+    private String roleId;
 
     private SkillService skillService;
     private EmployeeService employeeService;
@@ -37,14 +40,14 @@ public class EmployeeSkillsSelectionEditableView {
     public EmployeeSkillsSelectionEditableView(SkillService skillService, EmployeeService employeeService) {
         this.skillService = skillService;
         this.employeeService = employeeService;
-        init();
     }
 
     private void init() {
-        root = createCheckboxSkills();
+        root = skillService.getTreeNodeOfSkillsByRole(this.roleId);
     }
 
     public void onload() {
+        init();
         Employee employee = employeeService.getByStringId(id);
         Set<org.satel.ressatel.entity.Skill> skills = employee.getSkills();
         Set<Integer> ids = skills.stream().map(org.satel.ressatel.entity.Skill::getId).collect(Collectors.toSet());
@@ -58,10 +61,6 @@ public class EmployeeSkillsSelectionEditableView {
                 checkSelectedNodesRecursively(skillTreeNode, ids);
             });
         }
-    }
-
-    private TreeNode<Skill> createCheckboxSkills() {
-        return skillService.getTreeNodeOfSkills();
     }
 
     @SuppressWarnings("unchecked")

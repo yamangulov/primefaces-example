@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 @Log4j2
 public class EmployeeExtraSkillsSelectionEditableView {
     private String id;
+    private String roleId;
 
     private SkillService skillService;
     private EmployeeService employeeService;
@@ -42,7 +43,7 @@ public class EmployeeExtraSkillsSelectionEditableView {
     }
 
     private void init() {
-        root = skillService.getTreeNodeOfSkills(this.id);
+        root = skillService.getTreeNodeOfSkillsByRole(this.roleId);
     }
 
     public void onload() {

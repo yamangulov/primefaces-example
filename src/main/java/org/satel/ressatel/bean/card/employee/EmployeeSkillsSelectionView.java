@@ -38,7 +38,7 @@ public class EmployeeSkillsSelectionView {
     }
 
     private void init() {
-        root = createCheckboxSkills();
+        root = skillService.getTreeNodeOfSkills();
     }
 
     public void onload() {
@@ -57,10 +57,6 @@ public class EmployeeSkillsSelectionView {
                 checkSelectedNodesRecursively(skillTreeNode, ids);
             });
         }
-    }
-
-    private TreeNode<Skill> createCheckboxSkills() {
-        return skillService.getTreeNodeOfSkills();
     }
 
     public void onsubmit(TreeNode<Skill>[] nodes) {

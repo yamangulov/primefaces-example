@@ -39,8 +39,12 @@
                         selectionMode="checkbox" cache="false"
                         selection="#{employeeSkillsSelectionEditableView.selectedNodes}">
                     <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
-                        <h:outputText value="#{skill.name}"/> <p:rating value="3" readonly="false"/>
-                        <p:inputTextarea placeholder="Введите подробности об уровне навыка"/>
+                        <h:outputText value="#{skill.name}"/>
+                        <p:rating value="3" readonly="false"
+                                  rendered="#{employeeSkillsSelectionEditableView.leaves.contains(skill.name)}"/>
+                        <p:inputTextarea
+                                placeholder="Введите подробности об уровне навыка"
+                                rendered="#{employeeSkillsSelectionEditableView.leaves.contains(skill.name)}"/>
                     </p:treeNode>
                 </p:tree>
 

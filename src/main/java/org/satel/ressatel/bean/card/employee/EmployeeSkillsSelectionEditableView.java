@@ -18,7 +18,9 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,7 @@ public class EmployeeSkillsSelectionEditableView {
     private EmployeeService employeeService;
     private TreeNode<Skill>[] selectedNodes;
     private TreeNode<Skill> root;
+    private List<String> leaves = new ArrayList<>();
 
     @Inject
     public EmployeeSkillsSelectionEditableView(SkillService skillService, EmployeeService employeeService) {
@@ -56,6 +59,9 @@ public class EmployeeSkillsSelectionEditableView {
 
     private void checkSelectedNodesRecursively(TreeNode<Skill> root, Set<Integer> ids) {
         root.setSelected(ids.contains(root.getData().getId()));
+        if (root.getChildCount() == 0) {
+            leaves.add(root.getData().getName());
+        }
         if (root.getChildCount() != 0) {
             root.getChildren().forEach(skillTreeNode -> {
                 checkSelectedNodesRecursively(skillTreeNode, ids);

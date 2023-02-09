@@ -5,10 +5,7 @@ import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
-import org.satel.ressatel.entity.Employee;
-import org.satel.ressatel.entity.Role;
-import org.satel.ressatel.entity.Skill;
-import org.satel.ressatel.entity.SkillGrade;
+import org.satel.ressatel.entity.*;
 import org.satel.ressatel.repository.SkillGradeRepository;
 import org.satel.ressatel.repository.SkillRepository;
 import org.springframework.stereotype.Component;
@@ -22,11 +19,15 @@ import java.util.stream.Collectors;
 public class SkillService {
     private final SkillRepository skillRepository;
     private final SkillGradeRepository skillGradeRepository;
+    private final RoleToSkillService roleToSkillService;
+    private final RoleService roleService;
 
     @Inject
-    public SkillService(SkillRepository skillRepository, SkillGradeRepository skillGradeRepository) {
+    public SkillService(SkillRepository skillRepository, SkillGradeRepository skillGradeRepository, RoleToSkillService roleToSkillService, RoleService roleService) {
         this.skillRepository = skillRepository;
         this.skillGradeRepository = skillGradeRepository;
+        this.roleToSkillService = roleToSkillService;
+        this.roleService = roleService;
     }
 
     public static Set<Skill> getSkillsWithParents(Set<Skill> skills) {
@@ -78,8 +79,28 @@ public class SkillService {
     }
 
     public DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> getTreeNodeOfSkills() {
-        DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> root = new DefaultTreeNode<>(new org.satel.ressatel.bean.list.skill.Skill(0, "Компетенции", "Folder"), null);
         List<Skill> skills = getSkills();
+        return getSkillDefaultTreeNode(skills);
+    }
+
+    public DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> getTreeNodeOfSkills(String employeeId) {
+        List<Skill> skills = getExtraRolesSkills(employeeId);
+        return getSkillDefaultTreeNode(skills);
+    }
+
+    private List<Role> getExtraRolesByEmployeeId(String employeeId) {
+        return getExtraRoleIdsByEmployeeId(Integer.valueOf(employeeId))
+                .stream().map(roleService::getById).collect(Collectors.toList());
+    }
+    public List<Skill> getExtraRolesSkills(String employeeId) {
+        Set<Set<RoleToSkill>> skillsSet = getExtraRolesByEmployeeId(employeeId).stream().map(roleToSkillService::getRoleToSkillByRole).collect(Collectors.toSet());
+        Set<RoleToSkill> roleToSkills = new HashSet<>();
+        skillsSet.forEach(roleToSkills::addAll);
+        return roleToSkills.stream().map(RoleToSkill::getSkill).distinct().collect(Collectors.toList());
+    }
+
+    private DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> getSkillDefaultTreeNode(List<Skill> skills) {
+        DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> root = new DefaultTreeNode<>(new org.satel.ressatel.bean.list.skill.Skill(0, "Компетенции", "Folder"), null);
         Map<Integer, Skill> parents = new HashMap<>();
         skills.forEach(skill -> parents.put(skill.getId(), skill.getParent() == null ? null : skill.getParent()));
         Map<Integer, TreeNode<org.satel.ressatel.bean.list.skill.Skill>> nodes = new HashMap<>();
@@ -96,9 +117,18 @@ public class SkillService {
             TreeNode<org.satel.ressatel.bean.list.skill.Skill> parentNode
                     = parent == null ? root : nodes.get(parent.getId());
             node.setParent(parentNode);
-            parentNode.getChildren().add(node);
+            if (parentNode != null) {
+                parentNode.getChildren().add(node);
+            }
         });
         return root;
+    }
+
+    private List<Skill> getSkillsByEmployeeIdAndExtraRolesId(String employeeId) {
+        List<Integer> extraRoleIds = skillRepository.getExtraRoleIdsByEmployeeId(Integer.valueOf(employeeId));
+        List<Integer> skillIds = new ArrayList<>();
+        extraRoleIds.forEach(roleId -> skillIds.addAll(skillRepository.getSkillIdsByEmployeeIdAndRoleId(Integer.valueOf(employeeId), roleId)));
+        return skillIds.stream().map(skillRepository::getReferenceById).collect(Collectors.toList());
     }
 
     public Skill getById(Integer skillId) {
@@ -111,7 +141,6 @@ public class SkillService {
 
     public Map<Skill, SkillGrade> getMainSkillMap(Employee employee, Role role) {
         Map<Skill, SkillGrade> map = new HashMap<>();
-//        Set<Skill> skills = employee.getSkills();
         Set<Integer> skillIds = skillRepository.getSkillIdsByEmployeeIdAndRoleId(employee.getId(), role.getId());
         Set<Skill> skills = skillIds.stream().map(skillRepository::getReferenceById).collect(Collectors.toSet());
         skills.forEach(skill -> {
@@ -121,5 +150,9 @@ public class SkillService {
             );
         });
         return map;
+    }
+
+    public List<Integer> getExtraRoleIdsByEmployeeId(Integer employeeId) {
+        return skillRepository.getExtraRoleIdsByEmployeeId(employeeId);
     }
 }

@@ -39,7 +39,8 @@
             <h:form id="form">
                 <div class="grid ui-fluid">
                     <div class="col-12 md:col-2">
-                        <p:button icon="pi pi-pencil" href="/employee/edit/#{employeeCardView.id}" value="Редактировать"/>
+                        <p:button icon="pi pi-pencil" href="/employee/edit/#{employeeCardView.id}"
+                                  value="Редактировать"/>
                     </div>
                     <div class="col-12 md:col-2">
                         <p:button icon="pi pi-home" href="/" value="На главную"/>
@@ -123,55 +124,66 @@
                         <h3>Профиль роли сотрудника</h3>
                         <div class="col-12 md:col-12">
                             <div class="col-12 md:col-12">
-                                <div class="col-12 md:col-6">
+                                <div class="col-12 md:col-6" style="float: left">
                                     <h4>Основная роль</h4>
                                 </div>
                                 <div class="col-12 md:col-6" style="float: right">
-                                    <p:button value="Редактировать роли" icon="pi pi-pencil" href="/employee/roles/edit/#{employeeCardView.id}"/>
+                                    <p:button value="Редактировать роли" icon="pi pi-pencil"
+                                              href="/employee/roles/edit/#{employeeCardView.id}"/>
                                 </div>
                             </div>
-
-                            <h:outputText  styleClass="fieldData" value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
-                            <p:rating id="rate_1" styleClass="mt-4" value="#{employeeCardView.employeeRatingView.mainGradeId}" readonly="false" stars="6"/>
-                            <p:dataList value="#{employeeCardView.employeeRatingView.employeeSkillRatingView.mainSkillList}"
-                                        var="entry" styleClass="noBorders -ml-6" itemType="none"
+                            <div class="col-12 md:col-12" style="float: left">
+                                <div class="col-12 md:col-6" style="float: right">
+                                    <p:button value="Редактировать компетенции" icon="pi pi-pencil"
+                                              href="/employee/skills/edit-main-skills/#{employeeCardView.id}/#{employeeCardView.employeeRatingView.mainRoles.get(0).id}"/>
+                                </div>
+                                <h:outputText styleClass="fieldData"
+                                              value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
+                                <p:rating id="rate_1" styleClass="mt-4"
+                                          value="#{employeeCardView.employeeRatingView.mainGradeId}" readonly="false"
+                                          stars="6"/>
+                                <p:dataList
+                                        value="#{employeeCardView.employeeRatingView.employeeSkillRatingView.mainSkillList}"
+                                        var="entry" styleClass="noBorders -ml-6" itemType="none" style="float: left"
                                         emptyMessage="Оценка данной компетенции не проводилась">
-                                <p>
-                                    #{entry.key.name}
-                                </p>
-                            </p:dataList>
-                            <div class="col-12 md:col-6">
-                                <p:button value="Редактировать компетенции" icon="pi pi-pencil" href="/employee/skills/edit-main-skills/#{employeeCardView.id}"/>
+                                    <p>
+                                        #{entry.key.name}
+                                    </p>
+                                </p:dataList>
                             </div>
+
                         </div>
                         <div class="col-12 md:col-12">
                             <div class="col-12 md:col-12">
-                                <div class="col-12 md:col-6">
+                                <div class="col-12 md:col-6" style="float: left">
                                     <h4>Дополнительные роли</h4>
                                 </div>
                                 <div class="col-12 md:col-6" style="float: right">
-                                    <p:button value="Редактировать роли" icon="pi pi-pencil" href="/employee/roles/edit/#{employeeCardView.id}"/>
+                                    <p:button value="Редактировать роли" icon="pi pi-pencil"
+                                              href="/employee/roles/edit/#{employeeCardView.id}"/>
                                 </div>
                             </div>
                             <p:dataList value="#{employeeCardView.employeeRatingView.extraRoleEntryList}"
-                                        emptyMessage="Роли не назначены"
+                                        emptyMessage="Роли не назначены" style="float: left"
                                         var="entry2" styleClass="noBorders -ml-6 -mt-4" itemType="none">
+                                <div class="col-12 md:col-6" style="float: right">
+                                    <p:button value="Редактировать компетенции" icon="pi pi-pencil"
+                                              href="/employee/skills/edit-extra-skills/#{employeeCardView.id}/#{entry2.key.id}"/>
+                                </div>
                                 <p>
                                     #{entry2.key.name}
                                 </p>
                                 <p:rating value="#{entry2.value.id}" readonly="false" stars="6"/>
                                 <p:dataList
                                         value="#{employeeCardView.employeeSkillRatingView.getRoleExtraSkillList(entry2.key.id)}"
-                                        var="entry3" styleClass="noBorders -ml-6"
+                                        var="entry3" styleClass="noBorders -ml-6" style="float: left"
                                         itemType="none" emptyMessage="Оценка данной компетенции не проводилась">
                                     <p>
                                         #{entry3.key.name}
                                     </p>
                                 </p:dataList>
+
                             </p:dataList>
-                            <div class="col-12 md:col-6">
-                                <p:button value="Редактировать компетенции" icon="pi pi-pencil" href="/employee/skills/edit-extra-skills/#{employeeCardView.id}"/>
-                            </div>
                         </div>
                     </div>
                     <div class="col-12 md:col-4">
@@ -229,7 +241,8 @@
                 </div>
                 <div class="grid ui-fluid">
                     <div class="col-12 md:col-2">
-                        <p:button icon="pi pi-pencil" href="/employee/edit/#{employeeCardView.id}" value="Редактировать"/>
+                        <p:button icon="pi pi-pencil" href="/employee/edit/#{employeeCardView.id}"
+                                  value="Редактировать"/>
                     </div>
                     <div class="col-12 md:col-2">
                         <p:button icon="pi pi-home" href="/" value="На главную"/>

@@ -77,9 +77,14 @@ public class CardController {
         return "/employee_edit.xhtml?id=" + id;
     }
 
-    @GetMapping("/employee/skills/edit/{id}")
-    public String getEmployeeSkillsEditCard(@PathVariable String id) {
-        return "/employee_skills_edit.xhtml?id=" + id;
+    @GetMapping("/employee/skills/edit-main-skills/{id}/{roleId}")
+    public String getEmployeeSkillsEditCard(@PathVariable String id, @PathVariable String roleId) {
+        return "/employee_skills_edit.xhtml?id=" + id + "&roleId=" + roleId;
+    }
+
+    @GetMapping("/employee/skills/edit-extra-skills/{id}/{roleId}")
+    public String getEmployeeExtraSkillsEditCard(@PathVariable String id, @PathVariable String roleId) {
+        return "/employee_extra_skills_edit.xhtml?id=" + id + "&roleId=" + roleId;
     }
 
     @GetMapping("/employee/roles/edit/{id}")

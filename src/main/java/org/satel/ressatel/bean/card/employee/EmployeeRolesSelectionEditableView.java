@@ -92,8 +92,8 @@ public class EmployeeRolesSelectionEditableView {
     }
 
     public void onExtraRate(RateEvent<String> rateEvent) {
-        Integer role_id = (Integer) rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id");
-        Integer rating = Integer.parseInt(rateEvent.getRating());
+//        Integer role_id = (Integer) rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id");
+//        Integer rating = Integer.parseInt(rateEvent.getRating());
 //        log.info("extra rate event: role_id {} rating {}, role_value {}",
 //                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id"),
 //                rateEvent.getRating(),
@@ -101,7 +101,7 @@ public class EmployeeRolesSelectionEditableView {
     }
 
     public void onExtraCancel(AjaxBehaviorEvent rateEvent) {
-        Integer role_id = (Integer) rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id");
+//        Integer role_id = (Integer) rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id");
 
 //        log.info("extra cancel event: role_id {}, role_value {}",
 //                rateEvent.getComponent().getParent().getChildren().get(0).getAttributes().get("role_id"),
@@ -122,21 +122,6 @@ public class EmployeeRolesSelectionEditableView {
         }
     }
 
-//    private List<Role> getOldSelectedNodes(TreeNode<Role> root) {
-//        List<Role> roles = new ArrayList<>();
-//        if (root.isSelected()) {
-//            roles.add(root.getData());
-//        }
-//        if (root.getChildCount() != 0) {
-//            root.getChildren().forEach(roleTreeNode ->  {
-//                if (roleTreeNode.isSelected()) {
-//                    roles.add(roleTreeNode.getData());
-//                }
-//            });
-//        }
-//        return roles;
-//    }
-
     private TreeNode<Role> createCheckboxRoles() {
         // повтор вызова метода необходим, чтобы в дереве основной роли был отдельный объект TreeNode<Role>
         return roleService.getTreeNodeOfRoles();
@@ -150,7 +135,6 @@ public class EmployeeRolesSelectionEditableView {
     public void onsubmitAll(TreeNode<Role>[] nodes) {
         String employeeId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("employeeId");
 
-        log.info("id from context - {}", employeeId);
         onsubmit(employeeId);
         onsubmitExtra(nodes, employeeId);
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();

@@ -31,25 +31,30 @@
             </h:form>
             <h:form>
                 <p:growl id="msgs" showDetail="true" escape="false"/>
-                <p:commandButton value="Сохранить" update="msgs" icon="pi pi-save" styleClass="mt-3"
-                                 action="#{employeeSkillsSelectionEditableView.onsubmit(employeeSkillsSelectionEditableView.selectedNodes)}"/>
+                <p:commandButton value="Сохранить" update="msgs" icon="pi pi-save" styleClass="mt-3" partialSubmit="true"
+                                 action="#{employeeSkillsSelectionEditableView.onsubmit(employeeSkillsSelectionEditableView.root)}">
+                    <f:param name="employeeId" value="#{param['id']}"/>
+                </p:commandButton>
                 <p:button icon="pi pi-arrow-circle-left" styleClass="mt-3 ml-3" href="/employee/#{employeeSkillsSelectionEditableView.id}"
                           value="Отменить" />
                 <p:tree value="#{employeeSkillsSelectionEditableView.root}" var="skill"
                         selectionMode="checkbox" cache="false"
                         selection="#{employeeSkillsSelectionEditableView.selectedNodes}">
                     <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
-                        <h:outputText value="#{skill.name}"/>
-                        <p:rating value="3" readonly="false"
+                        <h:outputText skill_id="#{skill.id}" value="#{skill.name}"/>
+                        <p:rating value="#{skill.skillGrade}" readonly="false"
                                   rendered="#{employeeSkillsSelectionEditableView.leaves.contains(skill.name)}"/>
                         <p:inputTextarea
                                 placeholder="Введите подробности об уровне навыка"
                                 rendered="#{employeeSkillsSelectionEditableView.leaves.contains(skill.name)}"/>
                     </p:treeNode>
+                    <p:ajax event="unselect" listener="#{employeeSkillsSelectionEditableView.onunselect}"/>
                 </p:tree>
 
-                <p:commandButton value="Сохранить" update="msgs" icon="pi pi-save" styleClass="mt-3"
-                                 action="#{employeeSkillsSelectionEditableView.onsubmit(employeeSkillsSelectionEditableView.selectedNodes)}"/>
+                <p:commandButton value="Сохранить" update="msgs" icon="pi pi-save" styleClass="mt-3" partialSubmit="true"
+                                 action="#{employeeSkillsSelectionEditableView.onsubmit(employeeSkillsSelectionEditableView.root)}">
+                    <f:param name="employeeId" value="#{param['id']}"/>
+                </p:commandButton>
                 <p:button icon="pi pi-arrow-circle-left" styleClass="mt-3 ml-3" href="/employee/#{employeeSkillsSelectionEditableView.id}"
                           value="Отменить" />
             </h:form>

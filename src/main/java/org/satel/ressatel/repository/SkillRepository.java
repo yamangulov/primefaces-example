@@ -2,8 +2,10 @@ package org.satel.ressatel.repository;
 
 import org.satel.ressatel.entity.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -24,4 +26,8 @@ public interface SkillRepository extends JpaRepository<Skill, Integer> {
     @Query(value = "select extra_role_id from employees_to_extra_roles where employee_id = :employeeId", nativeQuery = true)
     List<Integer> getExtraRoleIdsByEmployeeId(Integer employeeId);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update employees_to_skills set skill_grade_id = :skillGradeId, role_id = :roleId where ( employee_id = :employeeId and skill_id = :skillId )", nativeQuery = true)
+    void setSkillGradeIdForEmployeeSkillAndRole(Integer employeeId, Integer skillId, Integer skillGradeId, Integer roleId);
 }

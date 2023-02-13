@@ -97,7 +97,7 @@ public class SkillService {
     }
 
     private DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> getSkillDefaultTreeNode(List<Skill> skills) {
-        DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> root = new DefaultTreeNode<>(new org.satel.ressatel.bean.list.skill.Skill(0, "Компетенции", "Folder"), null);
+        DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> root = new DefaultTreeNode<>(new org.satel.ressatel.bean.list.skill.Skill(0, "Компетенции", null, "Folder"), null);
 
         Map<Integer, Skill> parents = new HashMap<>();
         Map<Integer, TreeNode<org.satel.ressatel.bean.list.skill.Skill>> nodes = new HashMap<>();
@@ -126,7 +126,7 @@ public class SkillService {
                     cycleNodes.put(
                             skill.getId(),
                             new DefaultTreeNode<>(
-                                    new org.satel.ressatel.bean.list.skill.Skill(skill.getId(), skill.getName(), "Folder")
+                                    new org.satel.ressatel.bean.list.skill.Skill(skill.getId(), skill.getName(), null, "Folder")
                             )
                     );
                 }
@@ -170,5 +170,15 @@ public class SkillService {
 
     public List<Integer> getExtraRoleIdsByEmployeeId(Integer employeeId) {
         return skillRepository.getExtraRoleIdsByEmployeeId(employeeId);
+    }
+
+    public Map<String, SkillGrade> getSkillNameToSkillGradeMap(Employee employee, Role role) {
+        Map<String, SkillGrade> map = new HashMap<>();
+        getMainSkillMap(employee, role).forEach((key, value) -> map.put(key.getName(), value));
+        return map;
+    }
+
+    public void setSkillGradeIdForEmployeeSkillAndRole(Integer employeeId, Integer skillId, Integer skillGradeId, Integer roleId) {
+        skillRepository.setSkillGradeIdForEmployeeSkillAndRole(employeeId, skillId, skillGradeId, roleId);
     }
 }

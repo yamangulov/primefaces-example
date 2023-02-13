@@ -10,6 +10,6 @@ import lombok.*;
 public class Skill {
     private Integer id;
     private String name;
+    private String skillGrade;
     private String type;
-
 }

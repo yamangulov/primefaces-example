@@ -29,6 +29,7 @@ import java.util.Map;
 public class EmployeeSkillRatingView {
     private String id;
     private List<Role> mainRoles;
+    private List<Role> extraRoles;
     private List<Map.Entry<Skill, SkillGrade>> mainSkillList;
     private Map<Role, List<Map.Entry<Skill, SkillGrade>>> extraSkillMap;
     private final EmployeeService employeeService;
@@ -51,9 +52,14 @@ public class EmployeeSkillRatingView {
     public void onload() {
         Employee employee = employeeService.getByStringId(id);
         Role role = mainRoles.get(0); // сейчас только 1 главная роль
-        if (!skillService.getMainSkillMap(employee, role).isEmpty()) {
-            mainSkillList = new ArrayList<>(skillService.getMainSkillMap(employee, role).entrySet());
+        if (!skillService.getSkillToSkillGradeMap(employee, role).isEmpty()) {
+            mainSkillList = new ArrayList<>(skillService.getSkillToSkillGradeMap(employee, role).entrySet());
         }
+        extraRoles.forEach(extraRole -> {
+            if (!skillService.getExtraSkillToSkillGradeMap(employee, extraRole).isEmpty()) {
+                List<Map.Entry<Skill, SkillGrade>> extraSkillList = new ArrayList<>(skillService.getExtraSkillToSkillGradeMap(employee, extraRole).entrySet());
+                extraSkillMap.put(extraRole, extraSkillList);
+            }
+        });
     }
-
 }

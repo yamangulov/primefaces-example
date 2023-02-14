@@ -141,7 +141,7 @@
                                               value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
                                 <p:rating id="rate_1" styleClass="mt-4"
                                           value="#{employeeCardView.employeeRatingView.mainGradeId}" readonly="false"
-                                          stars="6"/>
+                                />
                                 <p:dataList
                                         value="#{employeeCardView.employeeRatingView.employeeSkillRatingView.mainSkillList}"
                                         var="entry" styleClass="noBorders -ml-6" itemType="none" style="float: left"
@@ -166,23 +166,25 @@
                             <p:dataList value="#{employeeCardView.employeeRatingView.extraRoleEntryList}"
                                         emptyMessage="Роли не назначены" style="float: left"
                                         var="entry2" styleClass="noBorders -ml-6 -mt-4" itemType="none">
-                                <div class="col-12 md:col-6" style="float: right">
-                                    <p:button value="Редактировать компетенции" icon="pi pi-pencil"
-                                              href="/employee/skills/edit-extra-skills/#{employeeCardView.id}/#{entry2.key.id}"/>
-                                </div>
-                                <p>
-                                    #{entry2.key.name}
-                                </p>
-                                <p:rating value="#{entry2.value.id}" readonly="false" stars="6"/>
-                                <p:dataList
-                                        value="#{employeeCardView.employeeSkillRatingView.getRoleExtraSkillList(entry2.key.id)}"
-                                        var="entry3" styleClass="noBorders -ml-6" style="float: left"
-                                        itemType="none" emptyMessage="Оценка данной компетенции не проводилась">
-                                    <p>
-                                        #{entry3.key.name}
+                                <div class="col-12 md: col-12">
+                                    <div class="col-12 md:col-6" style="float: right">
+                                        <p:button value="Редактировать компетенции" icon="pi pi-pencil"
+                                                  href="/employee/skills/edit-extra-skills/#{employeeCardView.id}/#{entry2.key.id}"/>
+                                    </div>
+                                    <p class="col-12 md:col-6" style="float: left">
+                                        #{entry2.key.name}
                                     </p>
-                                </p:dataList>
 
+                                    <p:rating styleClass="col-12 md:col-6" value="#{entry2.value.id}" readonly="false"/>
+                                    <p:dataList
+                                            value="#{employeeCardView.employeeRatingView.employeeSkillRatingView.getRoleExtraSkillList(entry2.key.id)}"
+                                            var="entry3" styleClass="noBorders -ml-6"
+                                            itemType="none" emptyMessage="Оценка данной компетенции не проводилась">
+                                        <p>
+                                            #{entry3.key.name}
+                                        </p>
+                                    </p:dataList>
+                                </div>
                             </p:dataList>
                         </div>
                     </div>

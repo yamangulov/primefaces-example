@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="employee_to_extra_skills_add_constraints" author="yamangulov">
+        <addForeignKeyConstraint baseColumnNames="skill_id"
+                                 baseTableName="employees_to_extra_skills" constraintName="employees_to_extra_skills_to_skill_fk"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="skill"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="skill_grade_id"
+                                 baseTableName="employees_to_extra_skills" constraintName="employees_to_extra_skills_to_skill_grade_fk"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="skill_grade"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="employees_to_extra_skills" constraintName="employees_to_extra_skills_to_employee_fk"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="employee"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="employees_to_extra_skills" constraintName="employees_to_extra_skills_to_role_fk"
+                                 deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="role"
+                                 validate="true"/>
+    </changeSet>
+</databaseChangeLog>

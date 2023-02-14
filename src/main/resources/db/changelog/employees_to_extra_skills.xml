@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="employees_to_extra_skills" author="yamangulov">
+        <createTable tableName="employees_to_extra_skills">
+            <column name="employee_id" type="INTEGER"/>
+            <column name="skill_id" type="INTEGER"/>
+            <column name="skill_grade_id" type="INTEGER"/>
+            <column name="role_id" type="INTEGER"/>
+            <column name="comment" type="VARCHAR(1024)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

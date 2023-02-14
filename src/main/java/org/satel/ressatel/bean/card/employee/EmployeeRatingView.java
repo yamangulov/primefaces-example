@@ -28,6 +28,7 @@ public class EmployeeRatingView {
     private String mainRoleName;
     private Integer mainGradeId;
     private List<Role> mainRoles;
+    private List<Role> extraRoles;
     private List<Map.Entry<Role, Grade>> extraRoleEntryList;
 
     private final RoleService roleService;
@@ -40,6 +41,7 @@ public class EmployeeRatingView {
         this.employeeService = employeeService;
         this.employeeSkillRatingView = employeeSkillRatingView;
         this.mainRoles = new ArrayList<>();
+        this.extraRoles = new ArrayList<>();
     }
 
 
@@ -55,7 +57,11 @@ public class EmployeeRatingView {
         this.employeeSkillRatingView.setMainRoles(mainRoles);
         if (!roleService.getExtraRoleMap(employee).isEmpty()) {
             extraRoleEntryList = new ArrayList<>(roleService.getExtraRoleMap(employee).entrySet());
+            roleService.getExtraRoleMap(employee).forEach((role, grade) -> {
+                extraRoles.add(role);
+            });
         }
+        this.employeeSkillRatingView.setExtraRoles(extraRoles);
     }
 
 }

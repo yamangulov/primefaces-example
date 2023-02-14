@@ -88,16 +88,12 @@ public class SkillService {
         return getSkillDefaultTreeNode(skills);
     }
 
-    private List<Role> getExtraRolesByEmployeeId(String employeeId) {
-        return getExtraRoleIdsByEmployeeId(Integer.valueOf(employeeId))
-                .stream().map(roleService::getById).collect(Collectors.toList());
-    }
     public List<Skill> getSkillsByRole(String roleId) {
         return roleToSkillService.getRoleToSkillByRole(roleService.getById(Integer.valueOf(roleId))).stream().map(RoleToSkill::getSkill).distinct().collect(Collectors.toList());
     }
 
     private DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> getSkillDefaultTreeNode(List<Skill> skills) {
-        DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> root = new DefaultTreeNode<>(new org.satel.ressatel.bean.list.skill.Skill(0, "Компетенции", null, "Folder"), null);
+        DefaultTreeNode<org.satel.ressatel.bean.list.skill.Skill> root = new DefaultTreeNode<>(new org.satel.ressatel.bean.list.skill.Skill(0, "Компетенции", null, null, "Folder"), null);
 
         Map<Integer, Skill> parents = new HashMap<>();
         Map<Integer, TreeNode<org.satel.ressatel.bean.list.skill.Skill>> nodes = new HashMap<>();
@@ -126,7 +122,7 @@ public class SkillService {
                     cycleNodes.put(
                             skill.getId(),
                             new DefaultTreeNode<>(
-                                    new org.satel.ressatel.bean.list.skill.Skill(skill.getId(), skill.getName(), null, "Folder")
+                                    new org.satel.ressatel.bean.list.skill.Skill(skill.getId(), skill.getName(), null, null,"Folder")
                             )
                     );
                 }
@@ -139,14 +135,6 @@ public class SkillService {
         }
     }
 
-
-    private List<Skill> getSkillsByEmployeeIdAndExtraRolesId(String employeeId) {
-        List<Integer> extraRoleIds = skillRepository.getExtraRoleIdsByEmployeeId(Integer.valueOf(employeeId));
-        List<Integer> skillIds = new ArrayList<>();
-        extraRoleIds.forEach(roleId -> skillIds.addAll(skillRepository.getSkillIdsByEmployeeIdAndRoleId(Integer.valueOf(employeeId), roleId)));
-        return skillIds.stream().map(skillRepository::getReferenceById).collect(Collectors.toList());
-    }
-
     public Skill getById(Integer skillId) {
         return skillRepository.findById(skillId).orElse(null);
     }
@@ -155,7 +143,11 @@ public class SkillService {
         return employee.getSkills().stream().map(Skill::getName).collect(Collectors.toSet());
     }
 
-    public Map<Skill, SkillGrade> getMainSkillMap(Employee employee, Role role) {
+    public List<Integer> getExtraRoleIdsByEmployeeId(Integer employeeId) {
+        return skillRepository.getExtraRoleIdsByEmployeeId(employeeId);
+    }
+
+    public Map<Skill, SkillGrade> getSkillToSkillGradeMap(Employee employee, Role role) {
         Map<Skill, SkillGrade> map = new HashMap<>();
         Set<Integer> skillIds = skillRepository.getSkillIdsByEmployeeIdAndRoleId(employee.getId(), role.getId());
         Set<Skill> skills = skillIds.stream().map(skillRepository::getReferenceById).collect(Collectors.toSet());
@@ -168,17 +160,52 @@ public class SkillService {
         return map;
     }
 
-    public List<Integer> getExtraRoleIdsByEmployeeId(Integer employeeId) {
-        return skillRepository.getExtraRoleIdsByEmployeeId(employeeId);
+    public Map<Skill, SkillGrade> getExtraSkillToSkillGradeMap(Employee employee, Role role) {
+        Map<Skill, SkillGrade> map = new HashMap<>();
+        Set<Integer> skillIds = skillRepository.getExtraSkillIdsByEmployeeIdAndRoleId(employee.getId(), role.getId());
+        Set<Skill> skills = skillIds.stream().map(skillRepository::getReferenceById).collect(Collectors.toSet());
+        skills.forEach(skill -> {
+            map.put(
+                    skill,
+                    skillGradeRepository.getReferenceById(skillRepository.getExtraSkillGradeIdByEmployeeIdAndSkillId(skill.getId(), employee.getId()))
+            );
+        });
+        return map;
     }
 
     public Map<String, SkillGrade> getSkillNameToSkillGradeMap(Employee employee, Role role) {
         Map<String, SkillGrade> map = new HashMap<>();
-        getMainSkillMap(employee, role).forEach((key, value) -> map.put(key.getName(), value));
+        getSkillToSkillGradeMap(employee, role).forEach((key, value) -> map.put(key.getName(), value));
+        return map;
+    }
+
+    public Map<String, SkillGrade> getExtraSkillNameToSkillGradeMap(Employee employee, Role role) {
+        Map<String, SkillGrade> map = new HashMap<>();
+        getExtraSkillToSkillGradeMap(employee, role).forEach((key, value) -> map.put(key.getName(), value));
         return map;
     }
 
     public void setSkillGradeIdForEmployeeSkillAndRole(Integer employeeId, Integer skillId, Integer skillGradeId, Integer roleId) {
         skillRepository.setSkillGradeIdForEmployeeSkillAndRole(employeeId, skillId, skillGradeId, roleId);
+    }
+
+    public void deleteByEmployeeIdAndRoleId(Integer employeeId, Integer roleId) {
+        skillRepository.deleteByEmployeeIdAndRoleId(employeeId, roleId);
+    }
+
+    public void addByAllParameters(Integer employeeId, Integer roleId, Integer skillId, Integer skillGradeId, String comment) {
+        skillRepository.addByAllParameters(employeeId, roleId, skillId, skillGradeId, comment);
+    }
+
+    public void setCommentForEmployeeSkillAndRole(Integer employeeId, Integer skillId, String comment, Integer roleId) {
+        skillRepository.setCommentForEmployeeSkillAndRole(employeeId, skillId, comment, roleId);
+    }
+
+    public String getCommentByEmployeeIdAndSkillId(Integer employeeId, Integer skillId) {
+        return skillRepository.getCommentByEmployeeIdAndSkillId(employeeId, skillId);
+    }
+
+    public String getExtraCommentByEmployeeIdAndSkillId(Integer employeeId, Integer skillId) {
+        return skillRepository.getExtraCommentByEmployeeIdAndSkillId(employeeId, skillId);
     }
 }

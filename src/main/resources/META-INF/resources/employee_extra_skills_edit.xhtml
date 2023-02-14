@@ -32,7 +32,10 @@
             <h:form>
                 <p:growl id="msgs" showDetail="true" escape="false"/>
                 <p:commandButton value="Сохранить" update="msgs" icon="pi pi-save" styleClass="mt-3"
-                                 action="#{employeeExtraSkillsSelectionEditableView.onsubmit(employeeExtraSkillsSelectionEditableView.selectedNodes)}"/>
+                                 action="#{employeeExtraSkillsSelectionEditableView.onsubmit(employeeExtraSkillsSelectionEditableView.root)}">
+                    <f:param name="employeeId" value="#{param['id']}"/>
+                    <f:param name="roleId" value="#{param['roleId']}"/>
+                </p:commandButton>
                 <p:button icon="pi pi-arrow-circle-left" styleClass="mt-3 ml-3" href="/employee/#{employeeExtraSkillsSelectionEditableView.id}"
                           value="Отменить" />
 
@@ -42,15 +45,21 @@
                     <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
                         <h:outputText value="#{skill.name}"/>
                         <p:rating
-                                value="3" readonly="false"
+                                value="#{skill.skillGrade}" readonly="false"
                                 rendered="#{employeeExtraSkillsSelectionEditableView.leaves.contains(skill.name)}"/>
                         <p:inputTextarea
+                                value="#{skill.comment}"
                                 placeholder="Введите подробности об уровне навыка" rendered="#{employeeExtraSkillsSelectionEditableView.leaves.contains(skill.name)}"/>
                     </p:treeNode>
+                    <p:ajax event="unselect" listener="#{employeeExtraSkillsSelectionEditableView.onunselect}"/>
+                    <p:ajax event="select" listener="#{employeeExtraSkillsSelectionEditableView.onselect}"/>
                 </p:tree>
 
                 <p:commandButton value="Сохранить" update="msgs" icon="pi pi-save" styleClass="mt-3"
-                                 action="#{employeeExtraSkillsSelectionEditableView.onsubmit(employeeExtraSkillsSelectionEditableView.selectedNodes)}"/>
+                                 action="#{employeeExtraSkillsSelectionEditableView.onsubmit(employeeExtraSkillsSelectionEditableView.root)}">
+                    <f:param name="employeeId" value="#{param['id']}"/>
+                    <f:param name="roleId" value="#{param['roleId']}"/>
+                </p:commandButton>
                 <p:button icon="pi pi-arrow-circle-left" styleClass="mt-3 ml-3" href="/employee/#{employeeExtraSkillsSelectionEditableView.id}"
                           value="Отменить" />
             </h:form>

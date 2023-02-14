@@ -1,10 +1,11 @@
 package org.satel.ressatel.bean.card.employee;
 
-import jakarta.faces.view.ViewScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.event.NodeUnselectEvent;
 import org.primefaces.model.TreeNode;
 import org.satel.ressatel.bean.list.skill.Skill;
@@ -23,7 +24,8 @@ import java.util.stream.Collectors;
 
 @Component("employeeSkillsSelectionEditableView")
 //@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-@ViewScoped
+//@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Log4j2
@@ -36,7 +38,7 @@ public class EmployeeSkillsSelectionEditableView {
     private RoleService roleService;
     private TreeNode<Skill>[] selectedNodes;
     private TreeNode<Skill> root;
-    private List<String> leaves = new ArrayList<>();
+    private List<String> leavesNames = new ArrayList<>();
 
     @Inject
     public EmployeeSkillsSelectionEditableView(SkillService skillService, EmployeeService employeeService, RoleService roleService) {
@@ -62,11 +64,15 @@ public class EmployeeSkillsSelectionEditableView {
                                      Map<String, SkillGrade> skillGradeMap) {
         root.setSelected(ids.contains(root.getData().getId()));
         SkillGrade skillGrade = skillGradeMap.get(root.getData().getName());
+        String comment = skillService.getCommentByEmployeeIdAndSkillId(Integer.valueOf(id), root.getData().getId());
+        if (comment != null && !comment.isBlank()) {
+            root.getData().setComment(comment);
+        }
         if (skillGrade != null) {
             root.getData().setSkillGrade(String.valueOf(skillGrade.getId()));
         }
         if (root.getChildCount() == 0) {
-            leaves.add(root.getData().getName());
+            leavesNames.add(root.getData().getName());
         }
         if (root.getChildCount() != 0) {
             root.getChildren().forEach(skillTreeNode -> {
@@ -79,8 +85,12 @@ public class EmployeeSkillsSelectionEditableView {
         event.getTreeNode().setSelected(false);
     }
 
+    public void onselect(NodeSelectEvent event) {
+        event.getTreeNode().setSelected(true);
+    }
+
     private void collectLevelLeaves(TreeNode<Skill> levelRoot, List<TreeNode<Skill>> nodeList) {
-        nodeList.addAll(levelRoot.getChildren().stream().filter(TreeNode::isSelected).collect(Collectors.toList()));
+        nodeList.addAll(levelRoot.getChildren().stream().filter(skillTreeNode -> skillTreeNode.isSelected() && skillTreeNode.getChildCount() == 0).collect(Collectors.toList()));
     }
 
     private void collectLeaves(TreeNode<Skill> root, List<TreeNode<Skill>> leaves) {
@@ -95,12 +105,15 @@ public class EmployeeSkillsSelectionEditableView {
         TreeNode<Skill>[] nodes = leaves.toArray(TreeNode[]::new);
 
         String employeeId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("employeeId");
+        String roleId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("roleId");
         Employee employee = employeeService.getByStringId(employeeId);
 
         if (nodes != null && nodes.length > 0) {
             Set<org.satel.ressatel.entity.Skill> skills = new HashSet<>();
             Map<Integer, Integer> skillIdToSkillGradeId = new HashMap<>();
+            Map<Integer, String> skillIdToComment = new HashMap<>();
             for (TreeNode<Skill> node : nodes) {
+                String comment = node.getData().getComment();
                 Integer skillId = node.getData().getId();
                 org.satel.ressatel.entity.Skill skill = skillService.getById(skillId);
                 Integer skillGradeId = node.getData().getSkillGrade() == null ? 1 : Integer.parseInt(node.getData().getSkillGrade());
@@ -108,18 +121,23 @@ public class EmployeeSkillsSelectionEditableView {
                     skills.add(skill);
                     skillIdToSkillGradeId.put(skillId, skillGradeId);
                 }
+                if (comment != null && !comment.isBlank()) {
+                    skillIdToComment.put(skillId, comment);
+                }
             }
             employee.setSkills(skills);
             employeeService.createOrUpdateEmployee(employee);
             skillIdToSkillGradeId.forEach((skillId, skillGradeId) -> {
                 skillService.setSkillGradeIdForEmployeeSkillAndRole(employee.getId(), skillId, skillGradeId, Integer.valueOf(roleId));
             });
+            skillIdToComment.forEach((skillId, comment) -> {
+                skillService.setCommentForEmployeeSkillAndRole(employee.getId(), skillId, comment, Integer.valueOf(roleId));
+            });
         } else {
             employee.setSkills(null);
             employeeService.createOrUpdateEmployee(employee);
         }
 
-//        selectedNodes = new DefaultTreeNode[0];
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {
             context.redirect(context.getRequestContextPath() + "/");

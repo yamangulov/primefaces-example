@@ -25,6 +25,9 @@ public class Skill {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "skills")
     private Set<Employee> employees;
 
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "extraSkills")
+    private Set<Employee> extraEmployees;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "personsToSkills",

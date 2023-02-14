@@ -11,5 +11,6 @@ public class Skill {
     private Integer id;
     private String name;
     private String skillGrade;
+    private String comment;
     private String type;
 }

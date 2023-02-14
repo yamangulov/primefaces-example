@@ -90,6 +90,14 @@ public class Employee {
     )
     private Set<Skill> skills;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "employeesToExtraSkills",
+            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id")
+    )
+    private Set<Skill> extraSkills;
+
     //главная роль у сотрудника пока только одна,
     // но сделан Set, чтобы использовать, если их будет больше в будущем
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

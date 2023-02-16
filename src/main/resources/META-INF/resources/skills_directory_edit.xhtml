@@ -33,18 +33,19 @@
                                          actionListener="#{skillsDirectoryCardEditView.openNew}"
                                          update=":dialogs:manage-skill-content"
                                          oncomplete="PF('manageSkillDialog').show()"
-                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                                         styleClass="ui-button-success mr-1">
                             <p:resetInput target=":dialogs:manage-skill-content"/>
                         </p:commandButton>
                         <p:commandButton id="delete-skills-button"
                                          value="#{skillsDirectoryCardEditView.deleteButtonMessage}"
                                          icon="pi pi-trash"
                                          actionListener="#{skillsDirectoryCardEditView.deleteSelectedSkills}"
-                                         styleClass="ui-button-danger"
+                                         styleClass="ui-button-danger mr-1"
                                          disabled="#{!skillsDirectoryCardEditView.hasSelectedSkills()}" update="@this">
                             <p:confirm header="Подтверждение" message="Удалить выбранные компетенции?"
                                        icon="pi pi-exclamation-triangle"/>
                         </p:commandButton>
+                        <p:button icon="pi pi-list" href="/skills" value="Просмотр"/>
                     </p:toolbarGroup>
                 </p:toolbar>
                 <p:dataTable id="dt-skills" widgetVar="dtSkills" var="skill"
@@ -53,14 +54,6 @@
                              selection="#{skillsDirectoryCardEditView.selectedSkills}"
                              rowKey="#{skill.id}" paginator="true" rows="10" rowSelectMode="add"
                              paginatorPosition="bottom">
-<!--                    <f:facet name="header">-->
-<!--                        <div class="skills-table-header">-->
-<!--                            <span style="font-weight: bold">Компетенции</span>-->
-<!--                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>-->
-<!--                        <p:inputText id="globalFilter" onkeyup="PF('dtSkills').filter()" placeholder="Search"/>-->
-<!--                    </span>-->
-<!--                        </div>-->
-<!--                    </f:facet>-->
 
                     <p:ajax event="rowSelect" update=":form:delete-skills-button"/>
                     <p:ajax event="rowUnselect" update=":form:delete-skills-button"/>

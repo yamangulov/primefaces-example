@@ -53,7 +53,7 @@ public class SkillService {
         return skillRepository.findAll();
     }
 
-    private Skill getByName(String name) {
+    public Skill getByName(String name) {
         return skillRepository.findByName(name);
     }
 
@@ -207,5 +207,17 @@ public class SkillService {
 
     public String getExtraCommentByEmployeeIdAndSkillId(Integer employeeId, Integer skillId) {
         return skillRepository.getExtraCommentByEmployeeIdAndSkillId(employeeId, skillId);
+    }
+
+    public void createOrUpdate(Skill skill) {
+        skillRepository.saveAndFlush(skill);
+    }
+
+    public void deleteSkill(Skill selectedSkill) {
+        skillRepository.delete(selectedSkill);
+    }
+
+    public void deleteSkills(List<Skill> selectedSkills) {
+        skillRepository.deleteAll(selectedSkills);
     }
 }

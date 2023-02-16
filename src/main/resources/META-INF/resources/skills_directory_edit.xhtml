@@ -26,8 +26,6 @@
                 </p:dataTable>
             </h:form>
             <h:form id="form">
-                <h:outputText styleClass="text-red-500"
-                              value="Внимание! При удалении компетенции вы получите ошибку, если на нее все еще ссылается какая-то из записей в базе данных для сотрудника, ИП/ГПХ или компании! Необходимо во всех таких записях поменять ссылку, заменив ее на другую компетенцию или удалив ссылку, только после этого вы сможете произвести удаление ненужной компетенции!"/>
                 <p:growl id="messages" showDetail="true"/>
                 <p:toolbar>
                     <p:toolbarGroup>
@@ -55,14 +53,14 @@
                              selection="#{skillsDirectoryCardEditView.selectedSkills}"
                              rowKey="#{skill.id}" paginator="true" rows="10" rowSelectMode="add"
                              paginatorPosition="bottom">
-                    <f:facet name="header">
-                        <div class="skills-table-header">
-                            <span style="font-weight: bold">Компетенции</span>
-                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
-                        <p:inputText id="globalFilter" onkeyup="PF('dtSkills').filter()" placeholder="Search"/>
-                    </span>
-                        </div>
-                    </f:facet>
+<!--                    <f:facet name="header">-->
+<!--                        <div class="skills-table-header">-->
+<!--                            <span style="font-weight: bold">Компетенции</span>-->
+<!--                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>-->
+<!--                        <p:inputText id="globalFilter" onkeyup="PF('dtSkills').filter()" placeholder="Search"/>-->
+<!--                    </span>-->
+<!--                        </div>-->
+<!--                    </f:facet>-->
 
                     <p:ajax event="rowSelect" update=":form:delete-skills-button"/>
                     <p:ajax event="rowUnselect" update=":form:delete-skills-button"/>
@@ -82,7 +80,7 @@
 
                     <p:column exportable="false">
                         <p:commandButton
-                                icon="pi pi-pencil" update=":dialogs:manage-skill-content"
+                                icon="pi pi-pencil" update=":dialogs:manage-skill-content" onclick=""
                                 oncomplete="#{skillsDirectoryCardEditView.parentSkillSelectView.onloadManageSkillDialog(skill)} PF('manageSkillDialog').show()"
                                 styleClass="edit-button rounded-button ui-button-success mr-2" process="@this">
                             <f:setPropertyActionListener
@@ -111,20 +109,26 @@
                             <div class="field">
                                 <p:outputLabel for="name">Название компетенции</p:outputLabel>
                                 <p:inputText id="name" value="#{skillsDirectoryCardEditView.selectedSkill.name}"
-                                             required="true"/>
+                                             required="true">
+                                    <p:ajax event="change"
+                                            listener="#{skillsDirectoryCardEditView.parentSkillSelectView.onchange(skillsDirectoryCardEditView.selectedSkill.name)}"/>
+                                </p:inputText>
                             </div>
                             <div class="field">
                                 <p:outputLabel for="name">Родительская компетенция</p:outputLabel>
                                 <p:selectOneListbox id="parent"
                                                     value="#{skillsDirectoryCardEditView.parentSkillSelectView.parentSkill}"
-                                                    var="s" filter="true" filterMatchMode="contains" scrollHeight="185">
+                                                    var="sk" filter="true" filterMatchMode="contains"
+                                                    scrollHeight="185">
                                     <f:selectItems
                                             value="#{skillsDirectoryCardEditView.parentSkillSelectView.parentSkills}"
                                             var="skill" itemLabel="#{skill}"
                                             itemValue="#{skill}"/>
                                     <p:column>
-                                        <h:outputText value="#{s}"/>
+                                        <h:outputText value="#{sk}"/>
                                     </p:column>
+                                    <p:ajax event="click"
+                                            listener="#{skillsDirectoryCardEditView.parentSkillSelectView.onselect(skillsDirectoryCardEditView.selectedSkill)}"/>
                                 </p:selectOneListbox>
                             </div>
                         </p:outputPanel>
@@ -132,8 +136,9 @@
 
                     <f:facet name="footer">
                         <p:commandButton value="Сохранить" icon="pi pi-check"
-                                         actionListener="#{skillsDirectoryCardEditView.saveSkill}"
-                                         update="manage-skill-content" process="manage-skill-content @this"/>
+                                         actionListener="#{skillsDirectoryCardEditView.parentSkillSelectView.saveSkill(skillsDirectoryCardEditView.skills, skillsDirectoryCardEditView.selectedSkill)}"
+                                         update="manage-skill-content" process="manage-skill-content @this">
+                        </p:commandButton>
                         <p:commandButton value="Отменить" icon="pi pi-times" onclick="PF('manageSkillDialog').hide()"
                                          class="ui-button-secondary" type="button"/>
                     </f:facet>

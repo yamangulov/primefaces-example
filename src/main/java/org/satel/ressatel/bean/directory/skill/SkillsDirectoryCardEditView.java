@@ -1,5 +1,6 @@
 package org.satel.ressatel.bean.directory.skill;
 
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.primefaces.PrimeFaces;
 import org.satel.ressatel.entity.Skill;
 import org.satel.ressatel.service.SkillService;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -18,7 +16,10 @@ import java.io.Serializable;
 import java.util.List;
 
 @Component("skillsDirectoryCardEditView")
-@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+//@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@ViewScoped
+//@SessionScoped
+//@ApplicationScoped
 @Getter
 @Setter
 @Log4j2
@@ -48,30 +49,23 @@ public class SkillsDirectoryCardEditView implements Serializable {
         this.selectedSkill = new Skill();
     }
 
-    public void saveSkill() {
-        if (this.selectedSkill.getId() == null) {
-//            log.info("selectedSkill name {} parent name {}",
-//                    selectedSkill.getName(), selectedSkill.getParent().getName());
-            //TODO здесь добавляем создание нового skill в БД
-            this.skills.add(this.selectedSkill);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Skill Added"));
-        }
-        else {
-            //TODO здесь добавляем обновление skill в БД
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Skill Updated"));
-        }
-
-        PrimeFaces.current().executeScript("PF('manageSkillDialog').hide()");
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-skills");
-    }
 
     public void deleteSkill() {
-        //TODO здесь добавляем удаление skill из БД
+        skillService.deleteSkill(this.selectedSkill);
         this.skills.remove(this.selectedSkill);
         this.selectedSkills.remove(this.selectedSkill);
         this.selectedSkill = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Skill Removed"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Компетенции удалены"));
         PrimeFaces.current().ajax().update("form:messages", "form:dt-skills");
+    }
+
+    public void deleteSelectedSkills() {
+        skillService.deleteSkills(this.selectedSkills);
+        this.skills.removeAll(this.selectedSkills);
+        this.selectedSkills = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Компетенции удалены"));
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-skills");
+        //PrimeFaces.current().executeScript("PF('dtSkills').clearFilters()");
     }
 
     public String getDeleteButtonMessage() {
@@ -93,12 +87,4 @@ public class SkillsDirectoryCardEditView implements Serializable {
         return this.selectedSkills != null && !this.selectedSkills.isEmpty();
     }
 
-    public void deleteSelectedSkills() {
-        //TODO здесь добавляем удаление нескольких выбранных skills из БД
-        this.skills.removeAll(this.selectedSkills);
-        this.selectedSkills = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Skills Removed"));
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-skills");
-        PrimeFaces.current().executeScript("PF('dtSkills').clearFilters()");
-    }
 }

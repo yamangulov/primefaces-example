@@ -26,7 +26,7 @@
                 </p:dataTable>
             </h:form>
             <h:form id="form">
-                <p:growl id="messages" showDetail="true"/>
+                <p:growl id="messages" showDetail="false"/>
                 <p:toolbar>
                     <p:toolbarGroup>
                         <p:commandButton value="Добавить" icon="pi pi-plus"
@@ -45,7 +45,11 @@
                             <p:confirm header="Подтверждение" message="Удалить выбранные компетенции?"
                                        icon="pi pi-exclamation-triangle"/>
                         </p:commandButton>
-                        <p:button icon="pi pi-list" href="/skills" value="Просмотр"/>
+                        <p:button icon="pi pi-list" styleClass="mr-1" href="/skills" value="Просмотр"/>
+                        <p:commandButton value="Критерии оценки" icon="pi pi-plus"
+                                         oncomplete="PF('criterionDialog').show()"
+                                         styleClass="ui-button-info mr-1">
+                        </p:commandButton>
                     </p:toolbarGroup>
                 </p:toolbar>
                 <p:dataTable id="dt-skills" widgetVar="dtSkills" var="skill"
@@ -94,6 +98,24 @@
             </h:form>
 
             <h:form id="dialogs">
+                <p:dialog header="Критерии оценки компетенций" showEffect="fade" modal="true"
+                          widgetVar="criterionDialog"
+                          responsive="true">
+                    <p:outputPanel>
+                        <h:outputText>
+                            Количество звезд должно быть проставлено в зависимости от числовой шкалы оценки компетенций<br/>
+                            1 - Слышал, читал в интернете, не сталкивался в работе<br/>
+                            2 - Сталкивался в работе, смогу использовать, но нужно закладывать дополнительное время на решение задач<br/>
+                            3 - Успешно использую в повседневной работе<br/>
+                            4 - Знаю все подводные камни, могу научить<br/>
+                            5 - Экспертные знания
+                        </h:outputText>
+                    </p:outputPanel>
+                    <f:facet name="footer">
+                        <p:commandButton value="Закрыть" icon="pi pi-times" onclick="PF('criterionDialog').hide()"
+                                         class="ui-button-secondary" type="button"/>
+                    </f:facet>
+                </p:dialog>
                 <p:dialog header="Редактирование/создание компетенции" showEffect="fade" modal="true"
                           widgetVar="manageSkillDialog"
                           responsive="true">

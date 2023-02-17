@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.primefaces.PrimeFaces;
 import org.satel.ressatel.entity.Skill;
 import org.satel.ressatel.service.SkillService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import javax.faces.application.FacesMessage;
@@ -51,19 +52,27 @@ public class SkillsDirectoryCardEditView implements Serializable {
 
 
     public void deleteSkill() {
-        skillService.deleteSkill(this.selectedSkill);
-        this.skills.remove(this.selectedSkill);
-        this.selectedSkills.remove(this.selectedSkill);
-        this.selectedSkill = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Компетенции удалены"));
+        try {
+            skillService.deleteSkill(this.selectedSkill);
+            this.skills.remove(this.selectedSkill);
+            this.selectedSkills.remove(this.selectedSkill);
+            this.selectedSkill = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Компетенции удалены"));
+        } catch (DataIntegrityViolationException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Компетенция не можеть быть удалена, так как в БД имеются сущности, привязанные к ней", null));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-skills");
     }
 
     public void deleteSelectedSkills() {
-        skillService.deleteSkills(this.selectedSkills);
-        this.skills.removeAll(this.selectedSkills);
-        this.selectedSkills = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Компетенции удалены"));
+        try {
+            skillService.deleteSkills(this.selectedSkills);
+            this.skills.removeAll(this.selectedSkills);
+            this.selectedSkills = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Компетенции удалены"));
+        } catch (DataIntegrityViolationException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Компетенции не могут быть удалены, так как в БД имеются сущности, привязанные к ним"));
+        }
         PrimeFaces.current().ajax().update("form:messages", "form:dt-skills");
         //PrimeFaces.current().executeScript("PF('dtSkills').clearFilters()");
     }

@@ -91,4 +91,10 @@ public class CardController {
     public String getEmployeeRolesEditCard(@PathVariable String id) {
         return "/employee_roles_edit.xhtml?id=" + id;
     }
+
+    @GetMapping("/role/edit/{id}")
+    public String getEmployeeRoleEditCard(@PathVariable String id) {
+        return "/role_edit.xhtml?id=" + id;
+    }
 }
+

@@ -51,15 +51,17 @@ public class EmployeeSkillRatingView {
 
     public void onload() {
         Employee employee = employeeService.getByStringId(id);
-        Role role = mainRoles.get(0); // сейчас только 1 главная роль
-        if (!skillService.getSkillToSkillGradeMap(employee, role).isEmpty()) {
-            mainSkillList = new ArrayList<>(skillService.getSkillToSkillGradeMap(employee, role).entrySet());
-        }
-        extraRoles.forEach(extraRole -> {
-            if (!skillService.getExtraSkillToSkillGradeMap(employee, extraRole).isEmpty()) {
-                List<Map.Entry<Skill, SkillGrade>> extraSkillList = new ArrayList<>(skillService.getExtraSkillToSkillGradeMap(employee, extraRole).entrySet());
-                extraSkillMap.put(extraRole, extraSkillList);
+        if (!mainRoles.isEmpty()) {
+            Role role = mainRoles.get(0); // сейчас только 1 главная роль
+            if (!skillService.getSkillToSkillGradeMap(employee, role).isEmpty()) {
+                mainSkillList = new ArrayList<>(skillService.getSkillToSkillGradeMap(employee, role).entrySet());
             }
-        });
+            extraRoles.forEach(extraRole -> {
+                if (!skillService.getExtraSkillToSkillGradeMap(employee, extraRole).isEmpty()) {
+                    List<Map.Entry<Skill, SkillGrade>> extraSkillList = new ArrayList<>(skillService.getExtraSkillToSkillGradeMap(employee, extraRole).entrySet());
+                    extraSkillMap.put(extraRole, extraSkillList);
+                }
+            });
+        }
     }
 }

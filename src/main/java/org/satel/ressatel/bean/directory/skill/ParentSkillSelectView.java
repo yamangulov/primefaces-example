@@ -48,6 +48,7 @@ public class ParentSkillSelectView {
         String message;
         if (this.skill.getId() == null) {
            message = "Компетенция добавлена";
+            skills.add(this.skill);
         }
         else {
             message = "Компетенция обновлена";
@@ -55,7 +56,6 @@ public class ParentSkillSelectView {
         Skill parentSkill = skillService.getByName(this.parentSkill);
         skill.setParent(parentSkill);
         skillService.createOrUpdate(skill);
-        skills.add(this.skill);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
 
         PrimeFaces.current().executeScript("PF('manageSkillDialog').hide()");

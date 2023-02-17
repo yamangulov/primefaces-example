@@ -26,7 +26,7 @@
                 </p:dataTable>
             </h:form>
             <h:form id="form">
-                <p:growl id="messages" showDetail="true"/>
+                <p:growl id="messages" showDetail="false"/>
                 <p:toolbar>
                     <p:toolbarGroup>
                         <p:commandButton value="Добавить" icon="pi pi-plus"
@@ -53,14 +53,6 @@
                              selection="#{rolesDirectoryCardEditView.selectedRoles}"
                              rowKey="#{role.id}" paginator="true" rows="10" rowSelectMode="add"
                              paginatorPosition="bottom">
-                    <f:facet name="header">
-                        <div class="roles-table-header">
-                            <span style="font-weight: bold">Роли</span>
-                            <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
-                        <p:inputText id="globalFilter" onkeyup="PF('dtRoles').filter()" placeholder="Search"/>
-                    </span>
-                        </div>
-                    </f:facet>
 
                     <p:ajax event="rowSelect" update=":form:delete-roles-button"/>
                     <p:ajax event="rowUnselect" update=":form:delete-roles-button"/>
@@ -75,15 +67,8 @@
                     </p:column>
 
                     <p:column exportable="false">
-                        <p:commandButton
-                                icon="pi pi-pencil" update=":dialogs:manage-role-content"
-                                oncomplete="PF('manageRoleDialog').show()"
-                                styleClass="edit-button rounded-button ui-button-success mr-2" process="@this">
-                            <f:setPropertyActionListener
-                                    value="#{role}"
-                                    target="#{rolesDirectoryCardEditView.selectedRole}"/>
-                            <p:resetInput target=":dialogs:manage-role-content"/>
-                        </p:commandButton>
+                        <p:button icon="pi pi-pencil" styleClass="edit-but
+                        ton rounded-button ui-button-success mr-2" href="/role/edit/#{role.id}" />
                         <p:commandButton
                                 class="ui-button-warning rounded-button" icon="pi pi-trash"
                                 process="@this"
@@ -97,7 +82,7 @@
             </h:form>
 
             <h:form id="dialogs">
-                <p:dialog header="Редактирование/создание роли" showEffect="fade" modal="true"
+                <p:dialog header="Создание роли" showEffect="fade" modal="true"
                           widgetVar="manageRoleDialog"
                           responsive="true">
                     <p:outputPanel id="manage-role-content" class="ui-fluid">

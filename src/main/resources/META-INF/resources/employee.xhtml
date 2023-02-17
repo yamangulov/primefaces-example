@@ -133,23 +133,27 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-12" style="float: left">
-                                <div class="col-12 md:col-6" style="float: right">
-                                    <p:button value="Редактировать компетенции" icon="pi pi-pencil"
-                                              href="/employee/skills/edit-main-skills/#{employeeCardView.id}/#{employeeCardView.employeeRatingView.mainRoles.get(0).id}"/>
-                                </div>
-                                <h:outputText styleClass="fieldData"
-                                              value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
-                                <p:rating id="rate_1" styleClass="mt-4"
-                                          value="#{employeeCardView.employeeRatingView.mainGradeId}" readonly="false"
-                                />
-                                <p:dataList
-                                        value="#{employeeCardView.employeeRatingView.employeeSkillRatingView.mainSkillList}"
-                                        var="entry" styleClass="noBorders -ml-6" itemType="none" style="float: left"
-                                        emptyMessage="Оценка данной компетенции не проводилась">
-                                    <p>
-                                        #{entry.key.name}
-                                    </p>
-                                </p:dataList>
+                                <p:outputPanel rendered="#{employeeCardView.employeeRatingView.mainRoles.size() != 0}">
+                                    <div class="col-12 md:col-6" style="float: right">
+                                        <p:button value="Редактировать компетенции" icon="pi pi-pencil"
+                                                  href="/employee/skills/edit-main-skills/#{employeeCardView.id}/#{employeeCardView.employeeRatingView.mainRoles.get(0).id}"/>
+                                    </div>
+                                    <h:outputText styleClass="fieldData"
+                                                  value="#{employeeCardView.employeeRatingView.mainRoleName}"/>
+                                    <p:rating id="rate_1" styleClass="mt-4"
+                                              value="#{employeeCardView.employeeRatingView.mainGradeId}"
+                                              readonly="false"
+                                    />
+                                    <p:dataList
+                                            value="#{employeeCardView.employeeRatingView.employeeSkillRatingView.mainSkillList}"
+                                            var="entry" styleClass="noBorders -ml-6" itemType="none" style="float: left"
+                                            emptyMessage="Оценка данной компетенции не проводилась">
+                                        <p>
+                                            #{entry.key.name}
+                                        </p>
+                                    </p:dataList>
+                                </p:outputPanel>
+
                             </div>
 
                         </div>

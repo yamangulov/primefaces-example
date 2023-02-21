@@ -17,12 +17,18 @@ body .fieldData {
 }
 
 #top-panel .ui-panel-title {
-    margin-left: 10%;
+    margin-left: 2%;
     font-size: 120%;
 }
 
 #top-panel .ui-panel-content {
-    display: none;
+    /*display: none;*/
+    color: #FFFFFF;
+    background: #050916;
+}
+
+body #top-panel .ui-commandlink, body .ui-link {
+    float: left;
 }
 
 #top-panel img {
@@ -74,4 +80,82 @@ body .fieldData {
 
 .ui-datalist-empty-message {
     padding: 4px 40px!important;
+}
+
+/*main page*/
+body {
+    margin: unset;
+}
+
+body #top-panel .ui-panel .ui-panel-titlebar {
+    /* Primary */
+
+    background: #050916;
+}
+
+body #top-panel-title {
+
+    /* H 3 */
+
+    font-family: 'Circe', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+
+    display: inline-block;
+    margin-top: 1%;
+    margin-left: 1%;
+
+    /* White */
+
+    color: #FFFFFF;
+}
+
+body #top-panel .ui-menu.ui-menubar {
+    float: right;
+    color: #FFFFFF!important;
+    background: #050916!important;
+    border: none;
+    margin-right: 42%;
+}
+
+body #top-panel .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
+    color: #FFFFFF;
+}
+
+/*body #top-panel .ui-menu .ui-menu-list .ui-menuitem-active {*/
+/*    color: #FFFFFF!important;*/
+/*    background: #050916!important;*/
+/*}*/
+
+body #top-panel .ui-menu .ui-menu-list .ui-menuitem-active>.ui-menuitem-link {
+    color: #FFFFFF!important;
+    background: #050916!important;
+}
+
+body #middle-panel .ui-datatable .ui-datatable-header {
+    /* H 2 */
+
+    font-family: 'Circe', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 48px;
+    border: none;
+
+
+    background: #FFFFFF;
+    color: #1F1F1F;
+}
+
+body #middle-panel .ui-datatable-tablewrapper thead tr th {
+    background: #FFFFFF;
+}
+
+body #middle-panel .ui-button.ui-button-text-only .ui-button-text {
+    padding: 0.3em 1em;
+
+    /* Primary */
+    background: #050916;
 }

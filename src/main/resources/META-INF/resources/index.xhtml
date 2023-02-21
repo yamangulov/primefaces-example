@@ -24,43 +24,27 @@
         <h:form id="main-form">
             <div class="card">
                 <div id="top-panel">
-                    <p:panel header="Реестр ресурсов">
-                        <f:facet name="actions">
-                            <p:commandLink
-                                    styleClass="ui-corner-all ui-state-default">
-                                <p:graphicImage library="static" name="logo.gif" styleClass="ui-icon ui-icon-help" />
-                            </p:commandLink>
-                        </f:facet>
+                    <p:panel>
+                        <p:commandLink
+                                styleClass="ui-corner-all ui-state-default">
+                            <p:graphicImage library="static" name="logo.png" styleClass="ui-icon ui-icon-help" />
+                        </p:commandLink>
+                        <p id="top-panel-title">Реестр ресурсов</p>
+                        <p:menubar>
+                            <p:menuitem value="Сотрудники" action="#{topMenuView.setSrc('employees.xhtml')}"/>
+                            <p:menuitem value="ИП/ГПД" action="#{topMenuView.setSrc('persons.xhtml')}"/>
+                            <p:menuitem value="Юрлица" action="#{topMenuView.setSrc('companies.xhtml')}"/>
+                            <p:menuitem value="Роли" action="#{topMenuView.setSrc('roles_directory.xhtml')}"/>
+                            <p:menuitem value="Компетенции" action="#{topMenuView.setSrc('skills_directory.xhtml')}"/>
+                        </p:menubar>
                     </p:panel>
                 </div>
                 <div id="middle-panel">
-                    <p:splitter>
-                        <p:splitterPanel :size="20"
-                                         styleClass="flex align-items-center justify-content-center flex-error-left-1">
-                            <p:tree id="docs" value="#{treeContextMenuView.root}" var="doc" selectionMode="single"
-                                    selection="#{treeContextMenuView.selectedNode}" dynamic="true">
-                                <p:treeNode expandedIcon="pi pi-folder-open" collapsedIcon="pi pi-folder">
-                                    <h:outputText value="#{doc.name}"/>
-                                </p:treeNode>
-                                <p:treeNode type="ips" icon="pi pi-folder">
-                                    <h:outputText value="#{doc.name}"/>
-                                </p:treeNode>
-                                <p:treeNode id="testid" type="contragent" icon="pi pi-file">
-                                    <h:outputText value="#{doc.name}"/>
-                                </p:treeNode>
-                                <p:ajax event="select"
-                                        listener="#{treeContextMenuView.setSrc()}" />
-                            </p:tree>
-                        </p:splitterPanel>
-                        <p:splitterPanel :size="80"
-                                         styleClass="flex align-items-center justify-content-center flex-error-right-1">
-                            <h:panelGroup id="list">
-                                <h:panelGroup rendered="true">
-                                    <ui:include src="#{treeContextMenuView.getSrc()}" />
-                                </h:panelGroup>
-                            </h:panelGroup>
-                        </p:splitterPanel>
-                    </p:splitter>
+                    <h:panelGroup id="list">
+                        <h:panelGroup rendered="true">
+                            <ui:include src="#{topMenuView.getSrc()}" />
+                        </h:panelGroup>
+                    </h:panelGroup>
                 </div>
             </div>
         </h:form>

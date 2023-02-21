@@ -15,9 +15,7 @@
     <h:body>
         <div class="card">
             <h:form>
-                <div class="col-12 md:col-2">
-                    <p:button href="/employee/edit/0" value="Создать"/>
-                </div>
+
                 <p:dataTable var="employee" value="#{employeeFilterView.employees}" widgetVar="employeesTable"
                              emptyMessage="No employees found with given criteria"
                              filteredValue="#{employeeFilterView.filteredEmployees}"
@@ -25,7 +23,8 @@
                 >
 
                     <f:facet name="header">
-                        <span>Сотрудники Сател</span>
+                        <span>Сотрудники</span>
+                        <p:button style="margin-left: 70%" href="/employee/edit/0" value="Добавить"/>
                     </f:facet>
 
                     <p:column headerText="ФИО" sortBy="#{employee.name}"

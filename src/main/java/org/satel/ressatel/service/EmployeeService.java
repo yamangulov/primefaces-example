@@ -112,8 +112,8 @@ public class EmployeeService {
                 || fullEmployee.getSecondName() == null) {
             return null;
         }
-        return fullEmployee.getSurname() + Constants.SPACE + fullEmployee.getFirstName().substring(0, 1).toUpperCase() + "." +
-                Constants.SPACE + fullEmployee.getSecondName().substring(0, 1).toUpperCase() + ".";
+        return fullEmployee.getSurname() + Constants.SPACE + fullEmployee.getFirstName() +
+                Constants.SPACE + fullEmployee.getSecondName();
     }
 
     public List<org.satel.ressatel.entity.Employee> getList() {

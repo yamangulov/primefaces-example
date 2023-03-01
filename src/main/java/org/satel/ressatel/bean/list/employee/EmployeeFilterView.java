@@ -4,6 +4,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.util.LangUtils;
 import org.satel.ressatel.service.EmployeeService;
@@ -18,6 +19,7 @@ import java.util.Locale;
 @ViewScoped
 @Getter
 @Setter
+@Slf4j
 public class EmployeeFilterView implements Serializable {
 
     private List<Employee> employees;

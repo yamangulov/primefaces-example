@@ -155,7 +155,38 @@ body #middle-panel .ui-datatable-tablewrapper thead tr th {
 
 body #middle-panel .ui-button.ui-button-text-only .ui-button-text {
     padding: 0.3em 1em;
-
-    /* Primary */
     background: #050916;
+}
+
+body #buttonFilter .ui-button {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    width: 108px;
+    height: 32px;
+
+    background: #F3F8FF;
+    border-radius: 4px;
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    border: 1px solid white;
+}
+
+
+body #buttonFilter .ui-button.ui-state-focus {
+    background: #050916;
+    box-shadow: none;
+}
+
+body #buttonFilter .ui-button.ui-state-focus .ui-button-text {
+    color: #FFFFFF;
+}
+
+body #buttonFilter .ui-button .ui-button-text {
+    background: inherit!important;
+    color: #050916;
 }

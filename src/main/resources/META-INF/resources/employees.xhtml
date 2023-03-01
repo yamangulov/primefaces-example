@@ -14,18 +14,25 @@
 </h:head>
     <h:body>
         <div class="card">
-            <h:form>
-
+            <h:form id="employees">
                 <p:dataTable var="employee" value="#{employeeFilterView.employees}" widgetVar="employeesTable"
                              emptyMessage="No employees found with given criteria"
                              filteredValue="#{employeeFilterView.filteredEmployees}"
+                             stripedRows="true"
                              filterBy="#{employeeFilterView.filterBy}"
                 >
 
                     <f:facet name="header">
                         <span>Сотрудники</span>
                         <p:button style="margin-left: 70%" href="/employee/edit/0" value="Добавить"/>
+                        <div id="buttonFilter">
+                            <p:commandButton value="Все" onclick="$('#main-form\\:employees\\:j_idt35\\:archived\\:filter').val(''); PF('employeesTable').filter(); return false"/>
+                            <p:commandButton value="Работают" onclick="$('#main-form\\:employees\\:j_idt35\\:archived\\:filter').val('-'); PF('employeesTable').filter(); return false"/>
+                            <p:commandButton value="Уволены" onclick="$('#main-form\\:employees\\:j_idt35\\:archived\\:filter').val('+'); PF('employeesTable').filter(); return false"/>
+                        </div>
                     </f:facet>
+
+
 
                     <p:column headerText="ФИО" sortBy="#{employee.name}"
                               filterMatchMode="contains"
@@ -51,7 +58,7 @@
                         <h:outputText value="#{employee.skills}" />
                     </p:column>
 
-                    <p:column headerText="Уволен" sortBy="#{employee.archived}"
+                    <p:column id="archived" visible="false" headerText="Уволен" sortBy="#{employee.archived}"
                               filterMatchMode="contains"
                               filterBy="#{employee.archived}">
                         <h:outputText value="#{employee.archived}" />

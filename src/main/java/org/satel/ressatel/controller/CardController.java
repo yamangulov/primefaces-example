@@ -3,9 +3,14 @@ package org.satel.ressatel.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CardController {
+    @RequestMapping("/")
+    public String mainPage() {
+        return "/index.xhtml";
+    }
 
     @GetMapping("/company/{id}")
     public String getCompanyCard(@PathVariable String id) {
